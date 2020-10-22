@@ -33,7 +33,27 @@ void FS::init_settings() {
 }
 
 void FS::init_all_users_base() {
+	std::ifstream user_infofile(this->main_settings_.get_infofile_path(), std::ios::binary);
+	std::vector<std::string> tmp_usersinfo(8);
 
+	if (user_infofile.is_open()) {
+		while (user_infofile.good()) {
+			std::getline(user_infofile, tmp_usersinfo[0], ';');
+			std::getline(user_infofile, tmp_usersinfo[1], ';');
+			std::getline(user_infofile, tmp_usersinfo[2], ';');
+			std::getline(user_infofile, tmp_usersinfo[3], ';');
+			std::getline(user_infofile, tmp_usersinfo[4], ';');
+			std::getline(user_infofile, tmp_usersinfo[5], ';');
+			std::getline(user_infofile, tmp_usersinfo[6], ';');
+			std::getline(user_infofile, tmp_usersinfo[7], ';');
+
+			user tmp_userdata(tmp_usersinfo[0], tmp_usersinfo[1], tmp_usersinfo[2], tmp_usersinfo[3],
+				tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7]);
+			tmp_userdata.Data_Corrections();
+			this->all_users_base.Add_Users(tmp_userdata);
+		}
+		user_infofile.close();
+	}
 }
 
 void FS::main_loop() {
