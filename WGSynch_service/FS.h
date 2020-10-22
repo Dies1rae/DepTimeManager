@@ -6,17 +6,13 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <iostream>
 
 class FS {
 private:
 	settings main_settings_;
 	company all_users_base;
 	std::string settings_file_path_;
-
-protected:
-	MYSQL* connect_;
-	MYSQL_ROW row_data_;
-	MYSQL_RES* connect_result_;
 
 public:
 	explicit FS();
