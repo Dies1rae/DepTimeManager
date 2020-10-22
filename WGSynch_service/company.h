@@ -7,8 +7,9 @@ private:
 	std::vector<user> company_users_;
 public:
 	explicit company();
+	explicit company(std::vector<user> company_users);
 
-	void Add_Users(user user);
-	std::vector<user> Get_Users();
+	void Add_Users(const user& user);
+	std::vector<user> Get_Users() const;
 };
 
