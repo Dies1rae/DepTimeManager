@@ -166,11 +166,13 @@
     <ClCompile Include="company.cpp" />
     <ClCompile Include="FS.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="settings.cpp" />
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="company.h" />
     <ClInclude Include="FS.h" />
+    <ClInclude Include="settings.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -16,9 +16,7 @@ private:
 	std::string extel_;
 public:
 	explicit user();
-	explicit user(std::string D, std::string N, std::string A, std::string E, std::string M, std::string P, std::string S, std::string Ex)
-		:dep_(D), name_(N), account_(A), email_(E), mobile_(M), position_(P), snilz_(S), extel_(Ex) {};
-	~user();
+	explicit user(std::string D, std::string N, std::string A, std::string E, std::string M, std::string P, std::string S, std::string Ex);
 
 	std::vector<std::string> Get_Userdata();
 	void Login_Corrections();
