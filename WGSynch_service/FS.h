@@ -26,7 +26,7 @@ private:
 		MYSQL_ROW row;
 		MYSQL_RES* res;
 		conn = mysql_init(0);
-		conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "dbpa$$w0rddr0allTABL3$", "workdb", 3306, NULL, 0);
+		conn = mysql_real_connect(conn, "___", "___", "___", "___", 3306, NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
 			std::cout << "MYSQL db connected"s << std::endl;
@@ -49,7 +49,7 @@ private:
 		MYSQL_RES* res;
 
 		conn = mysql_init(0);
-		conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "dbpa$$w0rddr0allTABL3$", "workdb", 3306, NULL, 0);
+		conn = mysql_real_connect(conn, "___", "___", "___", "___", 3306, NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
 			std::cout << "MYSQL db connected"s << std::endl;
@@ -73,7 +73,7 @@ private:
 		MYSQL_ROW row;
 		MYSQL_RES* res;
 		conn = mysql_init(0);
-		conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "dbpa$$w0rddr0allTABL3$", "workdb", 3306, NULL, 0);
+		conn = mysql_real_connect(conn, "___", "___", "___", "___", 3306, NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
 			std::cout << "MYSQL db connected"s << std::endl;
