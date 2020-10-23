@@ -4,10 +4,10 @@
 #include <windows.h>
 using namespace std::string_literals;
 
+
 int main(int argc, char* argv[]) {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
 	
 	if (argc > 1 && argv[1][0] == '/') {
 		if (argv[1][1] == 'p') {
@@ -19,8 +19,8 @@ int main(int argc, char* argv[]) {
 	} else {
 		FS fs_main;
 		fs_main.init_settings();
-		std::cout << std::endl;
 		fs_main.init_all_users_base();
+		fs_main.sql_load_data();
 	}
 
 	std::cout << "TEST SERVICE - OK"s << std::endl;

@@ -30,14 +30,6 @@ void FS::init_settings() {
 	this->main_settings_.set_db_password(settings_string[4]);
 	this->main_settings_.set_infofile_path(settings_string[5]);
 
-	std::cout << "[SETTINGS SETUP TO]"s << std::endl;
-	std::cout << this->main_settings_.get_db_address() << std::endl;
-	std::cout << this->main_settings_.get_db_port() << std::endl;
-	std::cout << this->main_settings_.get_db_name() << std::endl;
-	std::cout << this->main_settings_.get_db_login() << std::endl;
-	std::cout << this->main_settings_.get_db_password() << std::endl;
-	std::cout << this->main_settings_.get_infofile_path() << std::endl;
-	std::cout << "[DONE]"s << std::endl;
 }
 
 void FS::init_all_users_base() {
@@ -59,12 +51,8 @@ void FS::init_all_users_base() {
 				tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7]);
 			tmp_userdata.Data_Corrections();
 			this->all_users_base.Add_Users(tmp_userdata);
-		}// REBUILD THIS BLOCK MUTHERFUCKER, USER INFO SPLICE NOT CORRECT!!!!!!
+		}
 		user_infofile.close();
-	}
-	for (auto& ptr : this->all_users_base.Get_Users()) {
-		std::cout << ptr.Get_Userdata()[3] << std::endl;
-		
 	}
 }
 
@@ -73,5 +61,39 @@ void FS::main_loop() {
 }
 
 void FS::sql_load_data() {
-
+	int qstate = 0;
+	MYSQL* conn;
+	MYSQL_ROW row;
+	MYSQL_RES* res;
+	conn = mysql_init(0);
+	//conn = mysql_real_connect(conn, this->main_settings_.get_db_address().c_str(), this->main_settings_.get_db_login().c_str(),
+	//	this->main_settings_.get_db_password().c_str(), this->main_settings_.get_db_name().c_str(),
+	//	std::stoi(this->main_settings_.get_db_port()), NULL, 0);
+	conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "97578941qQ", "workdb", 3306, NULL, 0);
+	mysql_query(conn, "set names cp1251");
+	
+	if (conn) {
+		std::cout << "MYSQL db connected"s << std::endl;
+		for (size_t upointer = 0; upointer < this->all_users_base.Get_Users().size(); upointer++) {
+			std::string query = "INSERT INTO root VALUES ('"
+				+ this->all_users_base.Get_Users()[upointer].Get_Userdata()[0] + 
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[1] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[2] + 
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[3] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[4] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[5] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[6] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[7] +
+				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[8] + "')";
+			const char* q1 = query.c_str();
+			qstate = mysql_query(conn, q1);
+			if (qstate != 0) {
+				std::cerr << mysql_error(conn) << std::endl;
+			}
+		}
+	} else {
+		std::cout << "MYSQL db connection failed!"s << std::endl;
+	}
+	mysql_close(conn);
+	std::cout << "MYSQL upload DB OK!"s << std::endl;
 }
