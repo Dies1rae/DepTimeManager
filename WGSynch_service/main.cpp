@@ -2,6 +2,7 @@
 #include <mysql.h>
 #include "FS.h"
 #include <windows.h>
+#include <algorithm>
 using namespace std::string_literals;
 
 

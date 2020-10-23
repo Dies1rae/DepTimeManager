@@ -110,5 +110,4 @@ void FS::sql_load_data() {
 		std::cout << "MYSQL db connection failed!"s << std::endl;
 	}
 	mysql_close(conn);
-	std::cout << "MYSQL upload DB OK!"s << std::endl;
 }
