@@ -57,7 +57,13 @@ void FS::init_all_users_base() {
 }
 
 void FS::main_loop() {
-
+	this->init_settings();
+	std::cout << "Init settings OK!"s << std::endl;
+	this->init_all_users_base();
+	std::cout << "Read infofile OK!"s << std::endl;
+	this->sql_load_data();
+	std::cout << "Connnect to MYSQL DB OK!"s << std::endl;
+	system("PAUSE");
 }
 
 void FS::sql_load_data() {
@@ -66,18 +72,27 @@ void FS::sql_load_data() {
 	MYSQL_ROW row;
 	MYSQL_RES* res;
 	conn = mysql_init(0);
-	//conn = mysql_real_connect(conn, this->main_settings_.get_db_address().c_str(), this->main_settings_.get_db_login().c_str(),
-	//	this->main_settings_.get_db_password().c_str(), this->main_settings_.get_db_name().c_str(),
-	//	std::stoi(this->main_settings_.get_db_port()), NULL, 0);
-	conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "97578941qQ", "workdb", 3306, NULL, 0);
+
+	const char* address_tmp = this->main_settings_.get_db_address().c_str();
+	const char* login_tmp = this->main_settings_.get_db_login().c_str();
+	const char* pass_tmp = this->main_settings_.get_db_password().c_str();
+	const char* name_tmp = this->main_settings_.get_db_name().c_str();
+	int port_tmp = std::stoi(this->main_settings_.get_db_port().c_str());
+
+
+	//conn = mysql_real_connect(conn, address_tmp, login_tmp, pass_tmp, name_tmp, port_tmp, NULL, 0);
+	conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "dbpa$$w0rddr0allTABL3$", "workdb", 3306, NULL, 0);
 	mysql_query(conn, "set names cp1251");
+	if (conn) {
+		std::cout << "MYSQL upload DB OK!"s << std::endl;
+	}
 	
 	if (conn) {
 		std::cout << "MYSQL db connected"s << std::endl;
 		for (size_t upointer = 0; upointer < this->all_users_base.Get_Users().size(); upointer++) {
-			std::string query = "INSERT INTO root VALUES ('"
-				+ this->all_users_base.Get_Users()[upointer].Get_Userdata()[0] + 
-				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[1] +
+			std::string query = "INSERT INTO root VALUES ("
+				+ this->all_users_base.Get_Users()[upointer].Get_Userdata()[0] +
+				", '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[1] +
 				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[2] + 
 				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[3] +
 				"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[4] +

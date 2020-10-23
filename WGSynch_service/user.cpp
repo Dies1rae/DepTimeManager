@@ -25,10 +25,10 @@ std::vector<std::string> user::Get_Userdata() const {
 }
 
 void user::Data_Corrections() {
-	std::replace_if(this->account_.begin(), this->account_.end(), [](char& A) {return A == '\\';}, '\\\\');
-	std::replace_if(this->dep_.begin(), this->dep_.end(), [](char& A) {return A == '\\';}, '\\\\');
-	std::replace_if(this->extel_.begin(), this->extel_.end(), [](char& A) {return A == '\\';}, '\\\\');
-	std::replace_if(this->mobile_.begin(), this->mobile_.end(), [](char& A) {return A == '\\';}, '\\\\');
-	std::replace_if(this->position_.begin(), this->position_.end(), [](char& A) {return A == '\\';}, '\\\\');
-	std::replace_if(this->snilz_.begin(), this->snilz_.end(), [](char& A) {return A == '\\';}, '\\\\');
+	std::replace_if(this->account_.begin(), this->account_.end(), [](char& A) {return A == '\\';}, '_');
+	std::replace_if(this->dep_.begin(), this->dep_.end(), [](char& A) {return A == '\\';}, '_');
+	std::replace_if(this->extel_.begin(), this->extel_.end(), [](char& A) {return A == '\\';}, '_');
+	std::replace_if(this->mobile_.begin(), this->mobile_.end(), [](char& A) {return A == '\\';}, '_');
+	std::replace_if(this->position_.begin(), this->position_.end(), [](char& A) {return A == '\\';}, '_');
+	std::replace_if(this->snilz_.begin(), this->snilz_.end(), [](char& A) {return A == '\\';}, '_');
 }
