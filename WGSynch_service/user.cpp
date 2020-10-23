@@ -19,7 +19,7 @@ user::user(const std::string& D, const std::string& A, const std::string& E, con
 };
 
 std::vector<std::string> user::Get_Userdata() const {
-	std::vector<std::string> tmp__{ this->r_uid_, this->dep_, this->name_, this->account_, this->email_, this->mobile_,
+	std::vector<std::string> tmp__{ this->r_uid_, this->dep_, this->account_, this->email_,  this->mobile_, this->name_,
 		this->position_, this->snilz_, this->extel_ };
 	return tmp__;
 }

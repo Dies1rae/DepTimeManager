@@ -15,11 +15,12 @@ using namespace std::string_literals;
 
 class FS {
 private:
+
 	settings main_settings_;
 	company all_users_base;
 	std::string settings_file_path_;
 
-	void sql_drop_create_table_root() {
+	void sql_droptable_root() {
 		int qstate = 0;
 		MYSQL* conn;
 		MYSQL_ROW row;
@@ -39,6 +40,13 @@ private:
 			std::cout << "MYSQL db connection failed!"s << std::endl;
 		}
 		mysql_close(conn);
+	}
+
+	void sql_createtable_root() {
+		int qstate = 0;
+		MYSQL* conn;
+		MYSQL_ROW row;
+		MYSQL_RES* res;
 
 		conn = mysql_init(0);
 		conn = mysql_real_connect(conn, "192.168.88.5", "dbuser", "dbpa$$w0rddr0allTABL3$", "workdb", 3306, NULL, 0);
@@ -94,9 +102,13 @@ private:
 
 	void sql_update_db() {
 		init_all_users_base();
-		sql_drop_create_table_root();
+		std::cout << "Init userfile OK!"s << std::endl;
+		sql_droptable_root();
+		std::cout << "DROP table OK!"s << std::endl;
+		sql_createtable_root();
+		std::cout << "CREATE table OK!"s << std::endl;
 		sql_load_data();
-
+		std::cout << "Load data to SQL table OK!"s << std::endl;
 	}
 
 	void init_settings() {
@@ -149,6 +161,7 @@ private:
 			}
 			user_infofile.close();
 		}
+
 	}
 
 public:
