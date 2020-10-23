@@ -7,7 +7,7 @@ FS::FS(const std::string & settings_file_path): settings_file_path_(settings_fil
 
 
 void FS::main_loop() {
-	this->init_settings();
+	this->main_settings_.init_settings(this->settings_file_path_);
 	std::cout << "Init settings OK!"s << std::endl;
 	this->sql_update_db();
 	std::cout << "ALL OK!"s << std::endl;
