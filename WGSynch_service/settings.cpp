@@ -8,26 +8,26 @@ settings::settings(const std::string & db_name, const std::string & infofile_pat
 	db_login_(login), db_password_(password) {}
 
 
-std::string settings::get_db_address() const {
+std::string settings::get_db_address() {
 	return this->db_address_;
 }
 
-std::string settings::get_db_port() const {
+std::string settings::get_db_port() {
 	return this->db_port_;
 }
 
-std::string settings::get_db_login() const {
+std::string settings::get_db_login() {
 	return this->db_login_;
 }
 
-std::string settings::get_db_password() const {
+std::string settings::get_db_password() {
 	return this->db_password_;
 }
 
-std::string settings::get_infofile_path() const {
+std::string settings::get_infofile_path() {
 	return this->infofile_path_;
 }
-std::string settings::get_db_name() const {
+std::string settings::get_db_name() {
 	return this->db_name_;
 }
 

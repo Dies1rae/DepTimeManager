@@ -16,12 +16,12 @@ public:
 	explicit settings(const std::string& db_name, const std::string& infofile_path, const std::string& db_address,
 		const std::string& db_port, const std::string& login, const std::string& password);
 
-	std::string get_db_name() const;
-	std::string get_db_address() const;
-	std::string get_db_port() const;
-	std::string get_db_login() const;
-	std::string get_db_password() const;
-	std::string get_infofile_path() const;
+	std::string get_db_name();
+	std::string get_db_address();
+	std::string get_db_port();
+	std::string get_db_login();
+	std::string get_db_password();
+	std::string get_infofile_path();
 	void set_db_name(const std::string& db_name);
 	void set_db_address(const std::string& db_address);
 	void set_db_port(const std::string& db_port);
