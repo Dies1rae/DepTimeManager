@@ -16,8 +16,8 @@ private:
 	std::string extel_;
 public:
 	explicit user();
-	explicit user(const std::string& D, const std::string& N, const std::string& A, const std::string& E,
-		const std::string& M, const std::string& P, const std::string& S, const std::string& Ex);
+	explicit user(const std::string& Dep, const std::string& Acc, const std::string& Ema, const std::string& Mob,
+		const std::string& Name, const std::string& P, const std::string& S, const std::string& Ex);
 
 	std::vector<std::string> Get_Userdata() const;
 	void Data_Corrections();

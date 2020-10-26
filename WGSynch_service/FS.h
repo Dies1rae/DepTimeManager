@@ -54,7 +54,7 @@ private:
 			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
-			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   name text,   account text,   email text,   mobile text,   position text,   snilz text,   extel text,   PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   account text,   email text,   mobile text,   name text,   position text,   snilz text,   extel text,   PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
 			if (qstate != 0) {

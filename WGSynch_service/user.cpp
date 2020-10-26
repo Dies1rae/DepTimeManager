@@ -13,10 +13,9 @@ user::user() {
 	this->extel_ = "NULL"s;
 }
 
-user::user(const std::string& D, const std::string& A, const std::string& E, const std::string& M, const std::string& N,
-	const std::string& P, const std::string& S, const std::string& Ex)
-	:r_uid_("NULL"s), dep_(D), name_(N), account_(A), email_(E), mobile_(M), position_(P), snilz_(S), extel_(Ex) {
-};
+user::user(const std::string& Dep, const std::string& Acc, const std::string& Ema, const std::string& Mob,
+	const std::string& Name, const std::string& P, const std::string& S, const std::string& Ex)
+	:r_uid_("NULL"s), dep_(Dep), account_(Acc), email_(Ema), mobile_(Mob), name_(Name), position_(P), snilz_(S), extel_(Ex) {}
 
 std::vector<std::string> user::Get_Userdata() const {
 	std::vector<std::string> tmp__{ this->r_uid_, this->dep_, this->account_, this->email_,  this->mobile_, this->name_,
