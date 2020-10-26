@@ -1,5 +1,6 @@
 #pragma once
 #include "company.h"
+#include "settings.h"
 #include "mysql.h"
 #include <vector>
 #include <string>
@@ -15,16 +16,10 @@ using namespace std::string_literals;
 class FS {
 private:
 	//----settings shit
-	int db_port_;
-	const char* db_login_;
-	const char* db_password_;
-	const char* db_name_;
-	const char* db_address_;
-	std::string infofile_path_;
 	const std::string settings_file_path_;
 	//----
 	company all_users_base;
-	
+	settings main_settings_;
 
 
 	//private methods
@@ -34,18 +29,16 @@ private:
 		MYSQL_ROW row;
 		MYSQL_RES* res;
 		conn = mysql_init(0);
-		//conn = mysql_real_connect(conn, this->db_address_, this->db_login_, this->db_pass_, this->db_name_, stoi(this->main_settings_.get_db_port()), NULL, 0);
+		conn = mysql_real_connect(conn, main_settings_.get_db_address().c_str(), main_settings_.get_db_login().c_str(),
+			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
-			std::cout << "MYSQL db connected"s << std::endl;
 			std::string query = "DROP TABLE root;";
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
 			if (qstate != 0) {
 				std::cerr << mysql_error(conn) << std::endl;
 			}
-		} else {
-			std::cout << "MYSQL db connection failed!"s << std::endl;
 		}
 		mysql_close(conn);
 	}
@@ -57,10 +50,10 @@ private:
 		MYSQL_RES* res;
 
 		conn = mysql_init(0);
-		//conn = mysql_real_connect(conn, this->db_address_, this->db_login_, this->db_pass_, this->db_name_, stoi(this->main_settings_.get_db_port()), NULL, 0);
+		conn = mysql_real_connect(conn, main_settings_.get_db_address().c_str(), main_settings_.get_db_login().c_str(),
+			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
-			std::cout << "MYSQL db connected"s << std::endl;
 			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   name text,   account text,   email text,   mobile text,   position text,   snilz text,   extel text,   PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
@@ -68,28 +61,25 @@ private:
 				std::cerr << mysql_error(conn) << std::endl;
 			}
 
-		} else {
-			std::cout << "MYSQL db connection failed!"s << std::endl;
-		}
-
+		} 
 		mysql_close(conn);
 	}
 
 	void sql_update_db() {
 		
-		//init_all_users_base();
-		//std::cout << "Init userfile OK!"s << std::endl;
-		//sql_droptable_root();
-		//std::cout << "DROP table OK!"s << std::endl;
-		//sql_createtable_root();
-		//std::cout << "CREATE table OK!"s << std::endl;
+		init_all_users_base();
+		std::cout << "Init userfile OK!"s << std::endl;
+		sql_droptable_root();
+		std::cout << "DROP table OK!"s << std::endl;
+		sql_createtable_root();
+		std::cout << "CREATE table OK!"s << std::endl;
 		sql_load_data();
 		std::cout << "Load data to SQL table OK!"s << std::endl;
 	}
 
 	void init_all_users_base() {
 		this->all_users_base.Get_Users().clear();
-		std::ifstream user_infofile(this->infofile_path_, std::ios::binary);
+		std::ifstream user_infofile(main_settings_.get_infofile_path(), std::ios::binary);
 		std::vector<std::string> tmp_usersinfo(8);
 		if (user_infofile.is_open()) {
 			while (user_infofile.good()) {
@@ -118,21 +108,11 @@ private:
 		MYSQL_ROW row;
 		MYSQL_RES* res;
 		conn = mysql_init(0);
-
-		
-		
-
-		conn = mysql_real_connect(conn, this->db_address_, "dbuser", "tatata", this->db_name_, this->db_port_, NULL, 0);
-
+		conn = mysql_real_connect(conn, main_settings_.get_db_address().c_str(), main_settings_.get_db_login().c_str(),
+			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
+		
 		if (conn) {
-			std::cout << "YOU FUCKING DIDIT, CONNECT TO SQL OK!" << std::endl;
-		} else {
-			std::cout << "LOOOOSER" << std::endl;
-		}
-		/*
-		if (conn) {
-			std::cout << "MYSQL db connected"s << std::endl;
 			for (size_t upointer = 0; upointer < this->all_users_base.Get_Users().size(); upointer++) {
 				std::string query = "INSERT INTO root VALUES ("
 					+ this->all_users_base.Get_Users()[upointer].Get_Userdata()[0] +
@@ -150,17 +130,14 @@ private:
 					std::cerr << mysql_error(conn) << std::endl;
 				}
 			}
-		} else {
-			std::cout << "MYSQL db connection failed!"s << std::endl;
-		}*/
+		}
 		mysql_close(conn);
 	}
 	
-
 public:
 	
-	explicit FS(const std::vector<std::string>& settings);
-	explicit FS(const std::vector<std::string>& settings, const std::string& settings_file_path);
+	explicit FS();
+	explicit FS(const std::string& settings_file_path);
 
 	void main_loop();
 };
