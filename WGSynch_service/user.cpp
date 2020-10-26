@@ -27,4 +27,14 @@ void user::Data_Corrections() {
 	std::replace(this->account_.begin(), this->account_.end(), '\\', '/');
 	std::replace(this->dep_.begin(), this->dep_.end(), '\\', '/');
 	std::replace(this->name_.begin(), this->name_.end(), '\\', '/');
+	std::replace(this->mobile_.begin(), this->mobile_.end(), '\\', '/');
+	std::replace(this->position_.begin(), this->position_.end(), '\\', '/');
+	std::replace(this->extel_.begin(), this->extel_.end(), '\\', '/');
+
+	std::replace(this->account_.begin(), this->account_.end(), ',', ' ');
+	std::replace(this->dep_.begin(), this->dep_.end(), ',', ' ');
+	std::replace(this->name_.begin(), this->name_.end(), ',', ' ');
+	std::replace(this->mobile_.begin(), this->mobile_.end(), ',', ' ');
+	std::replace(this->position_.begin(), this->position_.end(), ',', ' ');
+	std::replace(this->extel_.begin(), this->extel_.end(), ',', ' ');
 }
