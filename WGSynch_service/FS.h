@@ -75,6 +75,12 @@ private:
 		
 		sql_load_data();
 		std::cout << "Load data to SQL table OK!"s << std::endl;
+
+		copy_userinfo_file_toroot_folder();
+		std::cout << "Copy *csv user info file to root folder like bckp OK!"s << std::endl;
+		delete_userinfo_file();
+		std::cout << "Cleaning OK!"s << std::endl;
+
 	}
 
 	void init_all_users_base() {
@@ -139,22 +145,22 @@ private:
 		}
 		mysql_close(conn);
 	}
-
-	void sql_delete_data() {
-		int qstate = 0;
-		MYSQL* conn;
-		MYSQL_ROW row;
-		MYSQL_RES* res;
-		conn = mysql_init(0);
-		conn = mysql_real_connect(conn, main_settings_.get_db_address().c_str(), main_settings_.get_db_login().c_str(),
-			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
-		mysql_query(conn, "set names cp1251");
-
-		if (conn) {
-		}
-		mysql_close(conn);
-	}
 	
+	void copy_userinfo_file_toroot_folder() {
+		std::string filenameout = ".\\";
+		filenameout += main_settings_.get_infofile_path().substr(main_settings_.get_infofile_path().find_last_of("\\"), main_settings_.get_infofile_path().find_first_of("."));
+		filenameout += "_bckp.csv";
+		std::ifstream src_txt(main_settings_.get_infofile_path(), std::ios::binary);
+		std::ofstream dest_txt(filenameout, std::ios::binary);
+		dest_txt << src_txt.rdbuf();
+		src_txt.close();
+		dest_txt.close();
+	}
+
+	void delete_userinfo_file() {
+		remove(main_settings_.get_infofile_path().c_str());
+	}
+
 public:
 
 	explicit FS();
