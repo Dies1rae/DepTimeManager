@@ -21,7 +21,6 @@ private:
 	company all_users_base;
 	settings main_settings_;
 
-
 	//private methods
 	void sql_droptable_root() {
 		int qstate = 0;
@@ -54,7 +53,7 @@ private:
 			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
-			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   account text,   email text,   mobile text,   name text,   position text,   snilz text,   extel text,   PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   account text,   email text,   mobile text,   name text,   position text,   snilz text,   extel text, status int(1) not null,  PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
 			if (qstate != 0) {
@@ -66,13 +65,14 @@ private:
 	}
 
 	void sql_update_db() {
-		
 		init_all_users_base();
 		std::cout << "Init userfile OK!"s << std::endl;
+
 		sql_droptable_root();
 		std::cout << "DROP table OK!"s << std::endl;
 		sql_createtable_root();
 		std::cout << "CREATE table OK!"s << std::endl;
+		
 		sql_load_data();
 		std::cout << "Load data to SQL table OK!"s << std::endl;
 	}
@@ -80,7 +80,7 @@ private:
 	void init_all_users_base() {
 		this->all_users_base.Get_Users().clear();
 		std::ifstream user_infofile(main_settings_.get_infofile_path(), std::ios::binary);
-		std::vector<std::string> tmp_usersinfo(8);
+		std::vector<std::string> tmp_usersinfo(9);
 		if (user_infofile.is_open()) {
 			while (user_infofile.good()) {
 				std::getline(user_infofile, tmp_usersinfo[0], ';');
@@ -90,11 +90,16 @@ private:
 				std::getline(user_infofile, tmp_usersinfo[4], ';');
 				std::getline(user_infofile, tmp_usersinfo[5], ';');
 				std::getline(user_infofile, tmp_usersinfo[6], ';');
-				std::getline(user_infofile, tmp_usersinfo[7], '\n');
+				std::getline(user_infofile, tmp_usersinfo[7], ';');
+				std::getline(user_infofile, tmp_usersinfo[8], '\n');
 
+				int status = 1;
+				tmp_usersinfo[8].find("Уволен"s) ? status = 1 : status = 0;
+				
 				user tmp_userdata(tmp_usersinfo[0], tmp_usersinfo[1], tmp_usersinfo[2], tmp_usersinfo[3],
-					tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7]);
+					tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7], status);
 				tmp_userdata.Data_Corrections();
+
 				this->all_users_base.Add_Users(tmp_userdata);
 			}
 			user_infofile.close();
@@ -123,7 +128,8 @@ private:
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[5] +
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[6] +
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[7] +
-					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[8] + "')";
+					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[8] +
+					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[9] + "')";
 				const char* q1 = query.c_str();
 				qstate = mysql_query(conn, q1);
 				if (qstate != 0) {
@@ -133,9 +139,24 @@ private:
 		}
 		mysql_close(conn);
 	}
+
+	void sql_delete_data() {
+		int qstate = 0;
+		MYSQL* conn;
+		MYSQL_ROW row;
+		MYSQL_RES* res;
+		conn = mysql_init(0);
+		conn = mysql_real_connect(conn, main_settings_.get_db_address().c_str(), main_settings_.get_db_login().c_str(),
+			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
+		mysql_query(conn, "set names cp1251");
+
+		if (conn) {
+		}
+		mysql_close(conn);
+	}
 	
 public:
-	
+
 	explicit FS();
 	explicit FS(const std::string& settings_file_path);
 

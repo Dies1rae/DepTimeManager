@@ -11,15 +11,16 @@ user::user() {
 	this->position_ = "NULL"s;
 	this->snilz_ = "NULL"s;
 	this->extel_ = "NULL"s;
+	this->status_ = 1;
 }
 
 user::user(const std::string& Dep, const std::string& Acc, const std::string& Ema, const std::string& Mob,
-	const std::string& Name, const std::string& P, const std::string& S, const std::string& Ex)
-	:r_uid_("NULL"s), dep_(Dep), account_(Acc), email_(Ema), mobile_(Mob), name_(Name), position_(P), snilz_(S), extel_(Ex) {}
+	const std::string& Name, const std::string& P, const std::string& S, const std::string& Ex, const int stat)
+	:r_uid_("NULL"s), dep_(Dep), account_(Acc), email_(Ema), mobile_(Mob), name_(Name), position_(P), snilz_(S), extel_(Ex), status_(stat){}
 
 std::vector<std::string> user::Get_Userdata() const {
 	std::vector<std::string> tmp__{ this->r_uid_, this->dep_, this->account_, this->email_,  this->mobile_, this->name_,
-		this->position_, this->snilz_, this->extel_ };
+		this->position_, this->snilz_, this->extel_, std::to_string(this->status_) };
 	return tmp__;
 }
 
