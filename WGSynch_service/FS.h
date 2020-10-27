@@ -148,7 +148,7 @@ private:
 	
 	void copy_userinfo_file_toroot_folder() {
 		std::string filenameout = ".\\";
-		filenameout += main_settings_.get_infofile_path().substr(main_settings_.get_infofile_path().find_last_of("\\"), main_settings_.get_infofile_path().find_first_of("."));
+		filenameout += main_settings_.get_infofile_path().substr(main_settings_.get_infofile_path().find_last_of("\\"), main_settings_.get_infofile_path().find_last_of("."));
 		filenameout += "_bckp.csv";
 		std::ifstream src_txt(main_settings_.get_infofile_path(), std::ios::binary);
 		std::ofstream dest_txt(filenameout, std::ios::binary);
