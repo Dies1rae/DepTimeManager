@@ -12,57 +12,45 @@
 <body>
     <div id="container" class="wrapper">
         <header>
-            <div class="header">
-                <a href="" class="a-button">Menu item</a>
-                <a href="" class="a-button">Menu item</a>
-                <a href="" class="a-button">Menu item</a>
-                <a href="" class="a-button">Menu item</a>
-                <a href="" class="a-button">Menu item</a>
-                <a href="" class="a-button">Menu item</a>
-            </div>
+            
         </header>
         <nav>
             <ul>
                 <li>
                     <a href="#">
                         <i class="fas fa-qrcode" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-link" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                        <span>Календарь</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-stream" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                    <i class="fas fa-users" aria-hidden="true"></i>
+                        <span>Сотрудники</span>
                     </a>
                 </li>
+                
                 <li>
                     <a href="#">
-                        <i class="fas fa-calendar-week" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                    <i class="far fa-copy" aria-hidden="true"></i>
+                        <span>Отчеты</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="far fa-question-circle" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                        <span>Помощь</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-sliders-h" aria-hidden="true"></i>
-                        <span>Menu item</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="far fa-envelope" aria-hidden="true"></i>
-                        <span>Menu item</span>
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        <span>О нас</span>
                     </a>
                 </li>
             </ul>
