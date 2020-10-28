@@ -28,7 +28,7 @@ div#calendar div.header{
    
 div#calendar div.header a.prev,div#calendar div.header a.next{ 
     position: absolute;
-    top: 0px;   
+    top: 12px;   
     height: 17px;
     display: block;
     cursor: pointer;
@@ -43,11 +43,11 @@ div#calendar div.header span.title{
  
  
 div#calendar div.header a.prev{
-    left: 0px;
+    left: 75px;
 }
  
 div#calendar div.header a.next{
-    right: 0px;
+    right: 75px;
 }
    
    
@@ -107,14 +107,49 @@ div#calendar ul.dates li{
     height: 44px;
     font-size: 25px;
     /* background-color: #DDD; */
-    color: #fff;
-    text-align: center; 
+    /* color: #fff; */
+    text-align: center;
+    border: 1px solid #ddd; 
+    border-radius: 50%;
+}
+
+div#calendar ul.dates li:hover{
+    border: 1px solid white; 
+    border-radius: 50%;
+    background: white;
 }
 
 div#calendar ul.dates li.sat, div#calendar ul.dates li.sun{
 	background-color: red;
 }
+
+div#calendar ul.dates li.sat a, div#calendar ul.dates li.sun a{
+    display: block;
+    width: 100%;
+    color: black;
+    text-decoration: none;
+}
+
+div#calendar ul.dates li.sat a:hover, div#calendar ul.dates li.sun a:hover{
+	color: #FFF;
+}
    
+div#calendar ul.dates li a{
+    display: block;
+    width: 100%;
+    color: #FFF;
+    text-decoration: none;
+}
+
+div#calendar ul.dates li a:hover{
+    color: black;
+}
+
+div#calendar ul.dates li.mask{
+    background: none;
+    border: none;
+}
+
 :focus{
     outline: none;
 }
