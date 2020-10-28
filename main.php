@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="userpage.html">
                     <i class="fas fa-users" aria-hidden="true"></i>
                         <span>Сотрудники</span>
                     </a>
@@ -51,6 +51,12 @@
                     <a href="#">
                     <i class="fas fa-info-circle" aria-hidden="true"></i>
                         <span>О нас</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                        <span>Выход</span>
                     </a>
                 </li>
             </ul>
