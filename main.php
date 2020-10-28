@@ -55,7 +55,7 @@
                 </li>
                 <li>
                     <a href="#">
-                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                    <i class="fas fa-door-open" aria-hidden="true"></i>
                         <span>Выход</span>
                     </a>
                 </li>
