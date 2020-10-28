@@ -94,7 +94,6 @@ div#calendar ul.dates{
     margin-bottom: 5px;
 }
  
-/** overall width = width+padding-right**/
 div#calendar ul.dates li{
     margin: 0px;
     padding: 0px;
@@ -107,8 +106,8 @@ div#calendar ul.dates li{
     width: 44px;
     height: 44px;
     font-size: 25px;
-    background-color: #DDD;
-    color: #000;
+    /* background-color: #DDD; */
+    color: #fff;
     text-align: center; 
 }
 
