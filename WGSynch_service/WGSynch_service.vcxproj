@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="company.h" />
     <ClInclude Include="FS.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
