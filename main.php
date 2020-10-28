@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Shift schedule</title>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="style/schedulepage.css">
     <link rel="stylesheet" type="text/css" href="style/solid.css">
     <link rel="stylesheet" type="text/css" href="style/regular.css">
     <link rel="stylesheet" type="text/css" href="style/fontawesome.css">
@@ -56,8 +56,8 @@
             </ul>
         </nav>
         <main>
-            <?php
-            include 'employee.php';
+        <?php
+                include 'employee.php';
             ?>
         </main>
         <aside>

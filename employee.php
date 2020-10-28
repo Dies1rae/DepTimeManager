@@ -5,15 +5,14 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-
-    $query = "SELECT name FROM root";
+    $conn->set_charset("utf8");
+    $query = "SELECT account FROM root WHERE status LIKE '1' and account like 'spbtv/%'";
     $result = $conn->query($query);
 
     if($result->num_rows>0){
-        $rows = $result->fetch_assoc();
-        for($i = 0; $i < $rows; ++$i){
-            $row = mysqli_fetch_row($result);
-            echo '<div>'.$row.'</div>';
+        while($row = $result->fetch_assoc()){
+            
+            echo '<div>'.$row["account"].'</div>';
         }
     }
 
