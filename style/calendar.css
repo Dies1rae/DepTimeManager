@@ -55,8 +55,8 @@ div#calendar div.header a.next{
    
 /*******************************Calendar Content Cells*********************************/
 div#calendar div.box-content{
-    border: 1px solid #787878 ;
-    border-top: none;
+    border-top: 1px solid #787878 ;
+    /* border-top: none; */
 }
  
  
