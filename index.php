@@ -55,38 +55,16 @@
                 </li>
             </ul>
         </nav>
-        <main></main>
+        <main>
+            
+        </main>
         <aside>
             <?php
                 include 'calendar.php';
                 $calendar = new Calendar();
                 echo $calendar->show();
-		?>
+		    ?>
         </aside>
     </div>
-    <!-- <script>
-        function openNavMenu(){
-            document.getElementById("closeBtn").style.display = "block";
-            document.getElementById("openBtn").style.display = "none";
-            document.getElementById("mainMenu").style.width = "250px";
-            let elemArray = document.querySelectorAll("a.menuBtn");
-            for(let i = 0; i < elemArray.length; i++){
-                elemArray[i].querySelector("span").style.display = "inline-bloke";
-				elemArray[i].classList.remove("menuBtn");
-			}
-        }
-        function closeNavMenu(){
-            document.getElementById("closeBtn").style.display = "none";
-            document.getElementById("openBtn").style.display = "block";
-            document.getElementById("mainMenu").style.width = "75px";
-            let elemArray = document.querySelectorAll("li>a");
-            for(let i = 0; i < elemArray.length; i++){
-                if(elemArray[i].id !== "closeBtn" && elemArray[i].id !== "openBtn"){
-                    elemArray[i].querySelector("span").style.display = "";
-                    elemArray[i].classList.add("menuBtn");
-                }
-			}
-        }
-    </script> -->
 </body>
 </html>
