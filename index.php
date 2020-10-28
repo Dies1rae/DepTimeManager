@@ -56,7 +56,9 @@
             </ul>
         </nav>
         <main>
-            
+            <?php
+            include 'employee.php';
+            ?>
         </main>
         <aside>
             <?php
