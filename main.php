@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="index.htm">
                     <i class="fas fa-door-open" aria-hidden="true"></i>
                         <span>Выход</span>
                     </a>
