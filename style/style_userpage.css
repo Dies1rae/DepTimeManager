@@ -58,17 +58,20 @@ main li a{
 
 main img{
     display: block;
-    height: 30%;
-    width: 20%;
+    height: 50%;
+    width: 30%;
 
     line-height: 65px;
     font-size: 20px;
     color: #fff;
     box-sizing: border-box;
     transition: .4s;
-
+    border-bottom: 4px solid #000;
+    border-top: 4px solid #000;
+    border-right: 4px solid #000;
+    border-left: 4px solid #000;
     float: right;
-    margin-top: 80px;
+    margin-top: 0px;
     margin-right: 550px;
 
 }
