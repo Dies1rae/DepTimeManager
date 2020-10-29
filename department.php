@@ -26,15 +26,14 @@
         </nav>
         <main>
         <a> SOME DATA</a>
-        </main>
-
+        </main>    
+        <aside>
+            <?php
+                include 'calendar.php';
+                $calendar = new Calendar();
+                echo $calendar->show();
+            ?>
+        </aside>
     </div>
 </body>
-<aside>
-    <?php
-        include 'calendar.php';
-        $calendar = new Calendar();
-        echo $calendar->show();
-    ?>
-</aside>
 </html>
