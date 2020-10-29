@@ -66,10 +66,6 @@ main img{
     color: #fff;
     box-sizing: border-box;
     transition: .4s;
-    border-bottom: 4px solid #000;
-    border-top: 4px solid #000;
-    border-right: 4px solid #000;
-    border-left: 4px solid #000;
     float: right;
     margin-top: 0px;
     margin-right: 550px;
