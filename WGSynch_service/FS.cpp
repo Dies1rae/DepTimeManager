@@ -6,7 +6,9 @@ FS::FS(): main_log_container_(NULL), all_users_base(), main_settings_(), setting
 }
 
 FS::FS(logg* L): main_log_container_(L), all_users_base(), main_settings_(), settings_file_path_(".\\settings.ini"s), userfile_check(0) {
+	this->main_log_container_->add_log_string_timemark_("Init SVC settings"s);
 	this->main_settings_.init_settings(this->settings_file_path_);
+	this->main_log_container_->add_log_string_timemark_("Init SVC settings OK"s);
 }
 
 FS::FS(const std::string& settings_file_path): main_log_container_(NULL), all_users_base(), main_settings_(), settings_file_path_(settings_file_path), userfile_check(0){
@@ -14,7 +16,9 @@ FS::FS(const std::string& settings_file_path): main_log_container_(NULL), all_us
 }
 
 FS::FS(logg* L, const std::string& settings_file_path): main_log_container_(L), all_users_base(), main_settings_(), settings_file_path_(settings_file_path), userfile_check(0) {
+	this->main_log_container_->add_log_string_timemark_("Init SVC settings"s);
 	this->main_settings_.init_settings(this->settings_file_path_);
+	this->main_log_container_->add_log_string_timemark_("Init SVC settings OK"s);
 }
 
 void FS::init_all_users_base() {
@@ -45,6 +49,10 @@ void FS::init_all_users_base() {
 		user_infofile.close();
 	} else {
 		this->main_log_container_->add_log_string("No USERBASE csv file!"s);
+		this->main_log_container_->add_log_string("CSV file checking error"s);
+		this->main_log_container_->add_log_string("");
+		this->main_log_container_->add_log_string_timemark_("SVC QUITING status OK"s);
+		this->main_log_container_->write_to_file();
 	}
 }
 
@@ -67,24 +75,27 @@ void FS::userfile_base_check() {
 }
 
 void FS::main_loop() {
-	this->main_log_container_->add_log_string_timemark_("SVC STARTING"s);
 	this->main_log_container_->add_log_string_timemark_("Init CSV file"s);
 	this->init_all_users_base();
-	this->main_log_container_->add_log_string_timemark_("Init CSV file done"s);
+	this->main_log_container_->add_log_string_timemark_("Init CSV file OK"s);
 
 	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence"s);
 	this->userfile_base_check();
-	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence done"s);
+	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence OK"s);
 
 	if(this->userfile_check){
 		this->main_log_container_->add_log_string("CSV file checking OK"s);
+
 		this->main_log_container_->add_log_string_timemark_("Init SQL table renew"s);
 		this->sql_update_db();
-		this->main_log_container_->add_log_string_timemark_("Init SQL table renew done"s);
-		this->main_log_container_->add_log_string_timemark_("Init SQL table renew done");
+		this->main_log_container_->add_log_string_timemark_("Init SQL table renew OK"s);
+
 	} else {
 		this->main_log_container_->add_log_string("CSV file checking error"s);
+		this->main_log_container_->add_log_string("");
+		this->main_log_container_->add_log_string_timemark_("SVC QUITING status OK"s);
+
+		this->main_log_container_->write_to_file();
 	}
-	this->main_log_container_->add_log_string_timemark_("SVC QUITING status OK"s);
 }
 
