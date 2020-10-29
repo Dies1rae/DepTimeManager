@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="userpage.php">
+                    <a href="department.php">
                     <i class="fas fa-users" aria-hidden="true"></i>
                         <span>Сотрудники</span>
                     </a>
