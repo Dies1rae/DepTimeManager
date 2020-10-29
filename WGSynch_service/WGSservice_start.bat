@@ -1,0 +1,1 @@
+START C:\repo\DepTimeManager\WGSynch_services\WGSynch_service.exe

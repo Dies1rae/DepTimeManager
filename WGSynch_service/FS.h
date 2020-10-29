@@ -16,10 +16,12 @@ using namespace std::string_literals;
 class FS {
 private:
 	//----settings shit
+	bool userfile_check;
 	const std::string settings_file_path_;
 	//----
 	company all_users_base;
 	settings main_settings_;
+	
 
 	//private methods
 	void sql_droptable_root() {
@@ -65,52 +67,20 @@ private:
 	}
 
 	void sql_update_db() {
-		init_all_users_base();
-		std::cout << "Init userfile OK!"s << std::endl;
-
 		sql_droptable_root();
 		std::cout << "DROP table OK!"s << std::endl;
+
 		sql_createtable_root();
 		std::cout << "CREATE table OK!"s << std::endl;
-		
+	
 		sql_load_data();
 		std::cout << "Load data to SQL table OK!"s << std::endl;
 
 		copy_userinfo_file_toroot_folder();
 		std::cout << "Copy *csv user info file to root folder like bckp OK!"s << std::endl;
+
 		delete_userinfo_file();
 		std::cout << "Cleaning OK!"s << std::endl;
-
-	}
-
-	void init_all_users_base() {
-		this->all_users_base.Get_Users().clear();
-		std::ifstream user_infofile(main_settings_.get_infofile_path(), std::ios::binary);
-		std::vector<std::string> tmp_usersinfo(9);
-		if (user_infofile.is_open()) {
-			while (user_infofile.good()) {
-				std::getline(user_infofile, tmp_usersinfo[0], ';');
-				std::getline(user_infofile, tmp_usersinfo[1], ';');
-				std::getline(user_infofile, tmp_usersinfo[2], ';');
-				std::getline(user_infofile, tmp_usersinfo[3], ';');
-				std::getline(user_infofile, tmp_usersinfo[4], ';');
-				std::getline(user_infofile, tmp_usersinfo[5], ';');
-				std::getline(user_infofile, tmp_usersinfo[6], ';');
-				std::getline(user_infofile, tmp_usersinfo[7], ';');
-				std::getline(user_infofile, tmp_usersinfo[8], '\n');
-
-				int status = 1;
-				tmp_usersinfo[8].find("Уволен"s) ? status = 1 : status = 0;
-				
-				user tmp_userdata(tmp_usersinfo[0], tmp_usersinfo[1], tmp_usersinfo[2], tmp_usersinfo[3],
-					tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7], status);
-				tmp_userdata.Data_Corrections();
-
-				this->all_users_base.Add_Users(tmp_userdata);
-			}
-			user_infofile.close();
-		}
-
 	}
 
 	void sql_load_data() {
@@ -166,6 +136,8 @@ public:
 	explicit FS();
 	explicit FS(const std::string& settings_file_path);
 
+	void userfile_base_check();
+	void init_all_users_base();
 	void main_loop();
 };
 
