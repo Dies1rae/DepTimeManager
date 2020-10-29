@@ -1,4 +1,5 @@
 #pragma once
+#include "logg.h"
 #include "company.h"
 #include "settings.h"
 #include "mysql.h"
@@ -21,7 +22,7 @@ private:
 	//----
 	company all_users_base;
 	settings main_settings_;
-	
+	logg* main_log_container_;
 
 	//private methods
 	void sql_droptable_root() {
@@ -35,6 +36,7 @@ private:
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
 			std::string query = "DROP TABLE root;";
+			
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
 			if (qstate != 0) {
@@ -68,19 +70,19 @@ private:
 
 	void sql_update_db() {
 		sql_droptable_root();
-		std::cout << "DROP table OK!"s << std::endl;
+		this->main_log_container_->add_log_string("DROP table OK!"s);
 
 		sql_createtable_root();
-		std::cout << "CREATE table OK!"s << std::endl;
-	
+		this->main_log_container_->add_log_string("CREATE table OK!"s);
+
 		sql_load_data();
-		std::cout << "Load data to SQL table OK!"s << std::endl;
+		this->main_log_container_->add_log_string("Load data to SQL table OK!"s);
 
 		copy_userinfo_file_toroot_folder();
-		std::cout << "Copy *csv user info file to root folder like bckp OK!"s << std::endl;
+		this->main_log_container_->add_log_string("Copy *csv user info file to root folder like bckp OK!"s);
 
 		delete_userinfo_file();
-		std::cout << "Cleaning OK!"s << std::endl;
+		this->main_log_container_->add_log_string("Cleaning OK!"s);
 	}
 
 	void sql_load_data() {
@@ -134,7 +136,9 @@ private:
 public:
 
 	explicit FS();
+	explicit FS(logg* L);
 	explicit FS(const std::string& settings_file_path);
+	explicit FS(logg* L, const std::string& settings_file_path);
 
 	void userfile_base_check();
 	void init_all_users_base();

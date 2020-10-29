@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClCompile Include="company.cpp" />
     <ClCompile Include="FS.cpp" />
+    <ClCompile Include="logg.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="settings.cpp" />
     <ClCompile Include="user.cpp" />
@@ -176,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="company.h" />
     <ClInclude Include="FS.h" />
+    <ClInclude Include="logg.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="user.h" />

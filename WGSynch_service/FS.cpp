@@ -1,12 +1,20 @@
 #include "FS.h"
 using namespace std;
 
-FS::FS() :all_users_base(), main_settings_(), settings_file_path_(".\\settings.ini"s), userfile_check(0){
-	main_settings_.init_settings(this->settings_file_path_);
+FS::FS(): main_log_container_(NULL), all_users_base(), main_settings_(), settings_file_path_(".\\settings.ini"s), userfile_check(0){
+	this->main_settings_.init_settings(this->settings_file_path_);
 }
 
-FS::FS(const std::string& settings_file_path) : all_users_base(), main_settings_(), settings_file_path_(settings_file_path), userfile_check(0){
-	main_settings_.init_settings(this->settings_file_path_);
+FS::FS(logg* L): main_log_container_(L), all_users_base(), main_settings_(), settings_file_path_(".\\settings.ini"s), userfile_check(0) {
+	this->main_settings_.init_settings(this->settings_file_path_);
+}
+
+FS::FS(const std::string& settings_file_path): main_log_container_(NULL), all_users_base(), main_settings_(), settings_file_path_(settings_file_path), userfile_check(0){
+	this->main_settings_.init_settings(this->settings_file_path_);
+}
+
+FS::FS(logg* L, const std::string& settings_file_path): main_log_container_(L), all_users_base(), main_settings_(), settings_file_path_(settings_file_path), userfile_check(0) {
+	this->main_settings_.init_settings(this->settings_file_path_);
 }
 
 void FS::init_all_users_base() {
@@ -36,7 +44,7 @@ void FS::init_all_users_base() {
 		}
 		user_infofile.close();
 	} else {
-		std::cout << "No USERBASE csv file!"s;
+		this->main_log_container_->add_log_string("No USERBASE csv file!"s);
 	}
 }
 
@@ -59,14 +67,24 @@ void FS::userfile_base_check() {
 }
 
 void FS::main_loop() {
+	this->main_log_container_->add_log_string_timemark_("SVC STARTING"s);
+	this->main_log_container_->add_log_string_timemark_("Init CSV file"s);
 	this->init_all_users_base();
+	this->main_log_container_->add_log_string_timemark_("Init CSV file done"s);
+
+	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence"s);
 	this->userfile_base_check();
+	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence done"s);
+
 	if(this->userfile_check){
-		std::cout << "Init userfile OK!"s << std::endl;
+		this->main_log_container_->add_log_string("CSV file checking OK"s);
+		this->main_log_container_->add_log_string_timemark_("Init SQL table renew"s);
 		this->sql_update_db();
+		this->main_log_container_->add_log_string_timemark_("Init SQL table renew done"s);
+		this->main_log_container_->add_log_string_timemark_("Init SQL table renew done");
 	} else {
-		std::cout << "CSV file error"s << std::endl;
+		this->main_log_container_->add_log_string("CSV file checking error"s);
 	}
-	std::cout << "ALL OK!"s << std::endl;
+	this->main_log_container_->add_log_string_timemark_("SVC QUITING status OK"s);
 }
 
