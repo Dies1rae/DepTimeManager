@@ -140,8 +140,8 @@ public:
 	explicit FS(const std::string& settings_file_path);
 	explicit FS(logg* L, const std::string& settings_file_path);
 
-	void userfile_base_check_fill();
-	void userfile_base_check_exists();
+	bool userfile_base_check_fill();
+	bool userfile_base_check_exists();
 	void init_all_users_base();
 	void main_loop();
 };
