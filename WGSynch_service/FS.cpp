@@ -56,7 +56,15 @@ void FS::init_all_users_base() {
 	}
 }
 
-void FS::userfile_base_check() {
+void FS::userfile_base_check_exists() {
+	std::ifstream user_infofile(main_settings_.get_infofile_path(), std::ios::binary);
+	if (user_infofile.fail()) {
+		this->userfile_check = 0;
+	} 
+	this->userfile_check = 1;
+}
+
+void FS::userfile_base_check_fill() {
 	size_t ptr = 0;
 	if (this->all_users_base.Get_Users()[ptr].Get_Userdata().size() == 10 &&
 		this->all_users_base.Get_Users()[ptr].Get_Userdata()[0] == "NULL"s &&
@@ -69,27 +77,36 @@ void FS::userfile_base_check() {
 		this->all_users_base.Get_Users()[ptr].Get_Userdata()[7] == "SNILS"s &&
 		this->all_users_base.Get_Users()[ptr].Get_Userdata()[8] == "InterofficeTelephone"s &&
 		this->all_users_base.Get_Users()[ptr].Get_Userdata()[9] == "1"s
-	) {
+		) {
 		this->userfile_check = 1;
 	}
+	this->userfile_check = 0;
 }
 
 void FS::main_loop() {
-	this->main_log_container_->add_log_string_timemark_("Init CSV file"s);
-	this->init_all_users_base();
-	this->main_log_container_->add_log_string_timemark_("Init CSV file OK"s);
+	userfile_base_check_exists();
+	if (this->userfile_check){
+		this->main_log_container_->add_log_string_timemark_("Init CSV file"s);
+		this->init_all_users_base();
+		this->main_log_container_->add_log_string_timemark_("Init CSV file OK"s);
+		this->main_log_container_->add_log_string_timemark_("Check CSV file consistence"s);
 
-	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence"s);
-	this->userfile_base_check();
-	this->main_log_container_->add_log_string_timemark_("Check CSV file consistence OK"s);
+		this->userfile_base_check_fill();
+		if (this->userfile_check) {
+			this->main_log_container_->add_log_string_timemark_("Check CSV file consistence OK"s);
+			this->main_log_container_->add_log_string("CSV file checking OK"s);
 
-	if(this->userfile_check){
-		this->main_log_container_->add_log_string("CSV file checking OK"s);
+			this->main_log_container_->add_log_string_timemark_("Init SQL table renew"s);
+			this->sql_update_db();
+			this->main_log_container_->add_log_string_timemark_("Init SQL table renew OK"s);
 
-		this->main_log_container_->add_log_string_timemark_("Init SQL table renew"s);
-		this->sql_update_db();
-		this->main_log_container_->add_log_string_timemark_("Init SQL table renew OK"s);
+		} else {
+			this->main_log_container_->add_log_string("CSV file checking error"s);
+			this->main_log_container_->add_log_string("");
+			this->main_log_container_->add_log_string_timemark_("SVC QUITING status OK"s);
 
+			this->main_log_container_->write_to_file();
+		}
 	} else {
 		this->main_log_container_->add_log_string("CSV file checking error"s);
 		this->main_log_container_->add_log_string("");
