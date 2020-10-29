@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="main.php">
+                    <a href="department.php">
                         <i class="far fa-arrow-alt-circle-left"></i>
                         <span>Назад</span>
                     </a>
