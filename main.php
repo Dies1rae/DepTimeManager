@@ -84,7 +84,8 @@ session_start();
                 $result_dep = $dep->sql_query();
                 for($i=0; $i< count($result_dep); $i++){
                     echo '<tr>';
-                    echo '<td><a href="userpage.php"><div>'.$result_dep[$i]['name'].'</div></a></td>';
+                    // echo '<td><a href="userpage.php"><div>'.$result_dep[$i]['name'].'</div></a></td>';
+                    echo '<td><form action="employeer_finder.php"><input type="text" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" value="Submit"></form></td>';
                     echo '<td></td>';
                     echo '<td></td>';
                     echo '<td></td>';
