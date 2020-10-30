@@ -62,11 +62,13 @@
             </ul>
         </nav>
         <main>
-        <?php
+        <?php   
+                session_start();
                 include 'employee.php';
                 $dep = $_SESSION['dep_key'];
+                echo $dep;
                 $dep_sql_query = new Credential($dep);
-                $dep_sql_query->sql_query();
+                echo $dep_sql_query->sql_query();
             ?>
         </main>
         <aside>
