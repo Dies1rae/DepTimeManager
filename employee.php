@@ -1,20 +1,28 @@
 <?php
-    require_once 'credential.php';
+class Credential{
+    private $dep_query_;
+    public Credential($dep_query): $dep_query_($dep_query){}
 
-    $conn = new mysqli($serverName, $userName, $passWord, $database);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    $conn->set_charset("utf8");
-    $query = "SELECT * FROM root WHERE status LIKE '1' and dep like 'Служба компьютерных технологий%'";
-    $result = $conn->query($query);
+    public function sql_query(){
+        require_once 'credential.php';
 
-    if($result->num_rows>0){
-        while($row = $result->fetch_assoc()){
-            
-            echo '<div>'.$row["name"].'</div>';
+        $conn = new mysqli($serverName, $userName, $passWord, $database);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-    }
+        $conn->set_charset("utf8");
+        $query = "SELECT * FROM root WHERE status LIKE '1' and dep like '$dep_query_'";
+        $result = $conn->query($query);
 
-    $conn->close();
+        if($result->num_rows>0){
+            while($row = $result->fetch_assoc()){
+            
+                echo '<div>'.$row["name"].'</div>';
+            }
+        }
+
+        $conn->close();
+    }
+}
+
 ?>

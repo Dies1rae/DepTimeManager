@@ -64,6 +64,9 @@
         <main>
         <?php
                 include 'employee.php';
+                $dep = $_SESSION['dep_key'];
+                $dep_sql_query = new Credential($dep);
+                $dep_sql_query->sql_query();
             ?>
         </main>
         <aside>
