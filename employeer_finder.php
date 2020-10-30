@@ -18,7 +18,7 @@ class AccFinder{
             die("Connection failed: " . $conn->connect_error);
         }
         $conn->set_charset("utf8");
-        $query = "SELECT * FROM root WHERE account like '$this->account_'";
+        $query = "SELECT * FROM root WHERE name like '$_POST['lname']'";
         $result = $conn->query($query);
 
         $data = array();
@@ -36,7 +36,7 @@ class AccFinder{
         $_SESSION['email'] = $data[0]['email'];
         $_SESSION['mobile'] = $data[0]['mobile'];
         $_SESSION['extel'] = $data[0]['extel'];
-
+        echo '<a>'.$data[0]['name'];.'</a>'
         include 'userpage.php';
     }
 }
