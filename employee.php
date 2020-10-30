@@ -1,7 +1,9 @@
 <?php
 class Credential{
     private $dep_query_;
-    public Credential($dep_query): $dep_query_($dep_query){}
+    public Credential($dep_query){
+        $dep_query_ = $dep_query;
+    }
 
     public function sql_query(){
         require_once 'credential.php';
