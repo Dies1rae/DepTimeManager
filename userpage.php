@@ -68,42 +68,44 @@
             </ul>
         </nav>
         <main>
+        <li>
             <img src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">
             <?php
             session_start();
-            $_SESSION['account'] = $_POST['custId'];
             include 'employee.php';
             $result_acc = array();
-            $acc = new Credential( $_SESSION['account']);
-            $result_acc = $dep->sql_query_account();
+            $query = $_POST["custId"];
+            $acc = new Credential($query);
+            $result_acc = $acc->sql_query_account();
+
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[0].'</span>';
+                    echo '<span>'.$result_acc[0]['name'].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[1].'</span>';
+                    echo '<span>'.$result_acc[0]['position'].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[2].'</span>';
+                    echo '<span>'.$result_acc[0]['dep'].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[3].'</span>';
+                    echo '<span>'.$result_acc[0]['email'].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[4].'</span>';
+                    echo '<span>'.$result_acc[0]['mobile'].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$result_acc[5].'</span>';
+                    echo '<span>'.$result_acc[0]['extel'].'</span>';
                 echo '</a>';
             echo '</li>';
             ?>

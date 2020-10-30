@@ -85,7 +85,7 @@ session_start();
                 for($i=0; $i< count($result_dep); $i++){
                     echo '<tr>';
                     //echo '<td><a href="userpage.php"><div>'.$result_dep[$i]['name'].'</div></a></td>';
-                    echo '<td><form method="POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="text" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" value="Submit"></form></td>';
+                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="text" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" value="Submit"></form></td>';
                     echo '<td></td>';
                     echo '<td></td>';
                     echo '<td></td>';
