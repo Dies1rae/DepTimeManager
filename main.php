@@ -67,8 +67,8 @@ session_start();
         <main>
         <?php   
                 include 'employee.php';
-                
-                echo $_COOKIE['dep_key'];
+                $dep = new Credential($_SESSION['dep_key']);
+                $dep->sql_query();
             ?>
         </main>
         <aside>
