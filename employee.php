@@ -5,10 +5,7 @@ class Credential{
     public __construction($dep_query){
         $this->dep_query_ = $dep_query;
     }
-    public function Credential($dep_query){
-        $this->dep_query_ = $dep_query;
-    }
-
+    
     public function sql_query(){
         require_once 'credential.php';
 
