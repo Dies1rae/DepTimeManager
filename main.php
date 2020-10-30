@@ -83,13 +83,6 @@ session_start();
                 $dep = new Credential($_SESSION['dep_key']);
                 $result_dep = $dep->sql_query();
                 for($i=0; $i< count($result_dep); $i++){
-                    $_SESSION['name'] = $result_dep[$i]['name'];
-                    $_SESSION['position'] = $result_dep[$i]['position'];
-                    $_SESSION['dep'] = $result_dep[$i]['dep'];
-                    $_SESSION['email'] = $result_dep[$i]['email'];
-                    $_SESSION['mobile'] = $result_dep[$i]['mobile'];
-                    $_SESSION['extel'] = $result_dep[$i]['extel'];
-
                     echo '<tr>';
                     echo '<td><a href="userpage.php"><div>'.$result_dep[$i]['name'].'</div></a></td>';
                     echo '<td></td>';

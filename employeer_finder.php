@@ -1,13 +1,13 @@
 <?php
 session_start();
 class Credential{
-    private $dep_query_;
+    private $account_;
 
-    public function __construct($dep_query){
-        $this->dep_query_ = $dep_query;
+    public function __construct($account){
+        $this->account_ = $account;
     }
-    public function set_dep($dep_query){
-        $this->dep_query_ = $dep_query;
+    public function set_dep($account){
+        $this->account_ = $account;
     }
 
     public function sql_query(){
@@ -18,7 +18,7 @@ class Credential{
             die("Connection failed: " . $conn->connect_error);
         }
         $conn->set_charset("utf8");
-        $query = "SELECT * FROM root WHERE status LIKE '1' and dep like '$this->dep_query_'";
+        $query = "SELECT * FROM root WHERE account like '$this->account_'";
         $result = $conn->query($query);
 
         $data = array();
@@ -29,7 +29,15 @@ class Credential{
             }
         }
         $conn->close();
-        return $data;
+
+        $_SESSION['name'] = $data[0]['name'];
+        $_SESSION['position'] = $data[0]['position'];
+        $_SESSION['dep'] = $data[0]['dep'];
+        $_SESSION['email'] = $data[0]['email'];
+        $_SESSION['mobile'] = $data[0]['mobile'];
+        $_SESSION['extel'] = $data[0]['extel'];
+        
+        include 'userpage.php';
     }
 }
 
