@@ -1,6 +1,6 @@
 <?php
 session_start();
-class Credential{
+class AccFinder{
     private $account_;
 
     public function __construct($account){
@@ -36,7 +36,7 @@ class Credential{
         $_SESSION['email'] = $data[0]['email'];
         $_SESSION['mobile'] = $data[0]['mobile'];
         $_SESSION['extel'] = $data[0]['extel'];
-        
+
         include 'userpage.php';
     }
 }
