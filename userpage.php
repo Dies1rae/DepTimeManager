@@ -71,34 +71,39 @@
             <img src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">
             <?php
             session_start();
+            $_SESSION['account'] = $_POST['custId'];
+            include 'employee.php';
+            $result_acc = array();
+            $acc = new Credential( $_SESSION['account']);
+            $result_acc = $dep->sql_query_account();
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['name'].'</span>';
+                    echo '<span>'.$result_acc[0].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['position'].'</span>';
+                    echo '<span>'.$result_acc[1].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['dep'].'</span>';
+                    echo '<span>'.$result_acc[2].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['email'].'</span>';
+                    echo '<span>'.$result_acc[3].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['mobile'].'</span>';
+                    echo '<span>'.$result_acc[4].'</span>';
                 echo '</a>';
             echo '</li>';
             echo '<li>';
                 echo '<a>';
-                    echo '<span>'.$_SESSION['extel'].'</span>';
+                    echo '<span>'.$result_acc[5].'</span>';
                 echo '</a>';
             echo '</li>';
             ?>
