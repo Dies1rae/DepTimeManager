@@ -6,6 +6,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <title>Shift schedule</title>
+    <link rel="stylesheet" type="text/css" href="style/table_main.css">
     <link rel="stylesheet" type="text/css" href="style/schedulepage.css">
     <link rel="stylesheet" type="text/css" href="style/solid.css">
     <link rel="stylesheet" type="text/css" href="style/regular.css">
@@ -65,11 +66,24 @@ session_start();
             </ul>
         </nav>
         <main>
-        <?php   
+            <table style="width:100%">
+            <tr>
+                <th>ФИО</th>
+                <th>ПН</th>
+                <th>ВТ</th>
+                <th>СР</th>
+                <th>ЧТ</th>
+                <th>ПТ</th>
+                <th>СБ</th>
+                <th>ВС</th>
+            </tr>
+            <?php   
                 include 'employee.php';
                 $dep = new Credential($_SESSION['dep_key']);
                 $dep->sql_query();
+                
             ?>
+            </table>
         </main>
         <aside>
             <?php

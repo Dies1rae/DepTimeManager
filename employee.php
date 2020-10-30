@@ -1,4 +1,5 @@
 <?php
+session_start();
 class Credential{
     private $dep_query_;
 
@@ -11,7 +12,7 @@ class Credential{
 
     public function sql_query(){
         require_once 'credential.php';
-
+        
         $conn = new mysqli($serverName, $userName, $passWord, $database);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -22,11 +23,27 @@ class Credential{
 
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){ 
-                echo '<div>'.$row["name"].'</div>';
+                $_SESSION['name'] = $row["name"];
+                $_SESSION['position'] = $row["position"];
+                $_SESSION['dep'] = $row["dep"];
+                $_SESSION['email'] = $row["email"];
+                $_SESSION['mobile'] = $row["mobile"];
+                $_SESSION['extel'] = $row["extel"];
+
+                echo '<tr>';
+                echo '<td><a href="userpage.php"><div>'.$row["name"].'</div></a></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '<td></td>';
+                echo '</tr>';
             }
         }
-
         $conn->close();
+        
     }
 }
 

@@ -69,42 +69,39 @@
         </nav>
         <main>
             <img src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">
-
-            <li>
-                <a>
-                    <span>_NAME_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>_POSITION_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>_department_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>_email_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>_mobile_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>_phone_</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    
-                </a>
-            </li>
+            <?php
+            session_start();
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['name'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['position'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['dep'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['email'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['mobile'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            echo '<li>';
+                echo '<a>';
+                    echo '<span>'.$_SESSION['extel'].'</span>';
+                echo '</a>';
+            echo '</li>';
+            ?>
         </main>
 
     </div>
