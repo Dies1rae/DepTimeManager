@@ -21,17 +21,40 @@ class Credential{
         $query = "SELECT * FROM root WHERE status LIKE '1' and dep like '$this->dep_query_'";
         $result = $conn->query($query);
 
+        $data = array();
+
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){ 
-                $_SESSION['name'] = $row["name"];
-                $_SESSION['position'] = $row["position"];
-                $_SESSION['dep'] = $row["dep"];
-                $_SESSION['email'] = $row["email"];
-                $_SESSION['mobile'] = $row["mobile"];
-                $_SESSION['extel'] = $row["extel"];
+                $data[] = $row;
+
+                // $_SESSION['name'] = $row["name"];
+                // $_SESSION['position'] = $row["position"];
+                // $_SESSION['dep'] = $row["dep"];
+                // $_SESSION['email'] = $row["email"];
+                // $_SESSION['mobile'] = $row["mobile"];
+                // $_SESSION['extel'] = $row["extel"];
+
+                // echo '<tr>';
+                // echo '<td><a href="userpage.php"><div>'.$row["name"].'</div></a></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '<td></td>';
+                // echo '</tr>';
+            }
+            for($i=0; $i< count($data); $i++){
+                $_SESSION['name'] = $data[$i]['name'];
+                $_SESSION['position'] = $data[$i]['position'];
+                $_SESSION['dep'] = $data[$i]['dep'];
+                $_SESSION['email'] = $data[$i]['email'];
+                $_SESSION['mobile'] = $data[$i]['mobile'];
+                $_SESSION['extel'] = $data[$i]['extel'];
 
                 echo '<tr>';
-                echo '<td><a href="userpage.php"><div>'.$row["name"].'</div></a></td>';
+                echo '<td><a href="userpage.php"><div>'.$data[$i]['name'].'</div></a></td>';
                 echo '<td></td>';
                 echo '<td></td>';
                 echo '<td></td>';
