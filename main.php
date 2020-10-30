@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -63,12 +66,9 @@
         </nav>
         <main>
         <?php   
-                session_start();
                 include 'employee.php';
-                $dep = $_SESSION['dep_key'];
-                echo $dep;
-                $dep_sql_query = new Credential($dep);
-                echo $dep_sql_query->sql_query();
+                
+                echo $_COOKIE['dep_key'];
             ?>
         </main>
         <aside>
