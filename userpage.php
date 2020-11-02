@@ -72,7 +72,7 @@
             
             <?php
             session_start();
-            //SUJKAAAAA
+            
             include 'employee.php';
             $result_acc = array();
             $query = $_POST["custId"];
