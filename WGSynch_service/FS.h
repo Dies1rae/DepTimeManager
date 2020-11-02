@@ -57,7 +57,7 @@ private:
 		main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
-			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   account text,   email text,   mobile text,   name text,   position text,   snilz text,   extel text, status int(1) not null,  PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+			std::string query = "CREATE TABLE root (   r_uid int(10) unsigned NOT NULL AUTO_INCREMENT,   dep text,   account text,   email text,   mobile text,   name text,   position text,   snilz text,   extel text, status int(1) not null,	photo text, PRIMARY KEY (r_uid) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			const char* q1 = query.c_str();
 			qstate = mysql_query(conn, q1);
 			if (qstate != 0) {
@@ -107,7 +107,8 @@ private:
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[6] +
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[7] +
 					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[8] +
-					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[9] + "')";
+					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[9] +
+					"', '" + this->all_users_base.Get_Users()[upointer].Get_Userdata()[10] + "')";
 				const char* q1 = query.c_str();
 				qstate = mysql_query(conn, q1);
 				if (qstate != 0) {
