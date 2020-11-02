@@ -25,7 +25,14 @@ table{
     color: #a9a9a9; 
   }
 
-  .b_main {
+  .b_main_name {
+    background: #222526; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time {
+    height: 35px;
+    width: 35px;
     background: #222526; 
     color: #a9a9a9;
     font-size: 20px;
