@@ -38,7 +38,7 @@
             for($i=0; $i< count($result_dep); $i++){
                 echo '<form method = "POST" action="userpage.php">';
                     echo '<div id = "singleuserlayout">';
-                        echo'<img id="userpic" src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">';
+                        echo'<img id="userpic" src="'.$result_dep[$i]['photo'].'">';
                         $NAME_ARR = explode(' ',trim($result_dep[$i]['name']));
                         echo '<input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_department_name" value="'.$NAME_ARR[0].'">';
                     echo '</div>';
