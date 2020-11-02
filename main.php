@@ -103,6 +103,7 @@ session_start();
                 $calendar = new Calendar();
                 echo $calendar->show();
 		    ?>
+            <a>commit test</a>
         </aside>
     </div>
 </body>
