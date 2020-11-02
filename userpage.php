@@ -62,22 +62,23 @@
                 <li>
                     <a href="main.php">
                         <i class="far fa-arrow-alt-circle-left"></i>
-                        <span>Дашборд</span>
+                        <span>Дашбоард</span>
                     </a>
                 </li> 
             </ul>
         </nav>
         <main>
         <li>
-            <img src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">
+            
             <?php
             session_start();
+            //SUJKAAAAA
             include 'employee.php';
             $result_acc = array();
             $query = $_POST["custId"];
             $acc = new Credential($query);
             $result_acc = $acc->sql_query_account();
-
+            echo '<img src="'.$result_acc[0]['photo'].'">';
             echo '<li>';
                 echo '<a>';
                     echo '<span>'.$result_acc[0]['name'].'</span>';
