@@ -103,11 +103,6 @@ session_start();
                 $calendar = new Calendar();
                 echo $calendar->show();
 		    ?>
-            <a>commi123123123t test</a>
-            <a>commi123123123t test</a>
-            <a>commi123123123t test</a>
-            <a>commi123123123t test</a>
-            
         </aside>
     </div>
 </body>
