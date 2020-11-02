@@ -32,8 +32,6 @@
             $result_dep = array();
             $dep = new Credential($_SESSION['dep_key']);
             $result_dep = $dep->sql_query_dep();
-            echo '<div id = "content-multiple">';
-            echo '<div id = "content">';
             echo '<div id = "multipleuserlayout">';
             for($i=0; $i< count($result_dep); $i++){
                 echo '<form method = "POST" action="userpage.php">';
@@ -44,8 +42,6 @@
                     echo '</div>';
                 echo '</form>';
             }
-            echo '</div>';
-            echo '</div>';
             echo '</div>';
         ?>
         </main>    
