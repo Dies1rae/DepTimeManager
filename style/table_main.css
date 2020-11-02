@@ -3,18 +3,20 @@ table{
   }
 
   th{
+    height: 40px;
     font-size: 25px;
     color: #fff;
-    border: 2px solid black;
-    border-spacing: 2px;
+    border: 1px solid black;
+    border-spacing: 1px;
     border-collapse: collapse;
   }
 
   td{
+    height: 40px;
     padding-left: 10px;
     font-size: 25px;
     color: #a9a9a9;
-    border: 4px solid black;
+    border: 1px solid black;
     border-collapse: collapse;
     text-align: left;
   }
@@ -22,3 +24,9 @@ table{
   a{
     color: #a9a9a9; 
   }
+
+  .b_main {
+    background: #222526; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
