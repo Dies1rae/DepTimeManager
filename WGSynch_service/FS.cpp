@@ -38,7 +38,7 @@ void FS::init_all_users_base() {
 			std::getline(user_infofile, tmp_usersinfo[8], '\n');
 
 			int status = 1;
-			tmp_usersinfo[8].find("Уволен"s) ? status = 1 : status = 0;
+			tmp_usersinfo[8].find("\"Уволен\""s) ? status = 1 : status = 0;
 
 			user tmp_userdata(tmp_usersinfo[0], tmp_usersinfo[1], tmp_usersinfo[2], tmp_usersinfo[3],
 				tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7], status);

@@ -38,4 +38,13 @@ void user::Data_Corrections() {
 	std::replace(this->mobile_.begin(), this->mobile_.end(), ',', ' ');
 	std::replace(this->position_.begin(), this->position_.end(), ',', ' ');
 	std::replace(this->extel_.begin(), this->extel_.end(), ',', ' ');
+
+	this->dep_.erase(std::remove(this->dep_.begin(), this->dep_.end(), '"'), this->dep_.end());
+	this->account_.erase(std::remove(this->account_.begin(), this->account_.end(), '"'), this->account_.end());
+	this->email_.erase(std::remove(this->email_.begin(), this->email_.end(), '"'), this->email_.end());
+	this->mobile_.erase(std::remove(this->mobile_.begin(), this->mobile_.end(), '"'), this->mobile_.end());
+	this->name_.erase(std::remove(this->name_.begin(), this->name_.end(), '"'), this->name_.end());
+	this->position_.erase(std::remove(this->position_.begin(), this->position_.end(), '"'), this->position_.end());
+	this->snilz_.erase(std::remove(this->snilz_.begin(), this->snilz_.end(), '"'), this->snilz_.end());
+	this->extel_.erase(std::remove(this->extel_.begin(), this->extel_.end(), '"'), this->extel_.end());
 }
