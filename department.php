@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Department page</title>
     <link rel="stylesheet" type="text/css" href="style/schedulepage.css">
+    <link rel="stylesheet" type="text/css" href="style/department_page.css">
     <link rel="stylesheet" type="text/css" href="style/solid.css">
     <link rel="stylesheet" type="text/css" href="style/regular.css">
     <link rel="stylesheet" type="text/css" href="style/fontawesome.css">
@@ -25,7 +26,28 @@
             </ul>
         </nav>
         <main>
-        <a> SOME DATA</a>
+        <?php
+            session_start();
+            include 'employee.php';
+            $result_dep = array();
+            $dep = new Credential($_SESSION['dep_key']);
+            $result_dep = $dep->sql_query_dep();
+            echo '<div id = "content-multiple">';
+            echo '<div id = "content">';
+            echo '<div id = "multipleuserlayout">';
+            for($i=0; $i< count($result_dep); $i++){
+                echo '<form method = "POST" action="userpage.php">';
+                    echo '<div id = "singleuserlayout">';
+                        echo'<img id="userpic" src="https://www.iconhot.com/icon/png/rrze/720/user-employee.png">';
+                        $NAME_ARR = explode(' ',trim($result_dep[$i]['name']));
+                        echo '<input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_department_name" value="'.$NAME_ARR[0].'">';
+                    echo '</div>';
+                echo '</form>';
+            }
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        ?>
         </main>    
         <aside>
             <?php
