@@ -12,8 +12,8 @@
   -webkit-font-smoothing: antialiased;
   display: inline-block;
   font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
+  font-variant: all-small-caps;
+  text-rendering: 4;
   line-height: 1; }
 
 .fa-lg {
