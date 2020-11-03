@@ -96,7 +96,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
+                    echo '<td><input type="submit" class="b_main_time" value="+"></td>';
                     echo '</tr>';
                 }
             ?>
