@@ -64,7 +64,7 @@ class Credential{
         $conn->close();
     }
     
-    public function get_user_time_free($r_uid){
+    public function get_user_time(){
         require_once 'credential.php';
         
         $conn = new mysqli($serverName, $userName, $passWord, $database);
@@ -72,7 +72,7 @@ class Credential{
             die("Connection failed: " . $conn->connect_error);
         }
         $conn->set_charset("utf8");
-        $query = "SELECT * FROM cal WHERE r_uid like '$r_uid'";
+        $query = "SELECT * FROM cal WHERE r_uid like '$this->iternal_query_'";
         $result = $conn->query($query);
 
         $data = array();

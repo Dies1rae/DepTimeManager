@@ -85,6 +85,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <?php   
                 include 'employee.php';
                 $result_dep = array();
+                $time_user = array();
                 $dep = new Credential($_SESSION['dep_key']);
                 $result_dep = $dep->sql_query_dep();
                 for($i=0; $i< count($result_dep); $i++){
@@ -98,6 +99,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
                     echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
                     echo '</tr>';
+
                 }
             ?>
             </table>
