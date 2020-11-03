@@ -46,14 +46,15 @@ table{
   }
 
   .b_main_name {
-    background: #222526; 
+    border:none;
+    background:transparent; 
     color: #a9a9a9;
     font-size: 20px;
    }
    .b_main_time {
     height: 35px;
     width: 35px;
-    background: #222526; 
+    background:transparent; 
     color: #a9a9a9;
     font-size: 20px;
    }
