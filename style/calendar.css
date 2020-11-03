@@ -120,7 +120,7 @@ div#calendar ul.dates li:hover{
 }
 
 div#calendar ul.dates li.sat, div#calendar ul.dates li.sun{
-	background-color: red;
+	background-color: #BC544B;
 }
 
 div#calendar ul.dates li.sat a, div#calendar ul.dates li.sun a{

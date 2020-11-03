@@ -78,8 +78,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 <th>СР</th>
                 <th>ЧТ</th>
                 <th>ПТ</th>
-                <th>СБ</th>
-                <th>ВС</th>
+                <th class = "th_weekend">СБ</th>
+                <th class = "th_weekend">ВС</th>
             </tr>
             <?php   
                 include 'employee.php';
@@ -88,7 +88,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 $result_dep = $dep->sql_query_dep();
                 for($i=0; $i< count($result_dep); $i++){
                     echo '<tr>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
+                    echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
                     echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
