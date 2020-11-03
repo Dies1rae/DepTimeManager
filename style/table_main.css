@@ -3,6 +3,7 @@ table{
   }
 
   th{
+    width: 20px;
     height: 40px;
     font-size: 25px;
     color: #fff;
@@ -11,8 +12,19 @@ table{
     border-collapse: collapse;
   }
 
-  td{
+  .th_weekend{
+    width: 20px;
+    height: 40px;
+    font-size: 25px;
+    background-color: #BC544B;
+    color: black;
+    border: 1px solid black;
+    border-spacing: 1px;
+    border-collapse: collapse;
+  }
 
+  td{
+    width: 20px;
     height: 40px;
     padding-left: 10px;
     font-size: 25px;
@@ -22,19 +34,30 @@ table{
     text-align: center;
   }
 
+  .td_fio{
+    width: 20px;
+    padding-left: 10px;
+    font-size: 25px;
+    color: #a9a9a9;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
   a{
     color: #a9a9a9; 
   }
 
   .b_main_name {
-    background: #222526; 
+    border:none;
+    background:transparent; 
     color: #a9a9a9;
     font-size: 20px;
    }
    .b_main_time {
     height: 35px;
     width: 35px;
-    background: #222526; 
+    background:transparent; 
     color: #a9a9a9;
     font-size: 20px;
    }

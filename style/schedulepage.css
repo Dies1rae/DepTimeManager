@@ -25,6 +25,7 @@ header{
 }
 
 nav{
+    font-family: Arial, Helvetica, sans-serif;
     grid-area: nav;
     width: 250px;
     background-color: #202022;
@@ -33,7 +34,7 @@ nav{
 
 main{
     grid-area: main;
-    background-color: #181818;
+    background-color: #2b2b2c;
     height: 100%;
 }
 
