@@ -12,13 +12,14 @@ table{
   }
 
   td{
+
     height: 40px;
     padding-left: 10px;
     font-size: 25px;
     color: #a9a9a9;
     border: 1px solid black;
     border-collapse: collapse;
-    text-align: left;
+    text-align: center;
   }
 
   a{
