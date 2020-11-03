@@ -24,6 +24,7 @@ header{
 }
 
 nav{
+    font-family: Arial, Helvetica, sans-serif;
     grid-area: nav;
     width: 300px;
     background-color: #202022;
