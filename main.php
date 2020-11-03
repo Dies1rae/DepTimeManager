@@ -135,7 +135,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
         // Get the button that opens the modal
         var btn = document.getElementByClassName("b_main_time");
-
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
 
