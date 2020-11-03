@@ -1,4 +1,8 @@
 /* The Modal (background) */
+/* #myModal *{
+    all: initial;
+} */
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -13,20 +17,45 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
-  /* Modal Content */
-  .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-  }
+.modal-content {
+	position: relative;
+	font-size: 1.5em;
+	margin: auto;
+	background: #484848;
+	color: white;
+	border-radius: 15px;
+	padding: 15px;
+	width: 500px;
+}
+
+#myModal em {
+	color: red;
+}
+
+#myModal input[type=text], #myModal input[type=number] {
+	padding: 0 5px 0 5px;
+	background: #666666;
+	border: 3px inset;
+	border-radius: 7px;
+	color: #a2a2a2;
+	text-align: center;
+}
+#myModal input[type=reset], #myModal input[type=submit] {
+        padding: 0 5px 0 5px;
+        background: #666666;
+        border: 3px outset;
+        border-radius: 7px;
+        color: #a2a2a2;
+        font-size: 1em;
+}
+#myModal input[type=submit] {
+	float: right;
+	margin: 20px 10px 10px 0px;
+}
+#myModal input[type=reset] {
+	margin: 20px 0 10px 10px;
+}
+ 
   
   /* Add Animation */
   @-webkit-keyframes animatetop {
@@ -54,16 +83,4 @@
     cursor: pointer;
   }
   
-  .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
-  
-  .modal-body {padding: 2px 16px;}
-  
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
+  .modal-body {padding: 2px 16px;}  

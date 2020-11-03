@@ -90,13 +90,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 for($i=0; $i< count($result_dep); $i++){
                     echo '<tr>';
                     echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_time" value="+"></form></td>';
-                    echo '<td><input type="submit" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
+                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value="+"></td>';
                     echo '</tr>';
                 }
             ?>
@@ -114,34 +114,42 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-        <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Modal Header</h2>
-        </div>
-        <div class="modal-body">
-            <p>Some text in the Modal Body</p>
-            <p>Some other text...</p>
-        </div>
-        <div class="modal-footer">
-            <h3>Modal Footer</h3>
-        </div>
-        </div>
+       
+        <form class="modal-content">
+        <span class="close">&times;</span>
+            <fieldset>
+                <legend>График работы</legend>
+                <table border="5px" width="100%">
+                    <tr>
+                        <td><label for="graphType">Тип графика <em>*</em></label></td>
+                        <td><input type="text" id="graphType" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="graphHours">Часы <em>*</em></label></td>
+                        <td><input type="text" id="graphHours" required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="reset" value="Очистить форму"><input type="submit" value="Отправить запрос"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
     </div>
     <script>
         // Get the modal
-        var modal = document.getElementById("myModal");
+        let modal = document.getElementById("myModal");
 
         // Get the button that opens the modal
-        var btn = document.getElementByClassName("b_main_time");
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal 
-        btn.onclick = function() {
-        modal.style.display = "block";
+        let btnArray = document.querySelectorAll("[id='myBtn']");
+        for (let i = 0; i <btnArray.length; i++) {
+            // let btn = document.getElementById("myBtn");
+            btnArray[i].onclick = function() {
+            modal.style.display = "block";
+            }
         }
+
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName("close")[0];
 
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
