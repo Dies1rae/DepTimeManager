@@ -20,7 +20,7 @@
                 <li>
                     <a href="main.php">
                         <i class="far fa-arrow-alt-circle-left"></i>
-                        <span>Назад</span>
+                        <span>Дашборд</span>
                     </a>
                 </li> 
             </ul>

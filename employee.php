@@ -37,7 +37,7 @@ class Credential{
             die("Connection failed: " . $conn->connect_error);
         }
         $conn->set_charset("utf8");
-        $query = "SELECT * FROM root WHERE account like '$this->iternal_query_'";
+        $query = "SELECT * FROM root WHERE status LIKE '1' and  account like '$this->iternal_query_'";
         $result = $conn->query($query);
 
         $data = array();
