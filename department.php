@@ -27,6 +27,9 @@
         </nav>
         <main>
         <?php
+            if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
+                header('Location: index.htm');
+            }
             session_start();
             include 'employee.php';
             $result_dep = array();
