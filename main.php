@@ -120,16 +120,26 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <fieldset>
                 <legend>График работы</legend>
                 <table border="5px" width="100%">
-                    <tr>
+                    <!-- <tr>
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td><input type="text" id="graphType" required></td>
+                    </tr> -->
+                    <tr>
+                        <td><label for="graphType">Тип графика <em>*</em></label></td>
+                        <td>
+                            <select id="graphType" required>
+                                <option value="five">Пятидневка</option>
+                                <option value="2t2">2 через 2</option>
+                                <option value="1t3">1 через 3</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="graphHours">Часы <em>*</em></label></td>
                         <td><input type="text" id="graphHours" required></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input type="reset" value="Очистить форму"><input type="submit" value="Отправить запрос"></td>
+                        <td colspan="2"><input type="reset" value="Очистить"><input type="submit" value="Сохранить"></td>
                     </tr>
                 </table>
             </fieldset>

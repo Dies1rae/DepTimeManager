@@ -19,26 +19,29 @@
   
 .modal-content {
 	position: relative;
-	font-size: 1.5em;
 	margin: auto;
 	background: #484848;
 	color: white;
 	border-radius: 15px;
 	padding: 15px;
-	width: 500px;
+	width: 300px;
+}
+
+fieldset{
+    padding: 10px;
 }
 
 #myModal em {
 	color: red;
 }
 
-#myModal input[type=text], #myModal input[type=number] {
-	padding: 0 5px 0 5px;
+#myModal input[type=text], #myModal input[type=number], #graphType {
+    padding: 0 5px 0 5px;
+    width: 120px;
 	background: #666666;
 	border: 3px inset;
 	border-radius: 7px;
-	color: #a2a2a2;
-	text-align: center;
+	color: white;
 }
 #myModal input[type=reset], #myModal input[type=submit] {
         padding: 0 5px 0 5px;
@@ -47,6 +50,7 @@
         border-radius: 7px;
         color: #a2a2a2;
         font-size: 1em;
+        cursor: pointer;
 }
 #myModal input[type=submit] {
 	float: right;
@@ -70,9 +74,11 @@
   
   /* The Close Button */
   .close {
+    position: absolute;
+    right: 10px;
+    top: 0;
     color: white;
-    float: right;
-    font-size: 28px;
+    font-size: 20px;
     font-weight: bold;
   }
   

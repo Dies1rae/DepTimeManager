@@ -24,7 +24,7 @@ table{
     border-collapse: collapse;
   }
 
-  td{
+  main td{
     width: 20px;
     height: 40px;
     padding-left: 10px;
