@@ -53,5 +53,4 @@ void user::Data_Corrections() {
 	this->photo_.erase(std::remove(this->photo_.begin(), this->photo_.end(), '"'), this->photo_.end());
 	this->photo_.erase(std::remove(this->photo_.begin(), this->photo_.end(), ';'), this->photo_.end());
 	this->photo_.erase(std::remove(this->photo_.begin(), this->photo_.end(), ','), this->photo_.end());
-	
 }

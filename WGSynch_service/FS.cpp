@@ -47,13 +47,6 @@ void FS::init_all_users_base() {
 				tmp_usersinfo[4], tmp_usersinfo[5], tmp_usersinfo[6], tmp_usersinfo[7], status, tmp_usersinfo[9]);
 			tmp_userdata.Data_Corrections();
 
-			/*
-			for (auto ptr : tmp_userdata.Get_Userdata()) {
-				std::cout << ptr << '&';
-			}
-			std::cout << std::endl;
-			system("PAUSE");*/
-			
 			this->all_users_base.Add_Users(tmp_userdata);
 		}
 		user_infofile.close();
@@ -84,8 +77,8 @@ bool FS::userfile_base_check_fill() {
 		this->all_users_base.Get_Users()[0].Get_Userdata()[6] == "Position"s &&
 		this->all_users_base.Get_Users()[0].Get_Userdata()[7] == "SNILS"s &&
 		this->all_users_base.Get_Users()[0].Get_Userdata()[8] == "InterofficeTelephone"s &&
-		this->all_users_base.Get_Users()[0].Get_Userdata()[9] == "1"s 
-		//this->all_users_base.Get_Users()[0].Get_Userdata()[10] == "Foto"s
+		this->all_users_base.Get_Users()[0].Get_Userdata()[9] == "1"s &&
+		this->all_users_base.Get_Users()[0].Get_Userdata()[10] == "Foto"s
 		) {
 		return 1;
 	}
@@ -94,7 +87,6 @@ bool FS::userfile_base_check_fill() {
 
 void FS::main_loop() {
 	this->userfile_check = userfile_base_check_exists();
-	//std::cout << this->userfile_check << std::endl;
 	if (this->userfile_check == 0) {
 		this->main_log_container_->add_log_string("CSV file checking error"s);
 		this->main_log_container_->add_log_string("");
@@ -109,8 +101,7 @@ void FS::main_loop() {
 		this->main_log_container_->add_log_string_timemark_("Init CSV file OK"s);
 
 		this->main_log_container_->add_log_string_timemark_("Check CSV file consistence"s);
-		this->userfile_check = this->userfile_base_check_fill();
-		//std::cout << this->userfile_check << std::endl;
+		//this->userfile_check = this->userfile_base_check_fill(); /// NEED TO PASS THIS
 		if (this->userfile_check == 1) {
 
 			this->main_log_container_->add_log_string_timemark_("Check CSV file consistence OK"s);
