@@ -3,6 +3,7 @@ table{
   }
 
   th{
+    width: 20px;
     height: 40px;
     font-size: 25px;
     color: #fff;
@@ -12,6 +13,7 @@ table{
   }
 
   .th_weekend{
+    width: 20px;
     height: 40px;
     font-size: 25px;
     background-color: #BC544B;
@@ -22,6 +24,7 @@ table{
   }
 
   td{
+    width: 20px;
     height: 40px;
     padding-left: 10px;
     font-size: 25px;
@@ -32,7 +35,7 @@ table{
   }
 
   .td_fio{
-    height: 40px;
+    width: 20px;
     padding-left: 10px;
     font-size: 25px;
     color: #a9a9a9;
