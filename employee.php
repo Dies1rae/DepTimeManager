@@ -50,6 +50,41 @@ class Credential{
         $conn->close();
         return $data;
     }
+
+    public function set_user_time_free($r_uid, $g_uid, $hours, $start_date){
+        require_once 'credential.php';
+        
+        $conn = new mysqli($serverName, $userName, $passWord, $database);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $conn->set_charset("utf8");
+        $end_date = $start_date->add(new DateInterval('PT'.$hours.'H'));
+        $query = "insert into cal (NULL, '$r_uid', '$g_uid', '$start_date', '$end_date')";
+        $conn->close();
+    }
+    
+    public function get_user_time_free($r_uid){
+        require_once 'credential.php';
+        
+        $conn = new mysqli($serverName, $userName, $passWord, $database);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $conn->set_charset("utf8");
+        $query = "SELECT * FROM cal WHERE r_uid like '$r_uid'";
+        $result = $conn->query($query);
+
+        $data = array();
+
+        if($result->num_rows>0){
+            while($row = $result->fetch_assoc()){ 
+                $data[] = $row;
+            }
+        }
+        $conn->close();
+        return $data;
+    }
 }
 
 ?>
