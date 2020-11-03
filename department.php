@@ -27,10 +27,11 @@
         </nav>
         <main>
         <?php
+            session_start();
             if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 header('Location: index.htm');
             }
-            session_start();
+            
             include 'employee.php';
             $result_dep = array();
             $dep = new Credential($_SESSION['dep_key']);
