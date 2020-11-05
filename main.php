@@ -122,24 +122,51 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <fieldset>
                 <legend>График работы</legend>
                 <table border="5px" width="100%">
-                    <!-- <tr>
-                        <td><label for="graphType">Тип графика <em>*</em></label></td>
-                        <td><input type="text" id="graphType" required></td>
-                    </tr> -->
                     <tr>
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
                             <select id="graphType" required>
-                                <option value="five">Пятидневка</option>
-                                <option value="2t2">2 через 2</option>
-                                <option value="1t3">1 через 3</option>
+                                <option value="five" selected>Пятидневка</option>
+                                <option value="freedom">Свободный</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="graphHours">Часы <em>*</em></label></td>
-                        <td><input type="text" id="graphHours" required></td>
+                        <td><label for="startTime">Начало <em>*</em></label></td>
+                        <td><input type="datetime-local" id="startTime" required></td>
                     </tr>
+                    <tr>
+                        <td><label for="endTime">Окончание <em>*</em></label></td>
+                        <td><input type="datetime-local" id="endTime" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="graphHours">Часы <em>*</em></label></td>
+                        <td><input type="number" id="graphHours" required></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="advanced">
+                <legend>Дополнительные параметры</legend>
+                <table border="5px" width="100%">
+                    <tr>
+                        <td><label for="repeatField">Повтор графика <em>*</em></label></td>
+                        <td>
+                            <select id="repeatField" required>
+                                <option value="nonrepeat">неповторяющийся</option>
+                                <option value="daily">день</option>
+                                <option value="weekly">неделя</option>
+                                <option value="monthly">месяц</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="repeatEvery">Повторять <em>*</em></label></td>
+                        <td><input type="number" id="repeatEvery" required></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <table border="5px" width="100%">
                     <tr>
                         <td colspan="2"><input type="reset" value="Очистить"><input type="submit" value="Сохранить"></td>
                     </tr>
@@ -150,7 +177,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <script>
         // Get the modal
         let modal = document.getElementById("myModal");
-
+        
         // Get the button that opens the modal
         let btnArray = document.querySelectorAll("[id='myBtn']");
         for (let i = 0; i <btnArray.length; i++) {
@@ -170,10 +197,15 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
-        }
+        
+        document.getElementById("graphType").addEventListener('change', function(e){
+            if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
+            else document.getElementById("advanced").style.display = "none";
+        });
 </script>
 </body>
 </html>
