@@ -74,9 +74,19 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <div class="tableschedule">
                 <div class="schedule-box">
                     <div class="schedule-box-content">
-                        <a href="" class="pr"><i class="fas fa-angle-left"></i></a>
-                        <span class="title">Суббота, 7 ноября, 2020</span>
-                        <a href="" class="n"><i class="fas fa-angle-right"></i></a>
+                        <?php
+                            $dt = new DateTime;
+                            if (isset($_GET['year']) && isset($_GET['week'])) {
+                                $dt->setISODate($_GET['year'], $_GET['week']);
+                            } else {
+                                $dt->setISODate($dt->format('o'), $dt->format('W'));
+                            }
+                            $year = $dt->format('o');
+                            $week = $dt->format('W');
+                        ?>
+                        <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week-1).'&year='.$year; ?>" class="pr"><i class="fas fa-angle-left"></i></a>
+                        <span class="title"></span>
+                        <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week+1).'&year='.$year; ?>" class="n"><i class="fas fa-angle-right"></i></a>
                     </div>
                 </div>
                 <div class="switchbtns">
