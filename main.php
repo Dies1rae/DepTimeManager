@@ -119,15 +119,16 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
                     for($i=0; $i< count($result_dep); $i++){
+                        $dt_user = clone($dt);
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
                         echo '</tr>';
 
                     }
