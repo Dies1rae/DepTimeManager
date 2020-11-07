@@ -150,7 +150,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <!-- The Modal -->
     <div id="myModal" class="modal">
         
-        <form class="modal-content" action="user_cal_function.php" method="POST">
+        <form class="modal-content" action="cal_table_funk.php" method="POST">
         
         <span class="close">&times;</span>
             <fieldset>
