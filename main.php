@@ -17,7 +17,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <link rel="stylesheet" type="text/css" href="style/fontawesome.css">
     <link rel="stylesheet" type="text/css" href="style/calendar.css">
     <link rel="stylesheet" type="text/css" href="style/popupwindow.css">
+    <!-- <script>
+     function printId(vasya){
+            
+            alert(vasya);
+        }
+</script> -->
 </head>
+
 <body>
     <div id="container" class="wrapper">
         <header>
@@ -115,19 +122,21 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 <?php   
                     include 'employee.php';
                     $result_dep = array();
+                    $custId_ar = array();
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
                     for($i=0; $i< count($result_dep); $i++){
+                        $custId_ar[$i] = $result_dep[$i]['r_uid'];
                         $dt_user = clone($dt);
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
                         echo '</tr>';
 
                     }
@@ -152,6 +161,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <fieldset>
                 <legend>График работы</legend>
                 <table border="5px" width="100%">
+                <tr>
+                        <td><label for="user_id">ID <em>*</em></label></td>
+                        <td><input type="text" name="user_id" id="user_id" required readonly></td>
+                    </tr>
                     <tr>
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
@@ -163,15 +176,15 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                     <tr>
                         <td><label for="startTime">Начало <em>*</em></label></td>
-                        <td><input type="datetime-local" id="startTime" required value="<?php echo $dt->format('Y-m-d') . 'T' . $dt->format('H:i')?>"></td>
+                        <td><input type="datetime-local" name="startTime" id="startTime" required value="<?php echo $dt->format('Y-m-d') . 'T' . $dt->format('H:i')?>"></td>
                     </tr>
                     <tr style="display: none;">
                         <td><label for="endTime">Окончание <em>*</em></label></td>
-                        <td><input type="datetime-local" id="endTime" required></td>
+                        <td><input type="datetime-local" name="endTime" id="endTime" required></td>
                     </tr>
                     <tr>
                         <td><label for="graphHours">Часы <em>*</em></label></td>
-                        <td><input type="number" id="graphHours" required></td>
+                        <td><input type="number" name="graphHours" id="graphHours" required></td>
                     </tr>
                 </table>
             </fieldset>
@@ -199,7 +212,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 <table border="5px" width="100%">
                     <tr>
                     
-                        <td colspan="2"><input type="reset" value="Очистить"><input type="submit" value="Сохранить"></td>
+                        <td colspan="2"><input type="reset" value="Очистить"><input type="submit" id="testRuid" value="Сохранить"></td>
+                        
                     </tr>
                 </table>
             </fieldset>
@@ -208,15 +222,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <script>
         // Get the modal
         let modal = document.getElementById("myModal");
-        
         // Get the button that opens the modal
         let btnArray = document.querySelectorAll("[id='myBtn']");
-        for (let i = 0; i <btnArray.length; i++) {
-            // let btn = document.getElementById("myBtn");
-            btnArray[i].onclick = function() {
-            modal.style.display = "block";
-            }
-        }
+        // for (let i = 0; i <btnArray.length; i++) {
+        //     btnArray[i].onclick = function() {
+        //     modal.style.display = "block";
+            
+        //     }
+        // }
 
         // Get the <span> element that closes the modal
         let span = document.getElementsByClassName("close")[0];
@@ -237,6 +250,12 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
         //     else document.getElementById("advanced").style.display = "none";
         // });
+        function printId(vasya){
+            let myBtn = document.getElementById("user_id");
+            modal.style.display = "block";
+            myBtn.value = vasya;
+        }
+       
 </script>
 </body>
 </html>
