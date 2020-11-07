@@ -164,7 +164,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                     <tr>
                         <td><label for="startTime">Начало <em>*</em></label></td>
-                        <td><input type="datetime-local" id="startTime" required></td>
+                        <td><input type="datetime-local" id="startTime" required value="<?php $dt->format('d.m.Y H:i')?>"></td>
                     </tr>
                     <tr>
                         <td><label for="endTime">Окончание <em>*</em></label></td>
