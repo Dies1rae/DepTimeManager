@@ -17,12 +17,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <link rel="stylesheet" type="text/css" href="style/fontawesome.css">
     <link rel="stylesheet" type="text/css" href="style/calendar.css">
     <link rel="stylesheet" type="text/css" href="style/popupwindow.css">
-    <!-- <script>
-     function printId(vasya){
-            
-            alert(vasya);
-        }
-</script> -->
 </head>
 
 <body>
@@ -179,10 +173,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="startTime">Начало <em>*</em></label></td>
                         <td><input type="datetime-local" name="startTime" id="startTime" required value="<?php echo $dt->format('Y-m-d') . 'T' . $dt->format('H:i')?>"></td>
                     </tr>
-                    <tr style="display: none;">
+                    <!-- <tr style="display: none;">
                         <td><label for="endTime">Окончание <em>*</em></label></td>
                         <td><input type="datetime-local" id="endTime" required></td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td><label for="graphHours">Часы <em>*</em></label></td>
                         <td><input type="number" name="graphHours" id="graphHours" required></td>
@@ -259,3 +253,4 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 </script>
 </body>
 </html>
+

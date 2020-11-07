@@ -1,24 +1,23 @@
+
 <?php
-    require_once 'credential.php';
+    include 'credential.php';
+    $link = new mysqli($serverName, $userName, $passWord, $database);
+    if ($link->connect_error) {
+        die("Connection failed: " . $link->connect_error);
+    }
+    $link->set_charset("utf8");
 
-    $ruid = $_POST["user_id"];
-    $guid = $_POST["graph_type"];
-    $start_date = new DateTime($_POST["startTime"]);
+    $ruid = $_POST['user_id'];
+    $guid = $_POST['graph_type'];
+    $SD = $_POST['startTime'];
+    $start_date = ate('Y-m-d H:i', strtotime(substr($SD,0,16)));
     $end_date = clone($start_date);
-    $H = $_POST["graphHours"];
-
-    $test = array ('ruid' => ''.$ruid.'', 'sd' => ''.$start_date.'');
-
-    print_r($test);
-    // end_date->date_modify('+'.$H.' hour');
+    $end_date = date("Y-m-d H:i", strtotime('+'.$_POST['graphHours'].'hours'));
    
-    // $conn = new mysqli($serverName, $userName, $passWord, $database);
-    // if ($conn->connect_error) {
-    //     die("Connection failed: " . $conn->connect_error);
-    // }
 
-    // $conn->set_charset("utf8");
-    // $query = "insert into cal values (NULL, '.$ruid.', '.$guid.', '.$start_date.', '.$end_date.')";
-    // $result = $conn->query($query);
-    // $conn->close();
+
+    $query="INSERT INTO cal (c_uid, r_uid, g_uid, start_date, end_date) VALUES (NULL, $ruid, $guid, $start_date, $end_date)";
+    mysqli_query($link, $query);
+    $link->close();
+
 ?>
