@@ -115,7 +115,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 <?php   
                     include 'employee.php';
                     $result_dep = array();
-                    $time_user = array();
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
                     for($i=0; $i< count($result_dep); $i++){
@@ -147,7 +146,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-       
+        
         <form class="modal-content">
         <span class="close">&times;</span>
             <fieldset>
@@ -199,6 +198,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <fieldset>
                 <table border="5px" width="100%">
                     <tr>
+                    <?php
+                        include 'calendar_table.php';
+                        $cal_inserter = new ca_table();
+                    ?>
                         <td colspan="2"><input type="reset" value="Очистить"><input type="submit" value="Сохранить"></td>
                     </tr>
                 </table>
