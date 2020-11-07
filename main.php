@@ -71,37 +71,51 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             </ul>
         </nav>
         <main>
+            <div class="tableschedule">
+                <div class="schedule-box">
+                    <div class="schedule-box-content">
+                        <a href="" class="pr"><i class="fas fa-angle-left"></i></a>
+                        <span class="title">Суббота, 7 ноября, 2020</span>
+                        <a href="" class="n"><i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+                <div class="switchbtns">
+                    <input type="submit" class="schedule-day" value="День">
+                    <input type="submit" class="schedule-week" value="Неделя">
+                    <input type="submit" class="schedule-today" value="Сегодня">
+                </div>
+            </div>
             <table style="width:100%">
-            <tr>
-                <th>ФИО</th>
-                <th>ПН</th>
-                <th>ВТ</th>
-                <th>СР</th>
-                <th>ЧТ</th>
-                <th>ПТ</th>
-                <th class = "th_weekend">СБ</th>
-                <th class = "th_weekend">ВС</th>
-            </tr>
-            <?php   
-                include 'employee.php';
-                $result_dep = array();
-                $time_user = array();
-                $dep = new Credential($_SESSION['dep_key']);
-                $result_dep = $dep->sql_query_dep();
-                for($i=0; $i< count($result_dep); $i++){
-                    echo '<tr>';
-                    echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
-                    echo '</tr>';
+                <tr>
+                    <th>ФИО</th>
+                    <th>ПН</th>
+                    <th>ВТ</th>
+                    <th>СР</th>
+                    <th>ЧТ</th>
+                    <th>ПТ</th>
+                    <th class = "th_weekend">СБ</th>
+                    <th class = "th_weekend">ВС</th>
+                </tr>
+                <?php   
+                    include 'employee.php';
+                    $result_dep = array();
+                    $time_user = array();
+                    $dep = new Credential($_SESSION['dep_key']);
+                    $result_dep = $dep->sql_query_dep();
+                    for($i=0; $i< count($result_dep); $i++){
+                        echo '<tr>';
+                        echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" value=""></td>';
+                        echo '</tr>';
 
-                }
-            ?>
+                    }
+                ?>
             </table>
         </main>
         <aside>

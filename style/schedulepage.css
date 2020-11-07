@@ -34,6 +34,8 @@ nav{
 
 main{
     grid-area: main;
+    display: grid;
+    grid-template-rows: 70px auto;
     background-color: #2b2b2c;
     height: 100%;
 }
@@ -44,6 +46,50 @@ aside{
     height: 100%;
 }
 
+.tableschedule{
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.schedule-box{
+    justify-self: flex-end;
+    align-self: center;
+}
+
+.schedule-box-content{
+    line-height: 40px;  
+    text-align: center;
+}
+
+.schedule-box-content .title{
+    font-size: 18px;
+    color: white;
+}
+
+.switchbtns{
+    justify-self: center;
+    align-self: center;
+}
+
+.switchbtns input[type="submit"]{
+    display: inline-block;
+    height: 35px;
+    background: transparent;
+    color: #a9a9a9;
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+a.pr, a.n{
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
 /* sidebar menu */
 nav ul{
     list-style: none;
