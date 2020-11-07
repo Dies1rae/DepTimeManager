@@ -85,7 +85,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                             $week = $dt->format('W');
                         ?>
                         <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week-1).'&year='.$year; ?>" class="pr"><i class="fas fa-angle-left"></i></a>
-                        <span class="title"></span>
+                        <span class="title">
+                            <?php
+                                $dt_endweek = clone($dt);
+                                $dt_endweek ->modify('+6 days');
+                                echo $dt->format('l') . ' ' . $dt->format('d M Y') . '-' . $dt_endweek->format('l') . ' ' . $dt_endweek->format('d M Y');
+                            ?>
+                        </span>
                         <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week+1).'&year='.$year; ?>" class="n"><i class="fas fa-angle-right"></i></a>
                     </div>
                 </div>
