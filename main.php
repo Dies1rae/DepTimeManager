@@ -113,7 +113,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     <th class = "th_weekend">СБ</th>
                     <th class = "th_weekend">ВС</th>
                 </tr>
-                <?php   
+                <?php
+                    include 'cal_table_get.php';   
                     include 'employee.php';
                     $result_dep = array();
                     $custId_ar = array();
