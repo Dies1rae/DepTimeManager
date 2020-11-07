@@ -166,7 +166,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="startTime">Начало <em>*</em></label></td>
                         <td><input type="datetime-local" id="startTime" required value="<?php echo $dt->format('Y-m-d') . 'T' . $dt->format('H:i')?>"></td>
                     </tr>
-                    <tr>
+                    <tr style="display: none;">
                         <td><label for="endTime">Окончание <em>*</em></label></td>
                         <td><input type="datetime-local" id="endTime" required></td>
                     </tr>
@@ -233,10 +233,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             }
         }
         
-        document.getElementById("graphType").addEventListener('change', function(e){
-            if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
-            else document.getElementById("advanced").style.display = "none";
-        });
+        // document.getElementById("graphType").addEventListener('change', function(e){
+        //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
+        //     else document.getElementById("advanced").style.display = "none";
+        // });
 </script>
 </body>
 </html>
