@@ -27,7 +27,6 @@ table{
   main td{
     width: 20px;
     height: 40px;
-    padding-left: 10px;
     font-size: 25px;
     color: #a9a9a9;
     border: 1px solid black;
@@ -56,8 +55,10 @@ table{
     font-size: 20px;
    }
    .b_main_time {
+    border: none;
+    display: inline-block;
     height: 35px;
-    width: 35px;
+    width: 100%;
     background:transparent; 
     color: #a9a9a9;
     font-size: 20px;
