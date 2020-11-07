@@ -86,10 +86,16 @@ a.pr, a.n{
     display: inline-block;
     border: 1px solid grey;
     border-radius: 50%;
+    font-size: 30px;
     width: 40px;
     height: 40px;
     vertical-align: middle;
 }
+a.pr:hover, a.n:hover{
+    background: white;
+    color: black;
+}
+
 /* sidebar menu */
 nav ul{
     list-style: none;
