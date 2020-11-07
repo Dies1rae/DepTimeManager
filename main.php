@@ -198,10 +198,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             <fieldset>
                 <table border="5px" width="100%">
                     <tr>
-                    <?php
-                        include 'calendar_table.php';
-                        $cal_inserter = new ca_table();
-                    ?>
+                    
                         <td colspan="2"><input type="reset" value="Очистить"><input type="submit" value="Сохранить"></td>
                     </tr>
                 </table>
