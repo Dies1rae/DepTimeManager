@@ -21,4 +21,5 @@
     mysqli_query($link, $query);
 
     $link->close();
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>
