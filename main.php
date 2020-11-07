@@ -156,7 +156,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
     <!-- The Modal -->
     <div id="myModal" class="modal">
         
-        <form class="modal-content">
+        <form class="modal-content" action="user_cal_function.php" method="POST">
+        
         <span class="close">&times;</span>
             <fieldset>
                 <legend>График работы</legend>
@@ -168,9 +169,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     <tr>
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
-                            <select id="graphType" required>
+                            <select id="graphType" required name="graph_type">
                                 <option value="five" selected>Пятидневка</option>
-                                <option value="freedom">Свободный</option>
+                                <option value="1">Свободный</option>
                             </select>
                         </td>
                     </tr>
@@ -180,7 +181,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                     <tr style="display: none;">
                         <td><label for="endTime">Окончание <em>*</em></label></td>
-                        <td><input type="datetime-local" name="endTime" id="endTime" required></td>
+                        <td><input type="datetime-local" id="endTime" required></td>
                     </tr>
                     <tr>
                         <td><label for="graphHours">Часы <em>*</em></label></td>
@@ -188,7 +189,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                 </table>
             </fieldset>
-            <fieldset id="advanced">
+            <!-- <fieldset id="advanced">
                 <legend>Дополнительные параметры</legend>
                 <table border="5px" width="100%">
                     <tr>
@@ -207,12 +208,11 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><input type="number" id="repeatEvery" required></td>
                     </tr>
                 </table>
-            </fieldset>
+            </fieldset> -->
             <fieldset>
                 <table border="5px" width="100%">
                     <tr>
-                    
-                        <td colspan="2"><input type="reset" value="Очистить"><input type="submit" id="testRuid" value="Сохранить"></td>
+                        <td colspan="2"><input type="submit" id="testRuid" value="Сохранить"></td>
                         
                     </tr>
                 </table>

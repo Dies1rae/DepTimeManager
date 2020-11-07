@@ -18,10 +18,31 @@ class ca_table{
         $this->ruid_ = $ruid;
     }
 
+    public function __construct(){ }
+
     public function calculate_end_date(){
         $this->end_date_ = clone $this->start_date;
         $this->end_date_->date_modify('+'.$this->$hours_.' hour');
     }
+
+    public function insert_into_cal($ruid, $guid, $sd, $H){
+        $this->ruid_ = $ruid;
+        $this->guid_ = $guid;
+        $this->$hours_ = $H;
+        $this->start_date = new DateTime($sd);
+        calculate_end_date();
+        require_once 'credential.php';
+        
+        $conn = new mysqli($serverName, $userName, $passWord, $database);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $conn->set_charset("utf8");
+        $query = "insert into cal values (NULL, '.$this->ruid_.', '.$this->guid_.', '.$this->start_date_.', '.$this->end_date_.');";
+        $result = $conn->query($query);
+        $conn->close();
+    }
+
 
     public function insert_into_cal(){
         calculate_end_date();
