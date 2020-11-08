@@ -125,13 +125,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         $dt_user = clone($dt);
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].')" value="'.$dt_user->modify('+1 day')->format('d').'"></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '</tr>';
 
                     }
@@ -172,7 +172,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                     <tr>
                         <td><label for="startTime">Начало <em>*</em></label></td>
-                        <td><input type="datetime-local" name="startTime" id="startTime" required value="<?php echo $dt->format('Y-m-d') . 'T' . $dt->format('H:i')?>"></td>
+                        <td><input type="datetime-local" name="startTime" id="startTime" value = "" required></td>
                     </tr>
                     <!-- <tr style="display: none;">
                         <td><label for="endTime">Окончание <em>*</em></label></td>
@@ -245,12 +245,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
         //     else document.getElementById("advanced").style.display = "none";
         // });
-        function printId(vasya){
-            let myBtn = document.getElementById("user_id");
+        function printId(vasya,dtValue){
             modal.style.display = "block";
+            let myBtn = document.getElementById("user_id");
+            let getElem = document.getElementById("startTime");
             myBtn.value = vasya;
+            getElem.value = dtValue;
         }
-       
+        
 </script>
 </body>
 </html>
