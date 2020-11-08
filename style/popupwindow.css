@@ -32,12 +32,17 @@ fieldset{
 
 #myModal input[type=number],
 #myModal input[type=datetime-local],
-#graphType, #repeatField {
+#graphType, #repeatField, #user_id {
   padding: 0 5px 0 5px;
   background: #666666;
   border: 3px inset;
   border-radius: 7px;
   color: white;
+}
+
+#user_id{
+  border: none;
+  background: transparent;
 }
 
 #graphType {
