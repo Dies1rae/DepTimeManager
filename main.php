@@ -114,19 +114,29 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     <th class = "th_weekend">ВС</th>
                 </tr>
                 <?php
-                    include 'cal_table_get.php';   
+                    $_SESSION['start_week'] = $dt;
+                    $_SESSION['end_week'] = $dt_endweek;
+
                     include 'employee.php';
                     $result_dep = array();
                     $custId_ar = array();
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
                     for($i=0; $i< count($result_dep); $i++){
+                        $_SESSION['ruid'] = $result_dep[$i]['r_uid'];
+                        
+                        require 'cal_table_get.php';
+                        
                         $custId_ar[$i] = $result_dep[$i]['r_uid'];
-                        $uniqueUser = $custId_ar[$i];
                         $dt_user = clone($dt);
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        if(count($uniqueData) > 0){
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time_work" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';    
+                        } else {
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time_warning" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        }
+                        // echo '<td><input type="submit" id="myBtn" class="b_main_time_warning" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
@@ -134,9 +144,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '</tr>';
-                        if($uniqueData != 0){
-                            
-                        }
+
                     }
                 ?>
             </table>
