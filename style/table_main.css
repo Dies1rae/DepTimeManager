@@ -54,6 +54,18 @@ table{
     color: #a9a9a9;
     font-size: 20px;
    }
+   .b_main_name_work {
+    border:none;
+    background:transparent; 
+    color: #728c69;
+    font-size: 20px;
+   }
+   .b_main_name_warning {
+    border:none;
+    background:transparent; 
+    color: #60100B;
+    font-size: 20px;
+   }
    .b_main_time {
     border: none;
     display: inline-block;
