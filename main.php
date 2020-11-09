@@ -162,7 +162,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $days_to = $intervalDiff->format('%a');
                                     $hoursDiff = $days_to * 24 + $hours;
                                     
-                                    if(($temp_cellDate <= $temp_startDate) && ($hoursDiff < 24)){
+                                    if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
                                         $class_deflt = 'b_main_time_work';
                                         $working_hours = $hoursDiff;
                                         break 1;
