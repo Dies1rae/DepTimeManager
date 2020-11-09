@@ -131,20 +131,44 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         $dt_user = clone($dt);
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        if(count($uniqueData) > 0){
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time_work" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';    
-                        } else {
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time_warning" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
+                        
+                        if(count($uniqueData)>0){
+                            
+                            for ($k=0; $k < 7; $k++) { 
+                                $seconDate = clone($dt_user);
+                                $temp_dt_form = clone($dt_user);
+                                $class_deflt = 'b_main_time';
+                                if($k > 1){
+                                    $seconDate = $seconDate->modify('+'.$k.' days')->format('Y-m-d');
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                }else{
+                                    $seconDate = $seconDate->modify('+'.$k.' day')->format('Y-m-d');
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                }
+                                
+                                $temp_cellDate = new DateTime($seconDate);
+                                for ($j=0; $j < count($uniqueData); $j++) { 
+                                   
+                                    $dateFromdb = $uniqueData[$j]['start_date'];
+                                    $firstDate = date('Y-m-d', strtotime(substr($dateFromdb, 0,10)));
+                                    $temp_startDate = new DateTime($firstDate);
+                                    if($temp_cellDate == $temp_startDate){
+                                        $class_deflt = 'b_main_time_work';
+                                    break 1;
+                                    }
+                                }
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value="'.$seconDate.'"></td>';
+                            }
+                        }else{
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         }
-                        // echo '<td><input type="submit" id="myBtn" class="b_main_time_warning" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                        echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
                         echo '</tr>';
-
                     }
                 ?>
             </table>
@@ -176,8 +200,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
                             <select id="graphType" required name="graph_type">
-                                <option value="five" selected>Пятидневка</option>
-                                <option value="1">Свободный</option>
+                                <option value="five">Пятидневка</option>
+                                <option value="1" selected>Свободный</option>
                             </select>
                         </td>
                     </tr>
