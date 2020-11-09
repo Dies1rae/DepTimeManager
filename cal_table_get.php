@@ -1,8 +1,8 @@
 <?php 
     session_start();
     $ruid = $_SESSION['ruid'];
-    $bWeek = $_SESSION['start_week']->format('Y-m-d H:i');
-    $eWeek = $_SESSION['end_week']->format('Y-m-d H:i');
+    $bWeek = $_SESSION['start_week']->format('Y-m-d');
+    $eWeek = $_SESSION['end_week']->format('Y-m-d');
 
     include 'credential.php';
         

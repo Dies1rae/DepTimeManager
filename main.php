@@ -142,14 +142,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 if($k > 1){
                                     $seconDate = $seconDate->modify('+'.$k.' days')->format('Y-m-d');
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
-                                }else{
+                                } else {
                                     $seconDate = $seconDate->modify('+'.$k.' day')->format('Y-m-d');
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 
                                 $temp_cellDate = new DateTime($seconDate);
                                 for ($j=0; $j < count($uniqueData); $j++) { 
-                                   
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
                                     $firstDate = date('Y-m-d', strtotime(substr($startDateFromdb, 0, 10)));
@@ -162,8 +161,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $hours = $intervalDiff->format('%H');
                                     $days_to = $intervalDiff->format('%a');
                                     $hoursDiff = $days_to * 24 + $hours;
+                                    
 
-                                    if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
+                                    if(($temp_cellDate <= $temp_startDate) && ($hoursDiff < 24)){
                                         $class_deflt = 'b_main_time_work';
                                         $working_hours = $hoursDiff;
                                         break 1;
@@ -174,7 +174,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         break 1;
                                     }
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
+                                
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.' Hrs"></td>';
                             }
                         }else{
                             for ($k=0; $k < 7; $k++) { 
@@ -185,7 +186,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 }else{
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value=""></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="Free"></td>';
                             }
                         }
                         echo '</tr>';
