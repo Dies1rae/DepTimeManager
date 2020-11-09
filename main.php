@@ -174,7 +174,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         break 1;
                                     }
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
                             }
                         }else{
                             for ($k=0; $k < 7; $k++) { 
@@ -185,7 +185,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 }else{
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value=""></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value=""></td>';
                             }
                         }
                         echo '</tr>';
@@ -229,14 +229,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="startTime">Начало <em>*</em></label></td>
                         <td><input type="datetime-local" name="startTime" id="startTime" value = "" required></td>
                     </tr>
-                    <!-- <tr style="display: none;">
-                        <td><label for="endTime">Окончание <em>*</em></label></td>
-                        <td><input type="datetime-local" id="endTime" required></td>
-                    </tr> -->
                     <tr>
+                        <td><label for="endTime">Окончание <em>*</em></label></td>
+                        <td><input type="datetime-local" name="endTime" id="endTime" value = "" required></td>
+                    </tr> 
+                    <!-- <tr>
                         <td><label for="graphHours">Часы <em>*</em></label></td>
                         <td><input type="number" name="graphHours" id="graphHours" required></td>
-                    </tr>
+                    </tr> -->
                 </table>
             </fieldset>
             <!-- <fieldset id="advanced">

@@ -3,9 +3,9 @@
     $ruid = $_POST['user_id'];
     $guid = $_POST['graph_type'];
     $SD = $_POST['startTime'];
+    $EDT = $_POST['endTime'];
     $s_d = date('Y-m-d H:i', strtotime(substr($SD,0,16)));
-    $e_d = $s_d;
-    $e_d = date('Y-m-d H:i', strtotime('+'.$_POST['graphHours'].'hours'));
+    $e_d = date('Y-m-d H:i', strtotime(substr($EDT,0,16)));
 
     include 'credential.php';
     $link = new mysqli($serverName, $userName, $passWord, $database);
