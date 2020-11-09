@@ -138,6 +138,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 $seconDate = clone($dt_user);
                                 $temp_dt_form = clone($dt_user);
                                 $class_deflt = 'b_main_time';
+                                $working_hours = '';
                                 if($k > 1){
                                     $seconDate = $seconDate->modify('+'.$k.' days')->format('Y-m-d');
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
@@ -149,15 +150,31 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 $temp_cellDate = new DateTime($seconDate);
                                 for ($j=0; $j < count($uniqueData); $j++) { 
                                    
-                                    $dateFromdb = $uniqueData[$j]['start_date'];
-                                    $firstDate = date('Y-m-d', strtotime(substr($dateFromdb, 0,10)));
+                                    $startDateFromdb = $uniqueData[$j]['start_date'];
+                                    $endDateFromdb = $uniqueData[$j]['end_date'];
+                                    $firstDate = date('Y-m-d', strtotime(substr($startDateFromdb, 0, 10)));
+                                    $startCompareValue = date('Y-m-d H:i', strtotime(substr($startDateFromdb, 0, 16)));
+                                    $endCompareValue = date('Y-m-d H:i', strtotime(substr($endDateFromdb, 0, 16)));
                                     $temp_startDate = new DateTime($firstDate);
-                                    if($temp_cellDate == $temp_startDate){
+                                    $temp_firstCompare = new DateTime($startCompareValue);
+                                    $temp_secondCompare = new DateTime($endCompareValue);
+                                    $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
+                                    $hours = $intervalDiff->format('%H');
+                                    $days_to = $intervalDiff->format('%a');
+                                    $hoursDiff = $days_to * 24 + $hours;
+
+                                    if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
                                         $class_deflt = 'b_main_time_work';
-                                    break 1;
+                                        $working_hours = $hoursDiff;
+                                        break 1;
+                                    }
+                                    elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
+                                        $class_deflt = 'b_main_time_warning';
+                                        $working_hours = $hoursDiff;
+                                        break 1;
                                     }
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value="'.$seconDate.'"></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
                             }
                         }else{
                             for ($k=0; $k < 7; $k++) { 
