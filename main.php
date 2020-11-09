@@ -175,7 +175,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     }
                                 }
                                 
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.' Hrs"></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
                             }
                         }else{
                             for ($k=0; $k < 7; $k++) { 
@@ -186,7 +186,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 }else{
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="Free"></td>';
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value=""></td>';
                             }
                         }
                         echo '</tr>';
