@@ -152,9 +152,11 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
                                     $firstDate = date('Y-m-d', strtotime(substr($startDateFromdb, 0, 10)));
+                                    $secondDate = date('Y-m-d', strtotime(substr($endDateFromdb, 0, 10)));
                                     $startCompareValue = date('Y-m-d H:i', strtotime(substr($startDateFromdb, 0, 16)));
                                     $endCompareValue = date('Y-m-d H:i', strtotime(substr($endDateFromdb, 0, 16)));
                                     $temp_startDate = new DateTime($firstDate);
+                                    $temp_endDate = new DateTime($secondDate);
                                     $temp_firstCompare = new DateTime($startCompareValue);
                                     $temp_secondCompare = new DateTime($endCompareValue);
                                     $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
@@ -167,7 +169,17 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $working_hours = $hoursDiff;
                                         break 1;
                                     }
+                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
+                                        $class_deflt = 'b_main_time_work';
+                                        $working_hours = $hoursDiff;
+                                        break 1;
+                                    }
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
+                                        $class_deflt = 'b_main_time_warning';
+                                        $working_hours = $hoursDiff;
+                                        break 1;
+                                    }
+                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
                                         $class_deflt = 'b_main_time_warning';
                                         $working_hours = $hoursDiff;
                                         break 1;
