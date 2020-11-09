@@ -144,7 +144,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
                                 }else{
                                     $seconDate = $seconDate->modify('+'.$k.' day')->format('Y-m-d');
-                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 
                                 $temp_cellDate = new DateTime($seconDate);
@@ -183,7 +183,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 if($k > 1){
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
                                 }else{
-                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value=""></td>';
                             }
