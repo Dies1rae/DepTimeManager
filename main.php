@@ -162,7 +162,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $days_to = $intervalDiff->format('%a');
                                     $hoursDiff = $days_to * 24 + $hours;
                                     
-
                                     if(($temp_cellDate <= $temp_startDate) && ($hoursDiff < 24)){
                                         $class_deflt = 'b_main_time_work';
                                         $working_hours = $hoursDiff;
@@ -174,7 +173,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         break 1;
                                     }
                                 }
-                                
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
                             }
                         }else{
@@ -301,12 +299,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
         //     else document.getElementById("advanced").style.display = "none";
         // });
-        function printId(vasya,dtValue){
+        function printId(vasya,dtValue,dtValu2){
             modal.style.display = "block";
             let myBtn = document.getElementById("user_id");
             let getElem = document.getElementById("startTime");
+            let getElem2 = document.getElementById("endTime");
             myBtn.value = vasya;
             getElem.value = dtValue;
+            getElem2.value = dtValu2;
         }
         
 </script>
