@@ -160,13 +160,16 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value="'.$seconDate.'"></td>';
                             }
                         }else{
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
-                            echo '<td><input type="submit" id="myBtn" class="b_main_time" onclick="printId('.$custId_ar[$i].', `'.$dt_user->modify('+1 day')->format('Y-m-d\TH:i').'`)" value=""></td>';
+                            for ($k=0; $k < 7; $k++) { 
+                                $temp_dt_form = clone($dt_user);
+                                $class_deflt = 'b_main_time';
+                                if($k > 1){
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                }else{
+                                    $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
+                                }
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`)" value=""></td>';
+                            }
                         }
                         echo '</tr>';
                     }
