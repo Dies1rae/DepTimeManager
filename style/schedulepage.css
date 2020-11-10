@@ -35,7 +35,7 @@ nav{
 main{
     grid-area: main;
     display: grid;
-    grid-template-rows: 70px auto;
+    grid-template-rows: minmax(70px, max-content) auto;
     background-color: #2b2b2c;
     height: 100%;
     min-width: 860px;
