@@ -35,10 +35,21 @@ private:
 			main_settings_.get_db_password().c_str(), main_settings_.get_db_name().c_str(), main_settings_.get_db_port(), NULL, 0);
 		mysql_query(conn, "set names cp1251");
 		if (conn) {
+			std::string query_chk_no = "SET FOREIGN_KEY_CHECKS = 0;";
 			std::string query = "DROP TABLE root;";
-			
+			std::string query_chk_yes = "SET FOREIGN_KEY_CHECKS = 1;";
+			const char* q0 = query_chk_no.c_str();
 			const char* q1 = query.c_str();
+			const char* q2 = query_chk_yes.c_str();
+			qstate = mysql_query(conn, q0);
+			if (qstate != 0) {
+				std::cerr << mysql_error(conn) << std::endl;
+			}
 			qstate = mysql_query(conn, q1);
+			if (qstate != 0) {
+				std::cerr << mysql_error(conn) << std::endl;
+			}
+			qstate = mysql_query(conn, q2);
 			if (qstate != 0) {
 				std::cerr << mysql_error(conn) << std::endl;
 			}
