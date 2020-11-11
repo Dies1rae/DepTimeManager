@@ -11,7 +11,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
     $conn->set_charset("utf8");
-    $query = "SELECT cal.g_uid, cal.start_date, cal.end_date FROM root INNER JOIN cal ON root.r_uid = cal.r_uid WHERE cal.r_uid LIKE '$ruid' AND (cal.start_date between '$bWeek' and '$eWeek')";
+    $query = "SELECT cal.g_uid, cal.start_date, cal.end_date FROM root INNER JOIN cal ON root.r_uid = cal.r_uid WHERE cal.r_uid LIKE '$ruid' AND (cal.start_date between '$bWeek' and '$eWeek' or '$bWeek' <= cal.end_date)";
     $result = $conn->query($query);
 
     $uniqueData = array();

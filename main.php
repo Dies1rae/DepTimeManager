@@ -170,13 +170,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         break 1;
                                     }
                                     elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                        $myResultArray[$k] = $hoursDiff;
+                                        
+                                        $startPoint=$temp_secondCompare->format('%H');
+                                        $customPoint = 24 - $startPoint;
+                                        $myResultArray[$k] = $customPoint;
+                                        
                                         break 1;
                                     }
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
-                                        //$working_hours = $hoursDiff;
-
-                                        //test
                                         $z = $k;
                                         $startPoint=$temp_firstCompare->format('%H');
                                         $customPoint = 24 - $startPoint;
@@ -190,8 +191,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         }
                                         $z++;
                                         $myResultArray[$z]= $hoursDiff;
-                                        //endtestblock
-
                                         break 1;
                                     }
                                     // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
