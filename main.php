@@ -129,6 +129,11 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         
                         $custId_ar[$i] = $result_dep[$i]['r_uid'];
                         $dt_user = clone($dt);
+                        $tmp_start_week_now_ = clone($dt);
+                        $tmp_start_week_now_tmp_second = clone($dt);
+                        $tmp_start_week_now_tmp_second = $tmp_start_week_now_tmp_second->format('Y-m-d');
+                        $tmp_start_week_now_tmp_second_suka = new DateTime($tmp_start_week_now_tmp_second);
+                        $tmp_start_week_now_ = $tmp_start_week_now_->format('Y-m-d H:i');
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
                         
@@ -148,6 +153,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 $temp_cellDate = new DateTime($seconDate);
+
                                 for ($j=0; $j < count($uniqueData); $j++) { 
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
@@ -174,6 +180,27 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $myResultArray[$k] = $customPoint;
                                         break 1;
                                     }
+
+                                    //---
+                                    elseif(($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff > 24)){
+                                        $tmp_start_week_now_date_compare = date('Y-m-d 00:00', strtotime(substr($tmp_start_week_now_, 0, 16)));
+                                        $tmp_start_week_now_compare = new DateTime($tmp_start_week_now_date_compare);
+                                        $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
+                                        $tmp_diff_hours = $tmp_diff_all->format('%H');
+                                        $tmp_diff_days = $tmp_diff_all->format('%a');
+                                        $z = $k;
+                                        if($tmp_diff_days > 0){
+                                            while($tmp_diff_days > 0){
+                                                $myResultArray[$z] = 24;
+                                                $tmp_diff_days = $tmp_diff_days - 1;
+                                                $z++;
+                                            }
+                                        }
+                                        $myResultArray[$z] = $tmp_diff_hours;
+                                        break 1;
+                                    }
+                                    //---
+
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
                                         $z = $k;
                                         $startPoint=$temp_firstCompare->format('%H');
