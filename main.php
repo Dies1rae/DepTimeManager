@@ -133,12 +133,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
                         
                         if(count($uniqueData)>0){
-                            
+                            $myResultArray = array_fill(0, 7, '');
                             for ($k=0; $k < 7; $k++) { 
                                 $seconDate = clone($dt_user);
                                 $temp_dt_form = clone($dt_user);
                                 $class_deflt = 'b_main_time';
                                 $working_hours = '';
+
                                 if($k > 1){
                                     $seconDate = $seconDate->modify('+'.$k.' days')->format('Y-m-d');
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
@@ -165,27 +166,49 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $hoursDiff = $days_to * 24 + $hours;
                                     
                                     if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
-                                        $class_deflt = 'b_main_time_work';
-                                        $working_hours = $hoursDiff;
+                                        $myResultArray[$k] = $hoursDiff;
                                         break 1;
                                     }
                                     elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                        $class_deflt = 'b_main_time_work';
-                                        $working_hours = $hoursDiff;
+                                        $myResultArray[$k] = $hoursDiff;
                                         break 1;
                                     }
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
-                                        $class_deflt = 'b_main_time_warning';
-                                        $working_hours = $hoursDiff;
+                                        //$working_hours = $hoursDiff;
+
+                                        //test
+                                        $z = $k;
+                                        $startPoint=$temp_firstCompare->format('%H');
+                                        $customPoint = 24 - $startPoint;
+                                        $myResultArray[$k] = $customPoint;
+                                        $hoursDiff = $hoursDiff - $customPoint;
+                                        while($hoursDiff > 24){
+                                            $z++;
+                                            $customPoint = 24;
+                                            $myResultArray[$z] = $customPoint;
+                                            $hoursDiff = $hoursDiff - 24;
+                                        }
+                                        $z++;
+                                        $myResultArray[$z]= $hoursDiff;
+                                        //endtestblock
+
                                         break 1;
                                     }
-                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
-                                        $class_deflt = 'b_main_time_warning';
-                                        $working_hours = $hoursDiff;
-                                        break 1;
-                                    }
+                                    // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
+                                    //     $class_deflt = 'b_main_time_warning';
+                                    //     $working_hours = $hoursDiff;
+                                    //     break 1;
+                                    // }
                                 }
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$working_hours.'"></td>';
+
+                                if($myResultArray[$k] >= 24){
+                                    $class_deflt = 'b_main_time_warning';
+                                }elseif($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
+                                    $class_deflt = 'b_main_time_work';
+                                }else{
+                                    $class_deflt = 'b_main_time';
+                                }
+                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
                             }
                         }else{
                             for ($k=0; $k < 7; $k++) { 
