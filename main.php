@@ -162,7 +162,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
                                     $hours = $intervalDiff->format('%H');
                                     $days_to = $intervalDiff->format('%a');
-                                    $hoursDiff = $days_to * 24 + $hours;
+                                    $hoursDiff = $days_to * 24 + $hours; //problem OVER WEEKENDS >24HOURS
                                     
                                     if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
                                         $myResultArray[$k] = $hoursDiff;
@@ -172,12 +172,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $startPoint=$temp_secondCompare->format('%H');
                                         $customPoint = 24 - $startPoint;
                                         $myResultArray[$k] = $customPoint;
-                                        
-                                        break 1;
-                                    }
-                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
-                                        $startPoint=$temp_secondCompare->format('%H');
-                                        $myResultArray[$k] = $hoursDiff - (24 - $startPoint);
                                         break 1;
                                     }
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
@@ -196,6 +190,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $myResultArray[$z]= $hoursDiff;
                                         break 1;
                                     }
+                                    
                                     // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
                                     //     $class_deflt = 'b_main_time_warning';
                                     //     $working_hours = $hoursDiff;
