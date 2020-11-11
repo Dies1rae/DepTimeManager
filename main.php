@@ -147,7 +147,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $seconDate = $seconDate->modify('+'.$k.' day')->format('Y-m-d');
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
-                                
                                 $temp_cellDate = new DateTime($seconDate);
                                 for ($j=0; $j < count($uniqueData); $j++) { 
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
@@ -170,11 +169,15 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         break 1;
                                     }
                                     elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                        
                                         $startPoint=$temp_secondCompare->format('%H');
                                         $customPoint = 24 - $startPoint;
                                         $myResultArray[$k] = $customPoint;
                                         
+                                        break 1;
+                                    }
+                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
+                                        $startPoint=$temp_secondCompare->format('%H');
+                                        $myResultArray[$k] = $hoursDiff - (24 - $startPoint);
                                         break 1;
                                     }
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
