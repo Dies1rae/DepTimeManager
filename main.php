@@ -130,10 +130,16 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         $custId_ar[$i] = $result_dep[$i]['r_uid'];
                         $dt_user = clone($dt);
                         $tmp_start_week_now_ = clone($dt);
+                        $tmp_start_week_now_ = $tmp_start_week_now_->format('Y-m-d H:i');
+
                         $tmp_start_week_now_tmp_second = clone($dt);
                         $tmp_start_week_now_tmp_second = $tmp_start_week_now_tmp_second->format('Y-m-d');
                         $tmp_start_week_now_tmp_second_suka = new DateTime($tmp_start_week_now_tmp_second);
-                        $tmp_start_week_now_ = $tmp_start_week_now_->format('Y-m-d H:i');
+
+                        $tmp_end_week_now_tmp_second = clone($dt_endweek);
+                        $tmp_end_week_now_tmp_second = $tmp_end_week_now_tmp_second->format('Y-m-d');
+                        $tmp_end_week_now_tmp_second_suka = new DateTime($tmp_end_week_now_tmp_second);
+
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
                         
@@ -168,21 +174,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
                                     $hours = $intervalDiff->format('%H');
                                     $days_to = $intervalDiff->format('%a');
-                                    $hoursDiff = $days_to * 24 + $hours; //problem OVER WEEKENDS >24HOURS
+                                    $hoursDiff = $days_to * 24 + $hours; 
                                     
                                     if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
                                         $myResultArray[$k] = $hoursDiff;
                                         break 1;
                                     }
-                                    elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                        $startPoint=$temp_secondCompare->format('%H');
-                                        $customPoint = 24 - $startPoint;
-                                        $myResultArray[$k] = $customPoint;
-                                        break 1;
-                                    }
-
-                                    //---
-                                    elseif(($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff > 24)){
+                                    elseif(($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
                                         $tmp_start_week_now_date_compare = date('Y-m-d 00:00', strtotime(substr($tmp_start_week_now_, 0, 16)));
                                         $tmp_start_week_now_compare = new DateTime($tmp_start_week_now_date_compare);
                                         $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
@@ -199,25 +197,36 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $myResultArray[$z] = $tmp_diff_hours;
                                         break 1;
                                     }
-                                    //---
-
-                                    elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff > 24)) {
-                                        $z = $k;
-                                        $startPoint=$temp_firstCompare->format('%H');
-                                        $customPoint = 24 - $startPoint;
-                                        $myResultArray[$k] = $customPoint;
-                                        $hoursDiff = $hoursDiff - $customPoint;
-                                        while($hoursDiff > 24){
+                                    elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
+                                        if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
+                                            $z = $k;
+                                            $startPoint=$temp_firstCompare->format('H');
+                                            $customPoint = 24 - $startPoint;
+                                            $myResultArray[$k] = $customPoint;
+                                            $hoursDiff = $hoursDiff - $customPoint;
+                                            while($hoursDiff > 24){
+                                                $z++;
+                                                $customPoint = 24;
+                                                $myResultArray[$z] = $customPoint;
+                                                $hoursDiff = $hoursDiff - 24;
+                                            }
                                             $z++;
-                                            $customPoint = 24;
-                                            $myResultArray[$z] = $customPoint;
-                                            $hoursDiff = $hoursDiff - 24;
+                                            $myResultArray[$z]= $hoursDiff;
+                                        } else {
+                                            $startPoint=$temp_firstCompare->format('H');
+                                            $customPoint = 24 - $startPoint;
+                                            $myResultArray[$k] = $customPoint;
                                         }
-                                        $z++;
-                                        $myResultArray[$z]= $hoursDiff;
                                         break 1;
                                     }
                                     
+                                    // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
+                                    //     $startPoint=$temp_secondCompare->format('%H');
+                                    //     $customPoint = 24 - $startPoint;
+                                    //     $myResultArray[$k] = $customPoint;
+                                    //     break 1;
+                                    // }
+
                                     // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
                                     //     $class_deflt = 'b_main_time_warning';
                                     //     $working_hours = $hoursDiff;
