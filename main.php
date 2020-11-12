@@ -114,20 +114,34 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     <th class = "th_weekend">ВС</th>
                 </tr>
                 <?php
+                    //начало и конец недели для запросов в БД
                     $_SESSION['start_week'] = $dt;
                     $_SESSION['end_week'] = $dt_endweek;
+                    //--------------
 
+                    //вызов емплоей - по сути гет в таблицу по юзерам ОТДЕЛА деп_кей
                     include 'employee.php';
                     $result_dep = array();
                     $custId_ar = array();
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
+                    //--------------
+
+                    //цикл по юзверям
                     for($i=0; $i< count($result_dep); $i++){
+                        //тут мы мередаем рутайди юзера в сессию чтобы отдать на запрос БД в кал_тейбл_гет.пхп
                         $_SESSION['ruid'] = $result_dep[$i]['r_uid'];
-                        
+                        //--------------
+
+                        //функция запроса в БД на время работы юзвере
                         require 'cal_table_get.php';
-                        
+                        //--------------
+
+                        //это ВСЕ данные юзверя из root получаются через employee.php
                         $custId_ar[$i] = $result_dep[$i]['r_uid'];
+                        //--------------
+
+                        //это по идее надо убирать в класс в формирование начала-конца недели + разные виды форматирования(я временем и без)
                         $dt_user = clone($dt);
                         $tmp_start_week_now_ = clone($dt);
                         $tmp_start_week_now_ = $tmp_start_week_now_->format('Y-m-d H:i');
@@ -139,11 +153,15 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         $tmp_end_week_now_tmp_second = clone($dt_endweek);
                         $tmp_end_week_now_tmp_second = $tmp_end_week_now_tmp_second->format('Y-m-d');
                         $tmp_end_week_now_tmp_second_suka = new DateTime($tmp_end_week_now_tmp_second);
+                        //--------------
 
+                        //тут отрисовка таблицы ФИО с кнопками и запросом в БД
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
-                        
+                        //--------------
                         if(count($uniqueData)>0){
+                            //СУКА!!!!!!
+                            //цикл по дням недели
                             $myResultArray = array_fill(0, 7, '');
                             for ($k=0; $k < 7; $k++) { 
                                 $seconDate = clone($dt_user);
@@ -161,6 +179,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 $temp_cellDate = new DateTime($seconDate);
 
                                 for ($j=0; $j < count($uniqueData); $j++) { 
+                                    //СУКА!!!!!!
+                                    //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
                                     $firstDate = date('Y-m-d', strtotime(substr($startDateFromdb, 0, 10)));
@@ -175,7 +195,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $hours = $intervalDiff->format('%H');
                                     $days_to = $intervalDiff->format('%a');
                                     $hoursDiff = $days_to * 24 + $hours; 
-                                    
+                                    //тут логика расчета свободных дней
+                                    //по сути описаны все ситуации на графике, убрать в отдельную функцию, частично применять для других графиков
+                                    //СУКА!!!!!!
                                     if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
                                         $myResultArray[$k] = $hoursDiff;
                                         break 1;
@@ -200,7 +222,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
                                         if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
                                             $z = $k;
-                                            $startPoint=$temp_firstCompare->format('H');
+                                            $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
                                             $customPoint = 24 - $startPoint;
                                             $myResultArray[$k] = $customPoint;
                                             $hoursDiff = $hoursDiff - $customPoint;
@@ -213,27 +235,16 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             $z++;
                                             $myResultArray[$z]= $hoursDiff;
                                         } else {
-                                            $startPoint=$temp_firstCompare->format('H');
+                                            $startPoint=$temp_firstCompare->format('H'); //and here
                                             $customPoint = 24 - $startPoint;
                                             $myResultArray[$k] = $customPoint;
                                         }
                                         break 1;
                                     }
-                                    
-                                    // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                    //     $startPoint=$temp_secondCompare->format('%H');
-                                    //     $customPoint = 24 - $startPoint;
-                                    //     $myResultArray[$k] = $customPoint;
-                                    //     break 1;
-                                    // }
-
-                                    // elseif(($temp_cellDate == $temp_endDate) && ($hoursDiff > 24)){
-                                    //     $class_deflt = 'b_main_time_warning';
-                                    //     $working_hours = $hoursDiff;
-                                    //     break 1;
-                                    // }
                                 }
+                                //--------------
 
+                                //тут мы в зависимости он числа часов выбераем тему(цвет) дня
                                 if($myResultArray[$k] >= 24){
                                     $class_deflt = 'b_main_time_warning';
                                 }elseif($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
@@ -242,7 +253,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $class_deflt = 'b_main_time';
                                 }
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
+                                //--------------
                             }
+                        //если в запросе из БД время нет нихуя то просто ресуем табличку с днями с прозрачной темой
                         }else{
                             for ($k=0; $k < 7; $k++) { 
                                 $temp_dt_form = clone($dt_user);
@@ -257,6 +270,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         }
                         echo '</tr>';
                     }
+                    //--------------
                 ?>
             </table>
         </main>
