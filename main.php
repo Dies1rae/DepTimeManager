@@ -202,7 +202,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         if($temp_startDate == $temp_endDate){
                                             $myResultArray[$k] = $hoursDiff;
                                         } elseif ($temp_startDate <= $temp_endDate) {
-                                            $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
+                                            $startPoint=$temp_firstCompare->format('H') - 0; //little bit of PHPHPHPH magick here
                                             $customPoint = 24 - $startPoint;
                                             $myResultArray[$k] = $customPoint;
                                         } else {
