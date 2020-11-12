@@ -199,10 +199,22 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     //по сути описаны все ситуации на графике, убрать в отдельную функцию, частично применять для других графиков
                                     //СУКА!!!!!!
                                     if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
-                                        $myResultArray[$k] = $hoursDiff;
+                                        if($temp_startDate == $temp_endDate){
+                                            $myResultArray[$k] = $hoursDiff;
+                                        } elseif ($temp_startDate <= $temp_endDate) {
+                                            $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
+                                            $customPoint = 24 - $startPoint;
+                                            $myResultArray[$k] = $customPoint;
+                                        } else {
+                                            $myResultArray[$k] = 0;
+                                        }
                                         break 1;
                                     }
-                                    elseif(($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
+                                    if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
+                                        $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
+                                        $myResultArray[$k] = $startPoint;
+                                        break 1;
+                                    } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
                                         $tmp_start_week_now_date_compare = date('Y-m-d 00:00', strtotime(substr($tmp_start_week_now_, 0, 16)));
                                         $tmp_start_week_now_compare = new DateTime($tmp_start_week_now_date_compare);
                                         $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
@@ -218,8 +230,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         }
                                         $myResultArray[$z] = $tmp_diff_hours;
                                         break 1;
-                                    }
-                                    elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
+                                    } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
                                         if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
                                             $z = $k;
                                             $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
