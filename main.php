@@ -141,17 +141,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         //--------------
 
                         //это по идее надо убирать в класс в формирование начала-конца недели + разные виды форматирования(я временем и без)
-                        $dt_user = clone($dt);
-                        $tmp_start_week_now_ = clone($dt);
-                        $tmp_start_week_now_ = $tmp_start_week_now_->format('Y-m-d H:i');
+                        $dt_user = $week_time_worker->get_start_week();//clone($dt);
 
-                        $tmp_start_week_now_tmp_second = clone($dt);
-                        $tmp_start_week_now_tmp_second = $tmp_start_week_now_tmp_second->format('Y-m-d');
-                        $tmp_start_week_now_tmp_second_suka = new DateTime($tmp_start_week_now_tmp_second);
+                        $tmp_start_week_now_ = $week_time_worker->Ymd_STweek_YMD_HI();
+                        $tmp_start_week_now_tmp_second_suka = new DateTime($week_time_worker->Ymd_STweek_YMD());
 
-                        $tmp_end_week_now_tmp_second = clone($dt_endweek);
-                        $tmp_end_week_now_tmp_second = $tmp_end_week_now_tmp_second->format('Y-m-d');
-                        $tmp_end_week_now_tmp_second_suka = new DateTime($tmp_end_week_now_tmp_second);
+                        $tmp_end_week_now_tmp_second_suka = new DateTime;
+                        $tmp_end_week_now_tmp_second_suka = $week_time_worker->Ymd_ENweek_YMD();
                         //--------------
 
                         //тут отрисовка таблицы ФИО с кнопками и запросом в БД
@@ -187,7 +183,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
                                     $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
                                     $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
-
                                     
                                     $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
                                     $hours = $intervalDiff->format('%H');
@@ -213,8 +208,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $myResultArray[$k] = $startPoint;
                                         break 1;
                                     } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
-                                        $tmp_start_week_now_date_compare = date('Y-m-d 00:00', strtotime(substr($tmp_start_week_now_, 0, 16)));
-                                        $tmp_start_week_now_compare = new DateTime($tmp_start_week_now_date_compare);
+                                        $tmp_start_week_now_compare = new DateTime;
+                                        $tmp_start_week_now_compare = $week_time_worker->transform_date_Ymd_0000_DB($tmp_start_week_now_);
+
                                         $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
                                         $tmp_diff_hours = $tmp_diff_all->format('%H');
                                         $tmp_diff_days = $tmp_diff_all->format('%a');
