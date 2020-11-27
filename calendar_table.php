@@ -37,3 +37,4 @@ class ca_table{
        // $conn->close();
         return $as;
     }
+    ?>

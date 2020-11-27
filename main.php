@@ -76,20 +76,24 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 <div class="schedule-box">
                     <div class="schedule-box-content">
                         <?php
+                            include_once 'time_worker.php';
+                            $week_time_worker = new time_worker()
                             $dt = new DateTime;
-                            if (isset($_GET['year']) && isset($_GET['week'])) {
-                                $dt->setISODate($_GET['year'], $_GET['week']);
-                            } else {
-                                $dt->setISODate($dt->format('o'), $dt->format('W'));
-                            }
+                            $dt = $week_time_worker->get_start_week();
+                            // if (isset($_GET['year']) && isset($_GET['week'])) {
+                            //     $dt->setISODate($_GET['year'], $_GET['week']);
+                            // } else {
+                            //     $dt->setISODate($dt->format('o'), $dt->format('W'));
+                            // }
                             $year = $dt->format('o');
                             $week = $dt->format('W');
                         ?>
                         <a href="<?php echo $_SERVER['PHP_SELF'].'?week='.($week-1).'&year='.$year; ?>" class="pr"><i class="fas fa-angle-left"></i></a>
                         <span class="title">
                             <?php
-                                $dt_endweek = clone($dt);
-                                $dt_endweek ->modify('+6 days');
+                                // $dt_endweek = clone($dt);
+                                // $dt_endweek ->modify('+6 days');
+                                $dt_endweek = $week_time_worker->get_end_week();
                                 echo $dt->format('l') . ' ' . $dt->format('d M Y') . '-' . $dt_endweek->format('l') . ' ' . $dt_endweek->format('d M Y');
                             ?>
                         </span>
@@ -183,14 +187,12 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
-                                    $firstDate = date('Y-m-d', strtotime(substr($startDateFromdb, 0, 10)));
-                                    $secondDate = date('Y-m-d', strtotime(substr($endDateFromdb, 0, 10)));
-                                    $startCompareValue = date('Y-m-d H:i', strtotime(substr($startDateFromdb, 0, 16)));
-                                    $endCompareValue = date('Y-m-d H:i', strtotime(substr($endDateFromdb, 0, 16)));
-                                    $temp_startDate = new DateTime($firstDate);
-                                    $temp_endDate = new DateTime($secondDate);
-                                    $temp_firstCompare = new DateTime($startCompareValue);
-                                    $temp_secondCompare = new DateTime($endCompareValue);
+                                    $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
+                                    $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
+                                    $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
+                                    $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
+
+                                    
                                     $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
                                     $hours = $intervalDiff->format('%H');
                                     $days_to = $intervalDiff->format('%a');
