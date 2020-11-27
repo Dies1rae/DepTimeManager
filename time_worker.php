@@ -1,26 +1,26 @@
 <?php 
+    session_start();
     class time_worker{
-        private $start_week_;
-        private $end_week_;
+        private $st_week_;
+        private $en_week_;
     
         public function __construct(){
-            $start_week_ = new DateTime;
+            $this->st_week_ = new DateTime;
             if (isset($_GET['year']) && isset($_GET['week'])) {
-                $dt->setISODate($_GET['year'], $_GET['week']);
+                $this->st_week_->setISODate($_GET['year'], $_GET['week']);
             } else {
-                $dt->setISODate($dt->format('o'), $dt->format('W'));
+                $this->st_week_->setISODate($this->st_week_->format('o'), $this->st_week_->format('W'));
             }
-            $end_week_ = clone($start_week);
-            $end_week_ ->modify('+6 days');
-
+            $this->en_week_ = clone($this->st_week_);
+            $this->en_week_->modify('+6 days');
         }
     
         public function get_start_week(){
-            return $start_week_;
+            return $this->st_week_;
         }
         
         public function get_end_week(){
-            return $end_week_;
+            return $this->en_week_;
         }
 
         public function transform_date_Ymd_DB($datetime_){
