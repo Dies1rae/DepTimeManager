@@ -174,6 +174,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 $temp_cellDate = new DateTime($seconDate);
 
                                 for ($j=0; $j < count($uniqueData); $j++) { 
+
                                     //СУКА!!!!!!
                                     //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
@@ -181,70 +182,88 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
                                     $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
                                     $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
-                                    $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
-                                    $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
-                                    
-                                    $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
-                                    $hours = $intervalDiff->format('%H');
-                                    $days_to = $intervalDiff->format('%a');
-                                    $hoursDiff = $days_to * 24 + $hours; 
-                                    //тут логика расчета свободных дней
-                                    //по сути описаны все ситуации на графике, убрать в отдельную функцию, частично применять для других графиков
-                                    //СУКА!!!!!!
-                                    if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
-                                        if($temp_startDate == $temp_endDate){
-                                            $myResultArray[$k] = $hoursDiff;
-                                        } elseif ($temp_startDate <= $temp_endDate) {
-                                            $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
-                                            $customPoint = 24 - $startPoint;
-                                            $myResultArray[$k] = $customPoint;
-                                        } else {
-                                            $myResultArray[$k] = 0;
-                                        }
-                                        break 1;
-                                    }
-                                    if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                        $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
-                                        $myResultArray[$k] = $startPoint;
-                                        break 1;
-                                    } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
-                                        $tmp_start_week_now_compare = new DateTime;
-                                        $tmp_start_week_now_compare = $week_time_worker->transform_date_Ymd_0000_DB($tmp_start_week_now_);
 
-                                        $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
-                                        $tmp_diff_hours = $tmp_diff_all->format('%H');
-                                        $tmp_diff_days = $tmp_diff_all->format('%a');
-                                        $z = $k;
-                                        if($tmp_diff_days > 0){
-                                            while($tmp_diff_days > 0){
-                                                $myResultArray[$z] = 24;
-                                                $tmp_diff_days = $tmp_diff_days - 1;
-                                                $z++;
+                                    //free graph with g_uid = 1
+                                    if($uniqueData[$j]['g_uid'] == '1'){
+
+                                        $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
+                                        $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
+                                        
+                                        $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
+                                        $hours = $intervalDiff->format('%H');
+                                        $days_to = $intervalDiff->format('%a');
+                                        $hoursDiff = $days_to * 24 + $hours; 
+                                        //тут логика расчета свободных дней
+                                        //по сути описаны все ситуации на графике, убрать в отдельную функцию, частично применять для других графиков
+                                        //СУКА!!!!!!
+                                        if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
+                                            if($temp_startDate == $temp_endDate){
+                                                $myResultArray[$k] = $hoursDiff;
+                                            } elseif ($temp_startDate <= $temp_endDate) {
+                                                $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
+                                                $customPoint = 24 - $startPoint;
+                                                $myResultArray[$k] = $customPoint;
+                                            } else {
+                                                $myResultArray[$k] = 0;
                                             }
+                                            break 1;
                                         }
-                                        $myResultArray[$z] = $tmp_diff_hours;
-                                        break 1;
-                                    } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
-                                        if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
+                                        if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
+                                            $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
+                                            $myResultArray[$k] = $startPoint;
+                                            break 1;
+                                        } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
+                                            $tmp_start_week_now_compare = new DateTime;
+                                            $tmp_start_week_now_compare = $week_time_worker->transform_date_Ymd_0000_DB($tmp_start_week_now_);
+
+                                            $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
+                                            $tmp_diff_hours = $tmp_diff_all->format('%H');
+                                            $tmp_diff_days = $tmp_diff_all->format('%a');
                                             $z = $k;
-                                            $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
-                                            $customPoint = 24 - $startPoint;
-                                            $myResultArray[$k] = $customPoint;
-                                            $hoursDiff = $hoursDiff - $customPoint;
-                                            while($hoursDiff > 24){
-                                                $z++;
-                                                $customPoint = 24;
-                                                $myResultArray[$z] = $customPoint;
-                                                $hoursDiff = $hoursDiff - 24;
+                                            if($tmp_diff_days > 0){
+                                                while($tmp_diff_days > 0){
+                                                    $myResultArray[$z] = 24;
+                                                    $tmp_diff_days = $tmp_diff_days - 1;
+                                                    $z++;
+                                                }
                                             }
-                                            $z++;
-                                            $myResultArray[$z]= $hoursDiff;
-                                        } else {
-                                            $startPoint=$temp_firstCompare->format('H'); //and here
-                                            $customPoint = 24 - $startPoint;
-                                            $myResultArray[$k] = $customPoint;
+                                            $myResultArray[$z] = $tmp_diff_hours;
+                                            break 1;
+                                        } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
+                                            if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
+                                                $z = $k;
+                                                $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
+                                                $customPoint = 24 - $startPoint;
+                                                $myResultArray[$k] = $customPoint;
+                                                $hoursDiff = $hoursDiff - $customPoint;
+                                                while($hoursDiff > 24){
+                                                    $z++;
+                                                    $customPoint = 24;
+                                                    $myResultArray[$z] = $customPoint;
+                                                    $hoursDiff = $hoursDiff - 24;
+                                                }
+                                                $z++;
+                                                $myResultArray[$z]= $hoursDiff;
+                                            } else {
+                                                $startPoint=$temp_firstCompare->format('H'); //and here
+                                                $customPoint = 24 - $startPoint;
+                                                $myResultArray[$k] = $customPoint;
+                                            }
+                                            break 1;
                                         }
-                                        break 1;
+                                    } // end free graph
+
+                                    //fiveday graph g_uid = 5
+                                    if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
+                                            $class_deflt = 'b_main_time_warning';
+                                            $myResultArray[$k] ='';
+                                        }else{
+                                            $class_deflt = 'b_main_time_work';
+                                            $myResultArray[$k] = 8;
+                                        }
                                     }
                                 }
                                 //--------------
@@ -252,10 +271,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 //тут мы в зависимости он числа часов выбераем тему(цвет) дня
                                 if($myResultArray[$k] >= 24){
                                     $class_deflt = 'b_main_time_warning';
-                                }elseif($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
+                                }
+                                if($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
                                     $class_deflt = 'b_main_time_work';
-                                }else{
-                                    $class_deflt = 'b_main_time';
                                 }
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
                                 //--------------
