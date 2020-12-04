@@ -324,8 +324,12 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
                             <select id="graphType" required name="graph_type">
-                                <option value="five">Пятидневка</option>
                                 <option value="1" selected>Свободный</option>
+                                <option value="5">Пятидневка Тип 1</option>
+                                <option value="6">Пятидневка Тип 2</option>
+                                <option value="7">Пятидневка Тип 3</option>
+                                <option value="8">Пятидневка Тип 4</option>
+                                <option value="9">Пятидневка Тип 5</option>
                             </select>
                         </td>
                     </tr>
@@ -364,10 +368,17 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 </table>
             </fieldset> -->
             <fieldset>
+                <legend>Информация о графике</legend>
+                <table border="5px" width="100%">
+                    <tr>
+                        <td><textarea id="graphInfoTextArea" class="graphInfo"></textarea></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
                 <table border="5px" width="100%">
                     <tr>
                         <td colspan="2"><input type="submit" id="testRuid" value="Сохранить"></td>
-                        
                     </tr>
                 </table>
             </fieldset>
@@ -378,12 +389,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         let modal = document.getElementById("myModal");
         // Get the button that opens the modal
         let btnArray = document.querySelectorAll("[id='myBtn']");
-        // for (let i = 0; i <btnArray.length; i++) {
-        //     btnArray[i].onclick = function() {
-        //     modal.style.display = "block";
-            
-        //     }
-        // }
 
         // Get the <span> element that closes the modal
         let span = document.getElementsByClassName("close")[0];
@@ -400,6 +405,40 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             }
         }
         
+
+        document.getElementById("graphType").addEventListener('change', function(e){
+            let dateValue = new Date(document.getElementById("startTime").value);
+            switch(e.target.value){
+                case '1':
+                    document.getElementById("graphInfoTextArea").value = "";
+                    break;
+                case '5':
+                    document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 10.00 ч.";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "10" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "19" + ":" + "00";
+                    break;
+                case '6':
+                    document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 09.00 ч.";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "09" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "18" + ":" + "00";
+                    break;
+                case '7':
+                    document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 11.00 ч.";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "11" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "20" + ":" + "00";
+                    break;
+                case '8':
+                    document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 06.00 ч.";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "06" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "15" + ":" + "00";
+                    break;
+                case '9':
+                    document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в понедельник и воскресенье";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "10" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "19" + ":" + "00";
+                    break;
+            }
+        });
         // document.getElementById("graphType").addEventListener('change', function(e){
         //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
         //     else document.getElementById("advanced").style.display = "none";
@@ -414,6 +453,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             getElem2.value = dtValu2;
         }
         
+        function zeroAdd(val){
+            if(val >= 10) return val;
+            else return '0' + val;
+        }
 </script>
 </body>
 </html>

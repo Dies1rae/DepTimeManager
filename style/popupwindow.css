@@ -47,7 +47,7 @@ fieldset{
 }
 
 #graphType {
-  width: 120px;
+  width: 190px;
 }
 
 #repeatField {
@@ -83,6 +83,14 @@ fieldset{
  
 #myModal table td {
   padding: 5px;
+}
+
+.graphInfo{
+  resize: none;
+  width: 100%;
+  background: none;
+  color: white;
+  border: none;
 }
 
 #advanced{
