@@ -119,6 +119,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     //--------------
 
                     //вызов емплоей - по сути гет в таблицу по юзерам ОТДЕЛА деп_кей
+                    include 'scheduleOutput.php';
+                    $curlbik = new ScheduleOutput();
+
                     include 'employee.php';
                     $result_dep = array();
                     $custId_ar = array();
@@ -251,11 +254,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             }
                                             break 1;
                                         }
+                                       
                                     } // end free graph
 
                                     //fiveday graph g_uid = 5
                                     if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        
+                                    // if($uniqueData[$j]['g_uid'] == '5'){
+                                    //     $curlbik->DrawFiveDayGraph($temp_startDate, $temp_endDate, $temp_cellDate);
                                         $dayOfWeek = $temp_cellDate->format('l');
                                         if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
                                             $class_deflt = 'b_main_time_warning';
@@ -324,7 +329,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="graphType">Тип графика <em>*</em></label></td>
                         <td>
                             <select id="graphType" required name="graph_type">
-                                <option value="1" selected>Свободный</option>
+                                <option value="1">Свободный</option>
                                 <option value="5">Пятидневка Тип 1</option>
                                 <option value="6">Пятидневка Тип 2</option>
                                 <option value="7">Пятидневка Тип 3</option>
@@ -341,10 +346,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td><label for="endTime">Окончание <em>*</em></label></td>
                         <td><input type="datetime-local" name="endTime" id="endTime" value = "" required></td>
                     </tr> 
-                    <!-- <tr>
-                        <td><label for="graphHours">Часы <em>*</em></label></td>
-                        <td><input type="number" name="graphHours" id="graphHours" required></td>
-                    </tr> -->
                 </table>
             </fieldset>
             <!-- <fieldset id="advanced">
@@ -445,6 +446,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         // });
         function printId(vasya,dtValue,dtValu2){
             modal.style.display = "block";
+            document.querySelector('#graphType').getElementsByTagName('option')[0].selected = true;
             let myBtn = document.getElementById("user_id");
             let getElem = document.getElementById("startTime");
             let getElem2 = document.getElementById("endTime");
