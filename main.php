@@ -119,9 +119,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     //--------------
 
                     //вызов емплоей - по сути гет в таблицу по юзерам ОТДЕЛА деп_кей
-                    include 'scheduleOutput.php';
-                    $curlbik = new ScheduleOutput();
-
                     include 'employee.php';
                     $result_dep = array();
                     $custId_ar = array();
@@ -259,8 +256,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
                                     //fiveday graph g_uid = 5
                                     if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                    // if($uniqueData[$j]['g_uid'] == '5'){
-                                    //     $curlbik->DrawFiveDayGraph($temp_startDate, $temp_endDate, $temp_cellDate);
                                         $dayOfWeek = $temp_cellDate->format('l');
                                         if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
                                             $class_deflt = 'b_main_time_warning';

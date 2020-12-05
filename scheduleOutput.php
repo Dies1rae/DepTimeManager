@@ -1,7 +1,7 @@
 <?php
     session_start();
     class ScheduleOutput{
-        function DrawFiveDayGraph($startDate, $endDate, $cellDate){
+        function DrawFiveDayGraph($guid, $startDate, $endDate, $cellDate){
 
             if (($cellDate >= $startDate) && ($cellDate <= $endDate)) {
                 $dayOfWeek = $cellDate->format('l');
