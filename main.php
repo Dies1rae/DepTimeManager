@@ -258,12 +258,19 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
                                         $dayOfWeek = $temp_cellDate->format('l');
                                         if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_warning';
-                                            $myResultArray[$k] ='';
+                                            $class_deflt = 'b_main_time_weekend';
+                                            $myResultArray[$k] = '';
                                         }else{
                                             $class_deflt = 'b_main_time_work';
                                             $myResultArray[$k] = 8;
                                         }
+                                    }
+
+                                    //weekend graph g_uid = 3
+                                    if($uniqueData[$j]['g_uid'] == '3' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        $class_deflt = 'b_main_time_weekend';
+                                        $myResultArray[$k] = '';
                                     }
                                 }
                                 //--------------
@@ -274,6 +281,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 }
                                 if($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
                                     $class_deflt = 'b_main_time_work';
+                                }
+                                if($uniqueData[$j]['g_uid'] == '3'){ // 3 its g_uid of weekend
+                                    $class_deflt = 'b_main_time_weekend';
                                 }
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
                                 //--------------
@@ -325,6 +335,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                         <td>
                             <select id="graphType" required name="graph_type">
                                 <option value="1">Свободный</option>
+                                <option value="3">Выходной</option>
                                 <option value="5">Пятидневка Тип 1</option>
                                 <option value="6">Пятидневка Тип 2</option>
                                 <option value="7">Пятидневка Тип 3</option>
@@ -407,6 +418,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             switch(e.target.value){
                 case '1':
                     document.getElementById("graphInfoTextArea").value = "";
+                    break;
+                case '3':
+                    document.getElementById("graphInfoTextArea").value = "Выходной";
                     break;
                 case '5':
                     document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 10.00 ч.";
