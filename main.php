@@ -120,6 +120,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
 
                     //вызов емплоей - по сути гет в таблицу по юзерам ОТДЕЛА деп_кей
                     include 'employee.php';
+                    //тут будет ООП по всему расчету дней и графиков для упрощения мейн
+                    include 'scheduleOutput.php';
+
                     $result_dep = array();
                     $custId_ar = array();
                     $dep = new Credential($_SESSION['dep_key']);
@@ -184,6 +187,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
 
                                     //free graph with g_uid = 1
+                                    
                                     if($uniqueData[$j]['g_uid'] == '1'){
 
                                         $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
