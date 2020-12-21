@@ -52,7 +52,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="help.php">
                         <i class="far fa-question-circle" aria-hidden="true"></i>
                         <span>Помощь</span>
                     </a>
