@@ -177,7 +177,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 $temp_cellDate = new DateTime($seconDate);
 
                                 for ($j=0; $j < count($uniqueData); $j++) { 
-
                                     //СУКА!!!!!!
                                     //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
@@ -210,12 +209,14 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             } else {
                                                 $myResultArray[$k] = 0;
                                             }
-                                            break 1;
+                                            $class_deflt = 'b_main_time_work';
+                                            continue;
                                         }
                                         if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
                                             $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
                                             $myResultArray[$k] = $startPoint;
-                                            break 1;
+                                            $class_deflt = 'b_main_time_work';
+                                            continue;
                                         } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
                                             $tmp_start_week_now_compare = new DateTime;
                                             $tmp_start_week_now_compare = $week_time_worker->transform_date_Ymd_0000_DB($tmp_start_week_now_);
@@ -232,7 +233,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                                 }
                                             }
                                             $myResultArray[$z] = $tmp_diff_hours;
-                                            break 1;
+                                            $class_deflt = 'b_main_time_work';
+                                            continue;
+                                            
                                         } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
                                             if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
                                                 $z = $k;
@@ -253,15 +256,21 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                                 $customPoint = 24 - $startPoint;
                                                 $myResultArray[$k] = $customPoint;
                                             }
-                                            break 1;
+                                            $class_deflt = 'b_main_time_work';
+                                            continue;
                                         }
-                                       
-                                    } // end free graph
+                                    }// end free graph
                                     
                                     //fiveday graph g_uid = 1 (after WARNING)
                                     if($uniqueData[$j]['g_uid'] == '1' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
                                         $dayOfWeek = $temp_cellDate->format('l');
                                         $class_deflt = 'b_main_time_work';
+                                    }
+
+                                    //weekend graph g_uid = 3
+                                    if($uniqueData[$j]['g_uid'] == '3' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $class_deflt = 'b_main_time_weekend';
+                                        $myResultArray[$k] = '';
                                     }
 
                                     //fiveday graph g_uid = 5
@@ -306,7 +315,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
-                                        }else{
+                                        } else {
                                             $class_deflt = 'b_main_time_FiveDay_6hrs';
                                             $myResultArray[$k] = 8;
                                         }
@@ -318,7 +327,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         if($dayOfWeek == 'Sunday'||$dayOfWeek =='Monday'){
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
-                                        }else{
+                                        } else {
                                             $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
                                             $myResultArray[$k] = 8;
                                         }
@@ -330,28 +339,31 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         if($dayOfWeek == 'Tuesday'||$dayOfWeek =='Saturday'){
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
-                                        }else{
+                                        } else {
                                             $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
                                             $myResultArray[$k] = 8;
                                         }
                                     }
-
-                                    //weekend graph g_uid = 3
-                                    if($uniqueData[$j]['g_uid'] == '3' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        $class_deflt = 'b_main_time_weekend';
-                                        $myResultArray[$k] = '';
-                                    }
                                 }
                                 //--------------
-
-                                //тут мы в зависимости он числа часов выбераем тему(цвет) дня
+                                //тут мы в зависимости от числа часов и GUID выбераем тему(цвет) дня
                                 if($myResultArray[$k] >= 24){
-                                    $class_deflt = 'b_main_time_warning';
+                                    if($uniqueData[$j]['g_uid'] == '3'){ 
+                                        $class_deflt = 'b_main_time_weekend';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '1'){ 
+                                        $class_deflt = 'b_main_time_work';
+                                    } 
+                                    else {
+                                        $class_deflt = 'b_main_time_warning';
+                                    }
                                 }
-                                if($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
+                                if($myResultArray[$k] < 24){
                                     if($uniqueData[$j]['g_uid'] == '1'){
                                         $class_deflt = 'b_main_time_work';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '3'){ 
+                                        $class_deflt = 'b_main_time_weekend';
                                     }
                                     if($uniqueData[$j]['g_uid'] == '5'){
                                         $class_deflt = 'b_main_time_FiveDay_10hrs';
@@ -372,9 +384,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
                                     }
                                 }
-                                if($uniqueData[$j]['g_uid'] == '3'){ // 3 its g_uid of weekend
-                                    $class_deflt = 'b_main_time_weekend';
-                                }
+                                //отрисовка
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
                                 //--------------
                             }
@@ -432,6 +442,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 <option value="8">Пятидневка Тип 4</option>
                                 <option value="9">Пятидневка Тип 5</option>
                                 <option value="10">Пятидневка Тип 6</option>
+                                <option value="11">Удаление</option>
                             </select>
                         </td>
                     </tr>
@@ -512,6 +523,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     break;
                 case '3':
                     document.getElementById("graphInfoTextArea").value = "Выходной";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "00" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "23" + ":" + "00";
                     break;
                 case '5':
                     document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 10.00 ч.";
@@ -542,6 +555,11 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     document.getElementById("graphInfoTextArea").value = "5-дневная рабочая неделя с выходными днями в среду и субботу";
                     document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "10" + ":" + "00";
                     document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "19" + ":" + "00";
+                    break;
+                case '11':
+                    document.getElementById("graphInfoTextArea").value = "Отчищает выбранный промежуток";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "00" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "23" + ":" + "00";
                     break;
                     
             }
