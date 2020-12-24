@@ -81,6 +81,70 @@ table{
     color: #a9a9a9;
     font-size: 20px;
    }
+   .b_main_time_vacation {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#34495E; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_10hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#45B39D; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_9hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#16A085; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_11hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#138D75; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_6hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#117A65; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_tue_10hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#0E6655; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_wed_saturd_10hrs {
+    border: none;
+    display: inline-block;
+    height: 35px;
+    width: 100%;
+    background:#0B5345; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+
    .b_main_time {
     border: none;
     display: inline-block;

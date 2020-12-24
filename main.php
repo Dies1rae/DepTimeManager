@@ -189,7 +189,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     //free graph with g_uid = 1
                                     
                                     if($uniqueData[$j]['g_uid'] == '1'){
-
+                                        
                                         $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
                                         $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
                                         
@@ -257,6 +257,12 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                         }
                                        
                                     } // end free graph
+                                    
+                                    //fiveday graph g_uid = 1 (after WARNING)
+                                    if($uniqueData[$j]['g_uid'] == '1' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        $class_deflt = 'b_main_time_work';
+                                    }
 
                                     //fiveday graph g_uid = 5
                                     if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
@@ -265,7 +271,43 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
                                         }else{
-                                            $class_deflt = 'b_main_time_work';
+                                            $class_deflt = 'b_main_time_FiveDay_10hrs';
+                                            $myResultArray[$k] = 8;
+                                        }
+                                    }
+
+                                    //fiveday graph g_uid = 6
+                                    if($uniqueData[$j]['g_uid'] == '6' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
+                                            $class_deflt = 'b_main_time_weekend';
+                                            $myResultArray[$k] = '';
+                                        }else{
+                                            $class_deflt = 'b_main_time_FiveDay_9hrs';
+                                            $myResultArray[$k] = 8;
+                                        }
+                                    }
+
+                                    //fiveday graph g_uid = 7
+                                    if($uniqueData[$j]['g_uid'] == '7' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
+                                            $class_deflt = 'b_main_time_weekend';
+                                            $myResultArray[$k] = '';
+                                        }else{
+                                            $class_deflt = 'b_main_time_FiveDay_11hrs';
+                                            $myResultArray[$k] = 8;
+                                        }
+                                    }
+
+                                    //fiveday graph g_uid = 8
+                                    if($uniqueData[$j]['g_uid'] == '8' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $dayOfWeek = $temp_cellDate->format('l');
+                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
+                                            $class_deflt = 'b_main_time_weekend';
+                                            $myResultArray[$k] = '';
+                                        }else{
+                                            $class_deflt = 'b_main_time_FiveDay_6hrs';
                                             $myResultArray[$k] = 8;
                                         }
                                     }
@@ -277,7 +319,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
                                         }else{
-                                            $class_deflt = 'b_main_time_work';
+                                            $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
                                             $myResultArray[$k] = 8;
                                         }
                                     }
@@ -289,7 +331,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
                                         }else{
-                                            $class_deflt = 'b_main_time_work';
+                                            $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
                                             $myResultArray[$k] = 8;
                                         }
                                     }
@@ -308,7 +350,27 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     $class_deflt = 'b_main_time_warning';
                                 }
                                 if($myResultArray[$k] > 0 && $myResultArray[$k] < 24 ){
-                                    $class_deflt = 'b_main_time_work';
+                                    if($uniqueData[$j]['g_uid'] == '1'){
+                                        $class_deflt = 'b_main_time_work';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '5'){
+                                        $class_deflt = 'b_main_time_FiveDay_10hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '6'){
+                                        $class_deflt = 'b_main_time_FiveDay_9hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '7'){
+                                        $class_deflt = 'b_main_time_FiveDay_11hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '8'){
+                                        $class_deflt = 'b_main_time_FiveDay_6hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '9'){
+                                        $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '10'){
+                                        $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
+                                    }
                                 }
                                 if($uniqueData[$j]['g_uid'] == '3'){ // 3 its g_uid of weekend
                                     $class_deflt = 'b_main_time_weekend';

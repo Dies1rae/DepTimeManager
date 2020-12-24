@@ -35,47 +35,52 @@
 
             <tr>
                 <td class="td_fio">Свободный(Free)</td>
-                <td class="td_fio">ID 1(Green - #728c69)</td>
+                <td class="td_fio" bgcolor="#728c69">ID 1(#728c69)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Выходной(Weekend)</td>
-                <td class="td_fio">ID 3(Blue - #052888)</td>
+                <td class="td_fio" bgcolor="#052888">ID 3(#052888)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Отпуск(Vacation)</td>
-                <td class="td_fio">ID 4(///)</td>
+                <td class="td_fio" bgcolor="#34495E">ID 4(#34495E)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Стандартная пятидневка СБ\ВС(FiveDay_10hrs)</td>
-                <td class="td_fio">ID 5(///)</td>
+                <td class="td_fio" bgcolor="#45B39D">ID 5(#45B39D)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Пятидневка с 9 утра СБ\ВС(FiveDay_9hrs)</td>
-                <td class="td_fio">ID 6(///)</td>
+                <td class="td_fio" bgcolor="#16A085">ID 6(#16A085)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Пятидневка с 11 утра СБ\ВС(FiveDay_11hrs)</td>
-                <td class="td_fio">ID 7(///)</td>
+                <td class="td_fio" bgcolor="#138D75">ID 7(#138D75)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Пятидневка с 6 утра СБ\ВС(FiveDay_6hrs)</td>
-                <td class="td_fio">ID 8(///)</td>
+                <td class="td_fio" bgcolor="#117A65">ID 8(#117A65)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Пятидневка с 10 утра ПН\ВС(FiveDay_tue_10hrs)</td>
-                <td class="td_fio">ID 9(///)</td>
+                <td class="td_fio" bgcolor="#0E6655">ID 9(#0E6655)</td>
             </tr>
 
             <tr>
                 <td class="td_fio">Пятидневка с 10 утра СР\СБ(FiveDay_wed_saturd_10hrs)</td>
-                <td class="td_fio">ID 10(///)</td>
+                <td class="td_fio" bgcolor="#0B5345">ID 10(#0B5345)</td>
+            </tr>
+
+            <tr>
+                <td class="td_fio">ВНИМАНИЕ(WARNING)</td>
+                <td class="td_fio" bgcolor="#60100B">ID ~(#60100B)</td>
             </tr>
         </table>
         </main>    
