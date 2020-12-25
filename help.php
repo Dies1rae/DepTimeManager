@@ -50,7 +50,7 @@
 
             <tr>
                 <td class="td_fio">Стандартная пятидневка СБ\ВС(FiveDay_10hrs)</td>
-                <td class="td_fio" bgcolor="#45B39D">ID 5(#45B39D)</td>
+                <td class="td_fio" bgcolor="#41a893c7">ID 5(#41a893c7)</td>
             </tr>
 
             <tr>
