@@ -26,10 +26,14 @@
             }
         }
         $result->free();
-        if($user_data_cal['g_uid' == '1'] || $user_data_cal['g_uid' == '3'] || $user_data_cal['g_uid' == '5']){
+        if($user_data_cal['g_uid'] == '1' || $user_data_cal['g_uid'] == '3' || $user_data_cal['g_uid'] == '5'){
             $s_d = date('Y-m-d', strtotime(substr($SD,0,16)));
             $e_d = date('Y-m-d', strtotime(substr($EDT,0,16)));
             $query="delete from cal where r_uid like '$ruid' and (start_date like '$s_d%' and end_date like '$e_d%')";
+            mysqli_query($link, $query);  
+        } else {
+            $s_d = date('Y-m-d', strtotime(substr($SD,0,16)));
+            $query="delete from cal where r_uid like '$ruid' and (start_date <= '$s_d%' or start_date like '$s_d%')";
             mysqli_query($link, $query);  
         }
 
