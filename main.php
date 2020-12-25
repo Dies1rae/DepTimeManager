@@ -344,6 +344,10 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                             $myResultArray[$k] = 8;
                                         }
                                     }
+                                    if($uniqueData[$j]['g_uid'] == '11' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        $class_deflt = 'b_main_time_vacation';
+                                        $myResultArray[$k] = '';
+                                    }
                                 }
                                 //--------------
                                 //тут мы в зависимости от числа часов и GUID выбераем тему(цвет) дня
@@ -354,6 +358,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     if($uniqueData[$j]['g_uid'] == '1'){ 
                                         $class_deflt = 'b_main_time_work';
                                     } 
+                                    if($uniqueData[$j]['g_uid'] == '11'){
+                                        $class_deflt = 'b_main_time_vacation';
+                                    }
                                     else {
                                         $class_deflt = 'b_main_time_warning';
                                     }
@@ -382,6 +389,9 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                     }
                                     if($uniqueData[$j]['g_uid'] == '10'){
                                         $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
+                                    }
+                                    if($uniqueData[$j]['g_uid'] == '11'){
+                                        $class_deflt = 'b_main_time_vacation';
                                     }
                                 }
                                 //отрисовка
@@ -442,7 +452,8 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                                 <option value="8">Пятидневка Тип 4</option>
                                 <option value="9">Пятидневка Тип 5</option>
                                 <option value="10">Пятидневка Тип 6</option>
-                                <option value="11">Удаление</option>
+                                <option value="11">Отпуск</option>
+                                <option value="12">Удаление</option>
                             </select>
                         </td>
                     </tr>
@@ -557,6 +568,11 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "19" + ":" + "00";
                     break;
                 case '11':
+                    document.getElementById("graphInfoTextArea").value = "Отпуск";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "00" + ":" + "00";
+                    document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "23" + ":" + "00";
+                    break;
+                case '12':
                     document.getElementById("graphInfoTextArea").value = "Отчищает выбранный промежуток";
                     document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "00" + ":" + "00";
                     document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "23" + ":" + "00";
