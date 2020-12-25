@@ -40,7 +40,7 @@
 
             <tr>
                 <td class="td_fio">Выходной(Weekend)</td>
-                <td class="td_fio" bgcolor="#052888">ID 3(#052888)</td>
+                <td class="td_fio" bgcolor="#3399ffc0">ID 3(#3399ffc0)</td>
             </tr>
 
             <tr>

@@ -21,6 +21,7 @@
             $uniqueData[] = $row;
         }
     }
+    $result->free();
     $conn->close();
     return $uniqueData;
 ?>

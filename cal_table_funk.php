@@ -17,17 +17,20 @@
     $link->set_charset("utf8");
 
     if($guid == 11){
-        $SD_q = $SD->format('Y-m-d');
-        $EDT_q = $EDT->format('Y-m-d');
-        $query = "SELECT cal.g_uid, cal.start_date, cal.end_date FROM root INNER JOIN cal ON root.r_uid = cal.r_uid WHERE cal.r_uid LIKE '$ruid' AND (cal.start_date between '$SD_q' and '$EDT_q' or '$SD_q' <= cal.end_date)";
+        $query = "SELECT cal.g_uid, cal.start_date, cal.end_date FROM root INNER JOIN cal ON root.r_uid = cal.r_uid WHERE cal.r_uid LIKE '$ruid' AND (cal.start_date between '$bWeek' and '$eWeek' or '$bWeek' <= cal.end_date)";
         $result = $link->query($query);
-
-        $uniqueData = array();
-
+        $user_data_cal = array();
         if($result->num_rows>0){
             while($row = $result->fetch_assoc()){ 
-                $uniqueData[] = $row;
+                $user_data_cal[] = $row;
             }
+        }
+        $result->free();
+        if($user_data_cal['g_uid' == '1'] || $user_data_cal['g_uid' == '3'] || $user_data_cal['g_uid' == '5']){
+            $s_d = date('Y-m-d', strtotime(substr($SD,0,16)));
+            $e_d = date('Y-m-d', strtotime(substr($EDT,0,16)));
+            $query="delete from cal where r_uid like '$ruid' and (start_date like '$s_d%' and end_date like '$e_d%')";
+            mysqli_query($link, $query);  
         }
 
     } else {
