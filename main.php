@@ -626,6 +626,9 @@ if(!isset($_SESSION['dep_key'])) {
         // });
         function printId(vasya,dtValue,dtValu2){
             modal.style.display = "block";
+            document.getElementById("graphs").style.display = "block";
+            document.getElementById("gButtons").style.display = "block";
+            document.getElementById("graphInfoTextArea").value = "";
             document.querySelector('#graphType').getElementsByTagName('option')[0].selected = true;
             let myBtn = document.getElementById("user_id");
             let getElem = document.getElementById("startTime");
