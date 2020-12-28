@@ -433,7 +433,7 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
         <form class="modal-content" action="cal_table_funk.php" method="POST">
         
         <span class="close">&times;</span>
-            <fieldset>
+            <fieldset id="graphs">
                 <legend>График работы</legend>
                 <table border="5px" width="100%">
                 <tr>
@@ -487,15 +487,15 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     </tr>
                 </table>
             </fieldset> -->
-            <fieldset>
+            <fieldset id="gInfo">
                 <legend>Информация о графике</legend>
                 <table border="5px" width="100%">
                     <tr>
-                        <td><textarea id="graphInfoTextArea" class="graphInfo"></textarea></td>
+                        <td><textarea id="graphInfoTextArea" class="graphInfo" readonly></textarea></td>
                     </tr>
                 </table>
             </fieldset>
-            <fieldset>
+            <fieldset id="gButtons">
                 <table border="5px" width="100%">
                     <tr>
                         <td colspan="2"><input type="submit" id="testRuid" value="Сохранить"></td>
@@ -524,7 +524,6 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                 modal.style.display = "none";
             }
         }
-        
 
         document.getElementById("graphType").addEventListener('change', function(e){
             let dateValue = new Date(document.getElementById("startTime").value);
@@ -580,6 +579,46 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
                     
             }
         });
+
+        for(let i=0; i < btnArray.length; i++){
+            btnArray[i].addEventListener('contextmenu', function(e){
+            e.preventDefault();
+            switch(btnArray[i].getAttribute("class")){
+                case "b_main_time_weekend":
+                    infoMsg("Выходной");
+                    break;
+                case "b_main_time_work":
+                    infoMsg("Свободный");
+                    break;
+                case "b_main_time_warning":
+                    infoMsg("Свободный");
+                    break;
+                case "b_main_time_FiveDay_10hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 10.00 ч.");
+                    break;
+                case "b_main_time_FiveDay_9hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 09.00 ч.");
+                    break;
+                case "b_main_time_FiveDay_11hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 11.00 ч.");
+                    break;
+                case "b_main_time_FiveDay_6hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в субботу и воскресенье с 06.00 ч.");
+                    break;
+                case "b_main_time_FiveDay_tue_10hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в понедельник и воскресенье");
+                    break;
+                case "b_main_time_FiveDay_wed_saturd_10hrs":
+                    infoMsg("5-дневная рабочая неделя с выходными днями в среду и субботу");
+                    break;
+                case "b_main_time_vacation":
+                    infoMsg("Отпуск");
+                    break;
+
+            }
+            }, false);
+        }
+        
         // document.getElementById("graphType").addEventListener('change', function(e){
         //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
         //     else document.getElementById("advanced").style.display = "none";
@@ -594,7 +633,13 @@ if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
             getElem.value = dtValue;
             getElem2.value = dtValu2;
         }
-        
+
+        function infoMsg(displayMSG){
+            modal.style.display = "block";
+            document.getElementById("graphs").style.display = "none";
+            document.getElementById("gButtons").style.display = "none";
+            document.getElementById("graphInfoTextArea").value = displayMSG;
+        }
         function zeroAdd(val){
             if(val >= 10) return val;
             else return '0' + val;
