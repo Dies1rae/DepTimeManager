@@ -1,7 +1,8 @@
 <?php
 session_start();
-if(!session_id() || session_status() !== PHP_SESSION_ACTIVE) {
-    header('Location: index.htm');
+//check session or logoff
+if(!isset($_SESSION['dep_key'])) {
+    header('Location: /index.htm');
 }
 
 ?>
