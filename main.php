@@ -234,7 +234,7 @@ if(!isset($_SESSION['dep_key'])) {
                                                 }
                                             }
                                             $myResultArray[$z] = $tmp_diff_hours;
-                                            $class_deflt = 'b_main_time_work';
+                                            $class_deflt = 'b_main_time_warning';
                                             continue;
                                             
                                         } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
@@ -356,9 +356,6 @@ if(!isset($_SESSION['dep_key'])) {
                                     if($uniqueData[$j]['g_uid'] == '3'){ 
                                         $class_deflt = 'b_main_time_weekend';
                                     }
-                                    if($uniqueData[$j]['g_uid'] == '1'){ 
-                                        $class_deflt = 'b_main_time_work';
-                                    } 
                                     if($uniqueData[$j]['g_uid'] == '11'){
                                         $class_deflt = 'b_main_time_vacation';
                                     }
