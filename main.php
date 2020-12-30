@@ -427,10 +427,9 @@ if(!isset($_SESSION['dep_key'])) {
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
-        
         <form class="modal-content" action="cal_table_funk.php" method="POST">
+        <div id="myModalHeader" class="close-test"><span class="close">&times;</span></div>
         
-        <span class="close">&times;</span>
             <fieldset id="graphs">
                 <legend>График работы</legend>
                 <table border="5px" width="100%">
@@ -628,7 +627,11 @@ if(!isset($_SESSION['dep_key'])) {
         
         function dragElement(elmnt) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-            elmnt.onmousedown = dragMouseDown;
+            if (document.getElementById(elmnt.id + "Header")) {
+                document.getElementById(elmnt.id + "Header").onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
 
             function dragMouseDown(e) {
                 e = e || window.event;
