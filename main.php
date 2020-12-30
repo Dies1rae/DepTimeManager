@@ -561,6 +561,8 @@ if(!isset($_SESSION['dep_key'])) {
         for(let i=0; i < btnArray.length; i++){
             btnArray[i].addEventListener('contextmenu', function(e){
             e.preventDefault();
+            modal.className = "modal-alt";
+            modal.attributeStyleMap.clear();
             switch(btnArray[i].getAttribute("class")){
                 case "b_main_time_weekend":
                     infoMsg("Выходной");
@@ -598,6 +600,8 @@ if(!isset($_SESSION['dep_key'])) {
         }
         
         function printId(vasya,dtValue,dtValu2){
+            modal.attributeStyleMap.clear();
+            modal.className = "modal";
             modal.style.display = "block";
             document.getElementById("graphs").style.display = "block";
             document.getElementById("gButtons").style.display = "block";
