@@ -75,7 +75,9 @@ fieldset{
   width: 190px;
 }
 
-#myModal input[type=reset], #myModal input[type=submit] {
+#myModal input[type=reset],
+ #myModal input[type=submit],
+ #myModal input[type=button] {
   padding: 0 5px 0 5px;
   background: #666666;
   border: 3px outset;
@@ -86,16 +88,21 @@ fieldset{
 }
 
 #myModal input[type=submit] {
-  float: right;
+  float: left;
   margin: 20px 10px 10px 0px;
 }
 
-#myModal input[type=reset] {
+#myModal input[type=button] {
+  float: right;
   margin: 20px 0 10px 10px;
 }
  
 #myModal table td {
   padding: 5px;
+}
+
+#myModal table .btnR{
+  padding: 5px 25px 5px 25px;
 }
 
 .graphInfo{
