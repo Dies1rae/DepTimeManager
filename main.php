@@ -465,26 +465,6 @@ if(!isset($_SESSION['dep_key'])) {
                     </tr> 
                 </table>
             </fieldset>
-            <!-- <fieldset id="advanced">
-                <legend>Дополнительные параметры</legend>
-                <table border="5px" width="100%">
-                    <tr>
-                        <td><label for="repeatField">Повтор графика <em>*</em></label></td>
-                        <td>
-                            <select id="repeatField" required>
-                                <option value="nonrepeat">неповторяющийся</option>
-                                <option value="daily">день</option>
-                                <option value="weekly">неделя</option>
-                                <option value="monthly">месяц</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="repeatEvery">Повторять <em>*</em></label></td>
-                        <td><input type="number" id="repeatEvery" required></td>
-                    </tr>
-                </table>
-            </fieldset> -->
             <fieldset id="gInfo">
                 <legend>Информация о графике</legend>
                 <table border="5px" width="100%">
@@ -617,10 +597,6 @@ if(!isset($_SESSION['dep_key'])) {
             }, false);
         }
         
-        // document.getElementById("graphType").addEventListener('change', function(e){
-        //     if(e.target.value === 'freedom') document.getElementById("advanced").style.display = "block";
-        //     else document.getElementById("advanced").style.display = "none";
-        // });
         function printId(vasya,dtValue,dtValu2){
             modal.style.display = "block";
             document.getElementById("graphs").style.display = "block";
