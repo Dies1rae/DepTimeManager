@@ -657,7 +657,7 @@ if(!isset($_SESSION['dep_key'])) {
             }
         }
 
-        dragElement(document.getElementsByClassName("modal-content"));
+        dragElement(document.getElementById("myModal"));
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-.modal {
+.modal-alt {
   font-family: Arial, Helvetica, sans-serif;
   display: none;
   position: fixed;
@@ -11,6 +11,18 @@
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
+}
+
+.modal {
+  font-family: Arial, Helvetica, sans-serif;
+  display: none;
+  background: none;
+  position: absolute;
+  cursor: move;
+  z-index: 1;
+  left: 40%;
+  top: 20%;
+  overflow: auto;
 }
   
 .modal-content {
