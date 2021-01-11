@@ -210,13 +210,27 @@ if(!isset($_SESSION['dep_key'])) {
                                             } else {
                                                 $myResultArray[$k] = 0;
                                             }
-                                            $class_deflt = 'b_main_time_work';
+
+                                            $time_start_worker_tmp = $temp_firstCompare->format('H');
+                                            if( $time_start_worker_tmp >= 20 || $time_start_worker_tmp <= 8) { 
+                                                $class_deflt = 'b_main_time_work_night';
+                                            } else {
+                                                $class_deflt = 'b_main_time_work';
+                                            }
+
                                             continue;
                                         }
                                         if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
                                             $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
                                             $myResultArray[$k] = $startPoint;
-                                            $class_deflt = 'b_main_time_work';
+
+                                            $time_end_worker_tmp = $temp_secondCompare->format('H');
+                                            if($time_end_worker_tmp >= 20 || $time_end_worker_tmp <= 8){
+                                                $class_deflt = 'b_main_time_work_night';
+                                            } else {
+                                                $class_deflt = 'b_main_time_work';
+                                            }
+                                            
                                             continue;
                                         } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
                                             $tmp_start_week_now_compare = new DateTime;
@@ -234,7 +248,14 @@ if(!isset($_SESSION['dep_key'])) {
                                                 }
                                             }
                                             $myResultArray[$z] = $tmp_diff_hours;
-                                            $class_deflt = 'b_main_time_warning';
+
+                                            $time_end_worker_tmp = $temp_secondCompare->format('H');
+                                            if($time_end_worker_tmp >= 20 || $time_end_worker_tmp <= 8){
+                                                $class_deflt = 'b_main_time_work_night';
+                                            } else {
+                                                $class_deflt = 'b_main_time_work';
+                                            }
+
                                             continue;
                                             
                                         } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
@@ -268,6 +289,7 @@ if(!isset($_SESSION['dep_key'])) {
                                         $class_deflt = 'b_main_time_work';
                                     }
 
+                                    
                                     //weekend graph g_uid = 3
                                     if($uniqueData[$j]['g_uid'] == '3' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
                                         $class_deflt = 'b_main_time_weekend';

@@ -41,8 +41,13 @@ if(!isset($_SESSION['dep_key'])) {
             </tr>
 
             <tr>
-                <td class="td_fio">Свободный(Free)</td>
+                <td class="td_fio">Свободный c 8:00 до 20:00(Free - Day)</td>
                 <td class="td_fio" bgcolor="#728c69">ID 1(#728c69)</td>
+            </tr>
+
+            <tr>
+                <td class="td_fio">Свободный c 20:00 до 08:00 (Free - Night)</td>
+                <td class="td_fio" bgcolor="#3d4d38">ID 1(#728c69)</td>
             </tr>
 
             <tr>
