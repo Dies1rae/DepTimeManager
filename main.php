@@ -593,7 +593,7 @@ if(!isset($_SESSION['dep_key'])) {
                     infoMsg("Выходной");
                     break;
                 case "b_main_time_work":
-                    infoMsg("Свободный");
+                    infoMsg("Свободный c 8:00 до 20:00(Free - Day)");
                     break;
                 case "b_main_time_warning":
                     infoMsg("Свободный");
@@ -618,6 +618,9 @@ if(!isset($_SESSION['dep_key'])) {
                     break;
                 case "b_main_time_vacation":
                     infoMsg("Отпуск");
+                    break;
+                case "b_main_time_work_night":
+                    infoMsg("Свободный c 20:00 до 08:00 (Free - Night)");
                     break;
 
             }
