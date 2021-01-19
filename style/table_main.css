@@ -153,7 +153,31 @@ table{
     color: #a9a9a9;
     font-size: 20px;
    }
-
+   .b_main_time_work_fnight{
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#3d4d38; 
+    color: #a9a9a9;
+    font-size: 20px;
+    text-align: right;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+   }
+   .b_cell_bg{
+    background:#3399ffc0;
+   }
+   .b_main_time_work_snight{
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#3d4d38; 
+    color: #a9a9a9;
+    font-size: 20px;
+    text-align: left;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+   }
    .b_main_time {
     border: none;
     display: inline-block;

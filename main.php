@@ -371,6 +371,31 @@ if(!isset($_SESSION['dep_key'])) {
                                         $class_deflt = 'b_main_time_vacation';
                                         $myResultArray[$k] = '';
                                     }
+                                    // (O_O)///\\\(O_O)
+                                    if($uniqueData[$j]['g_uid'] == '13' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        if($step == 0){
+                                            $class_deflt = 'b_main_time_work';
+                                            $myResultArray[$k] = 12;
+                                            $step++;
+                                        }
+                                        elseif($step == 1){
+                                            $class_deflt = 'b_main_time_work_fnight';
+                                            $td_class = 'b_cell_bg';
+                                            $myResultArray[$k] = 3;
+                                            $step++;
+                                        }
+                                        elseif($step == 2){
+                                            $class_deflt = 'b_main_time_work_snight';
+                                            $td_class = 'b_cell_bg';
+                                            $myResultArray[$k] = 7;
+                                            $step++;
+                                        }
+                                        elseif($step == 3){
+                                            $class_deflt = 'b_main_time_weekend';
+                                            $myResultArray[$k] = '';
+                                            $step = 0;
+                                        }
+                                    }
                                 }
                                 //--------------
                                 //тут мы в зависимости от числа часов и GUID выбераем тему(цвет) дня
@@ -473,6 +498,7 @@ if(!isset($_SESSION['dep_key'])) {
                                 <option value="10">Пятидневка Тип 6</option>
                                 <option value="11">Отпуск</option>
                                 <option value="12">Удаление</option>
+                                <option value="13">Админский</option>
                             </select>
                         </td>
                     </tr>
@@ -578,6 +604,10 @@ if(!isset($_SESSION['dep_key'])) {
                     document.getElementById("graphInfoTextArea").value = "Отчищает выбранный промежуток";
                     document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "00" + ":" + "00";
                     document.getElementById("endTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "23" + ":" + "00";
+                    break;
+                case '13':
+                    document.getElementById("graphInfoTextArea").value = "Админский";
+                    document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "07" + ":" + "30";
                     break;
                     
             }
