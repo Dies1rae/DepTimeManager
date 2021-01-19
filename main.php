@@ -440,7 +440,7 @@ if(!isset($_SESSION['dep_key'])) {
                                     }
                                 }
                                 //отрисовка
-                                echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
+                                echo '<td class="'.$td_class.'"><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
                                 //--------------
                             }
                         //если в запросе из БД время нет нихуя то просто ресуем табличку с днями с прозрачной темой
