@@ -373,28 +373,23 @@ if(!isset($_SESSION['dep_key'])) {
                                     }
                                     // (O_O)///\\\(O_O)
                                     if($uniqueData[$j]['g_uid'] == '13' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        if($step == 0){
+                                        $compareFirstDay = $temp_cellDate->diff($temp_startDate);
+                                        $tempFC = $compareFirstDay->format('%a');
+                                       if($temp_cellDate == $temp_startDate || $tempFC % 4 == 0){
                                             $class_deflt = 'b_main_time_work';
                                             $myResultArray[$k] = 12;
-                                            $step++;
-                                        }
-                                        elseif($step == 1){
-                                            $class_deflt = 'b_main_time_work_fnight';
-                                            $td_class = 'b_cell_bg';
-                                            $myResultArray[$k] = 3;
-                                            $step++;
-                                        }
-                                        elseif($step == 2){
+                                       }elseif($tempFC % 2 == 0 && !($tempFC % 4 == 0)){
                                             $class_deflt = 'b_main_time_work_snight';
                                             $td_class = 'b_cell_bg';
                                             $myResultArray[$k] = 7;
-                                            $step++;
-                                        }
-                                        elseif($step == 3){
+                                       }elseif($tempFC % 2 != 0 && (($tempFC + 3) % 4 == 0)){
+                                            $class_deflt = 'b_main_time_work_fnight';
+                                            $td_class = 'b_cell_bg';
+                                            $myResultArray[$k] = 3;
+                                       }else{
                                             $class_deflt = 'b_main_time_weekend';
                                             $myResultArray[$k] = '';
-                                            $step = 0;
-                                        }
+                                       }
                                     }
                                 }
                                 //--------------
