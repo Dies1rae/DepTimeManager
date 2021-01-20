@@ -373,8 +373,11 @@ if(!isset($_SESSION['dep_key'])) {
                                     }
                                     // (O_O)///\\\(O_O)
                                     if($uniqueData[$j]['g_uid'] == '13' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $compareFirstDay = $temp_cellDate->diff($temp_startDate);
-                                        $tempFC = $compareFirstDay->format('%a');
+                                        $compareFirstDay = $temp_cellDate->diff($temp_startDate); // Вычисление разницы между указанной даты начала графика и даты в текущей ячейке
+                                        $tempFC = $compareFirstDay->format('%a'); // форматирование разнцы в дни
+                                        //первое условие - первый день цикла, последовательность чисел кратных четырем
+                                        //второе условие - третий день цикла, последовательность четных чисел, исключая числа кратные четырем
+                                        //третье условие - второй день цикла, последовательность нечетных чисел "An=4n-3"
                                        if($temp_cellDate == $temp_startDate || $tempFC % 4 == 0){
                                             $class_deflt = 'b_main_time_work';
                                             $myResultArray[$k] = 12;
