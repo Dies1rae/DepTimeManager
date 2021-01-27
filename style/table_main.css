@@ -57,7 +57,7 @@ table{
    .b_main_time_work {
     border: none;
     display: inline-block;
-    height: 35px;
+    height: 100%;
     width: 100%;
     background:#728c69; 
     color: #a9a9a9;
@@ -66,90 +66,9 @@ table{
    .b_main_time_work_night{
     border: none;
     display: inline-block;
-    height: 35px;
+    height: 100%;
     width: 100%;
     background:#3d4d38; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_weekend {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#3399ffc0; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_warning {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#60100B; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_vacation {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#34495E; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_10hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#41a893c7; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_9hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#16A085; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_11hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#138D75; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_6hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#117A65; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_tue_10hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#0E6655; 
-    color: #a9a9a9;
-    font-size: 20px;
-   }
-   .b_main_time_FiveDay_wed_saturd_10hrs {
-    border: none;
-    display: inline-block;
-    height: 35px;
-    width: 100%;
-    background:#0B5345; 
     color: #a9a9a9;
     font-size: 20px;
    }
@@ -178,10 +97,92 @@ table{
     text-align: left;
     clip-path: polygon(0 0, 0 100%, 100% 100%);
    }
+   .b_main_time_weekend {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#3399ffc0; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_warning {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#60100B; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_vacation {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#34495E; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_10hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#41a893c7; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_9hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#16A085; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_11hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#138D75; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_6hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#117A65; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_tue_10hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#0E6655; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+   .b_main_time_FiveDay_wed_saturd_10hrs {
+    border: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background:#0B5345; 
+    color: #a9a9a9;
+    font-size: 20px;
+   }
+
    .b_main_time {
     border: none;
     display: inline-block;
-    height: 35px;
+    height: 100%;
     width: 100%;
     background:transparent; 
     color: #a9a9a9;
