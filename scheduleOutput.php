@@ -1,14 +1,31 @@
 <?php
     class ScheduleOutput{
 
-        public $cellDate, $startDate, $ruid, $dtform, $guid;
+        public $cellDate, $startDate, $ruid, $dtform, $guid, $wrkngHours;
 
-        function __construct($cellDate, $startDate, $ruid, $dtform, $guid){
+        function __construct($cellDate, $startDate, $ruid, $dtform, $guid, $w_Hourse){
             $this->cellDate = $cellDate;
             $this->startDate = $startDate;
             $this->ruid = $ruid;
             $this->dtform = $dtform;
             $this->guid = $guid;
+            $this->wrkngHours = $w_Hourse;
+        }
+
+        function DRAW($hrs, $theme){
+            $class_deflt = 'b_main_time';
+            echo '<td><input type="submit" id="myBtn" class="'.$theme.'" onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)" value="'.$hrs.'"></td>';
+        }
+
+        function DrawZeroCell(){
+            $class_deflt = 'b_main_time';
+            $h;
+            $this->DRAW($h,$class_deflt);
+        }
+
+        function DrawFreeGraph(){
+            $class_deflt = 'b_main_time_work';
+            $this->DRAW($this->wrkngHours,$class_deflt);
         }
 
         function AdminGraph(){
