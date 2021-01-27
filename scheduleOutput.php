@@ -1,113 +1,101 @@
 <?php
     class ScheduleOutput{
 
-        public $cellDate, $startDate, $ruid, $dtform, $guid, $wrkngHours;
+        public $cellDate, $startDate, $ruid, $dtform, $guid, $hrs, $theme, $tdclass;
 
-        function __construct($cellDate, $startDate, $ruid, $dtform, $guid, $w_Hourse){
-            $this->cellDate = $cellDate;
-            $this->startDate = $startDate;
-            $this->ruid = $ruid;
-            $this->dtform = $dtform;
-            $this->guid = $guid;
-            $this->wrkngHours = $w_Hourse;
-        }
+        
 
-        function DRAW($hrs, $theme){
+        function DRAW(){
             $class_deflt = 'b_main_time';
-            echo '<td><input type="submit" id="myBtn" class="'.$theme.'" onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)" value="'.$hrs.'"></td>';
+            echo '<td class="'.$this->tdclass.'"><input type="submit" id="myBtn" class="'.$this->theme.'" onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)" value="'.$this->hrs.'"></td>';
         }
 
         function DrawZeroCell(){
-            $class_deflt = 'b_main_time';
-            $h;
-            $this->DRAW($h,$class_deflt);
+            $this->theme = 'b_main_time';
         }
 
         function DrawFreeGraph(){
-            $class_deflt = 'b_main_time_work';
-            $this->DRAW($this->wrkngHours,$class_deflt);
+            $this->theme = 'b_main_time_work';
+            $this->tdclass = '';
         }
 
         function AdminGraph(){
             $compareFirstDay = $this->cellDate->diff($this->startDate);
             $tempFC = $compareFirstDay->format('%a');
             if($this->cellDate == $this->startDate || $tempFC % 4 == 0){
-                 $class_deflt = 'b_main_time_work';
-                 $wrkH = 12;
+                 $this->theme = 'b_main_time_work';
+                 $this->hrs = 12;
             }elseif($tempFC % 2 == 0 && !($tempFC % 4 == 0)){
-                 $class_deflt = 'b_main_time_work_snight';
-                 $td_class = 'b_cell_bg';
-                 $wrkH = 7;
+                 $this->theme = 'b_main_time_work_snight';
+                 $this->tdclass = 'b_cell_bg';
+                 $this->hrs= 7;
             }elseif($tempFC % 2 != 0 && (($tempFC + 3) % 4 == 0)){
-                 $class_deflt = 'b_main_time_work_fnight';
-                 $td_class = 'b_cell_bg';
-                 $wrkH = 3;
+                 $this->theme = 'b_main_time_work_fnight';
+                 $this->tdclass = 'b_cell_bg';
+                 $this->hrs = 3;
             }else{
-                 $class_deflt = 'b_main_time_weekend';
-                 $wrkH = '';
+                 $this->theme = 'b_main_time_weekend';
+                 $this->hrs = '';
             }
-            echo '<td class="'.$td_class.'"><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)" value="'.$wrkH.'"></td>';
         }
 
         function DrawFiveDayGraph(){
             $dayOfWeek = $this->cellDate->format('l');
+            $this->tdclass = '';
             if($this->guid == 5){
                 if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_10hrs';
-                    $workHours = 8;
+                    $this->theme = 'b_main_time_FiveDay_10hrs';
+                    $this->hrs = 8;
                 }
             }
             if($this->guid == 6){
                 if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_9hrs';
-                    $workHours = 8;
+                    $this->theme = 'b_main_time_FiveDay_9hrs';
+                    $this->hrs = 8;
                 }
             }
             if($this->guid == 7){
                 if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_11hrs';
-                    $workHours = 8;
+                    $this->theme = 'b_main_time_FiveDay_11hrs';
+                    $this->hrs = 8;
                 }
             }
             if($this->guid == 8){
                 if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_6hrs';
-                    $workHours = 8;
+                    $this->theme  = 'b_main_time_FiveDay_6hrs';
+                    $this->hrs = 8;
                 }
             }
             if($this->guid == 9){
                 if($dayOfWeek == 'Sunday'||$dayOfWeek =='Monday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
-                    $workHours = 8;
+                    $this->theme = 'b_main_time_FiveDay_tue_10hrs';
+                    $this->hrs = 8;
                 }
             }
             if($this->guid == 10){
                 if($dayOfWeek == 'Wednesday'||$dayOfWeek =='Saturday'){ 
-                    $class_deflt = 'b_main_time_weekend';
-                    $workHours = '';
+                    $this->theme = 'b_main_time_weekend';
+                    $this->hrs = '';
                 }else{
-                    $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
-                    $workHours = 8;
+                    $this->theme = 'b_main_time_FiveDay_wed_saturd_10hrs';
+                    $this->hrs = 8;
                 }
             }
-            echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'"
-            onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)"
-            value="'.$workHours.'"></td>';
         }
     }
 ?>

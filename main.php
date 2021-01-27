@@ -1,11 +1,10 @@
-
 <?php
 session_start();
 //check session or logoff
 if(!isset($_SESSION['dep_key'])) {
     header('Location: /index.htm');
 }
-
+$_SESSION['step'] = 0;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -119,7 +118,6 @@ if(!isset($_SESSION['dep_key'])) {
                     $_SESSION['start_week'] = $dt;
                     $_SESSION['end_week'] = $dt_endweek;
                     //--------------
-
                     //вызов емплоей - по сути гет в таблицу по юзерам ОТДЕЛА деп_кей
                     include 'employee.php';
                     //тут будет ООП по всему расчету дней и графиков для упрощения мейн
@@ -130,9 +128,9 @@ if(!isset($_SESSION['dep_key'])) {
                     $dep = new Credential($_SESSION['dep_key']);
                     $result_dep = $dep->sql_query_dep();
                     //--------------
-
                     //цикл по юзверям
                     for($i=0; $i< count($result_dep); $i++){
+                        
                         //тут мы мередаем рутайди юзера в сессию чтобы отдать на запрос БД в кал_тейбл_гет.пхп
                         $_SESSION['ruid'] = $result_dep[$i]['r_uid'];
                         //--------------
@@ -159,10 +157,11 @@ if(!isset($_SESSION['dep_key'])) {
                         echo '<tr>';
                         echo '<td class = "td_fio"><form method = "POST" action="userpage.php"><input type="hidden" name="custId" value="'.$result_dep[$i]['account'].'"><input type="hidden" name="lname" value="'.$result_dep[$i]['name'].'" readonly="readonly"><input type="submit" class="b_main_name" value="'.$result_dep[$i]['name'].'"></form></td>';
                         //--------------
-                        if(count($uniqueData)>0){
+
+                        
+                        if(count($uniqueData) > 0){
                             //СУКА!!!!!!
                             //цикл по дням недели
-                            $myResultArray = array_fill(0, 7, '');
                             for ($k=0; $k < 7; $k++) { 
                                 $seconDate = clone($dt_user);
                                 $temp_dt_form = clone($dt_user);
@@ -177,270 +176,53 @@ if(!isset($_SESSION['dep_key'])) {
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 $temp_cellDate = new DateTime($seconDate);
+                                $testClass = new scheduleOutput();
 
                                 for ($j=0; $j < count($uniqueData); $j++) { 
-                                    //СУКА!!!!!!
-                                    //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
-
                                     $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
                                     $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
 
-                                    //free graph with g_uid = 1
-                                    
-                                    if($uniqueData[$j]['g_uid'] == '1'){
-                                        
-                                        $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
-                                        $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
-                                        
-                                        $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
-                                        $hours = $intervalDiff->format('%H');
-                                        $days_to = $intervalDiff->format('%a');
-                                        $hoursDiff = $days_to * 24 + $hours; 
-                                        //тут логика расчета свободных дней
-                                        //по сути описаны все ситуации на графике, убрать в отдельную функцию, частично применять для других графиков
-                                        //СУКА!!!!!!
-                                        if(($temp_cellDate == $temp_startDate) && ($hoursDiff < 24)){
-                                            if($temp_startDate == $temp_endDate){
-                                                $myResultArray[$k] = $hoursDiff;
-                                            } elseif ($temp_startDate <= $temp_endDate) {
-                                                $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
-                                                $customPoint = 24 - $startPoint;
-                                                $myResultArray[$k] = $customPoint;
-                                            } else {
-                                                $myResultArray[$k] = 0;
-                                            }
-
-                                            $time_start_worker_tmp = $temp_firstCompare->format('H');
-                                            if( $time_start_worker_tmp >= 20 || $time_start_worker_tmp <= 8) { 
-                                                $class_deflt = 'b_main_time_work_night';
-                                            } else {
-                                                $class_deflt = 'b_main_time_work';
-                                            }
-
-                                            continue;
+                                    $testClass->cellDate = $temp_cellDate;
+                                    $testClass->startDate = $temp_startDate;
+                                    $testClass->dtform =  $temp_dt_form;
+                                    $testClass->ruid = $custId_ar[$i];
+                                    $testClass->guid = $uniqueData[$j]['g_uid'];
+                                    if (($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                        if(($uniqueData[$j]['g_uid'] == '1') ){
+                                            $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
+                                            $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
+                                            $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
+                                            $hours = $intervalDiff->format('%H');
+                                            $testClass->hrs = $hours;
+                                            $testClass->DrawFreeGraph();
                                         }
-                                        if (($temp_cellDate == $temp_endDate) && ($hoursDiff < 24)){
-                                            $startPoint=$temp_secondCompare->format('H') - 0; //and here MAGIC PIZDES
-                                            $myResultArray[$k] = $startPoint;
-
-                                            $time_end_worker_tmp = $temp_secondCompare->format('H');
-                                            if($time_end_worker_tmp >= 20 || $time_end_worker_tmp <= 8){
-                                                $class_deflt = 'b_main_time_work_night';
-                                            } else {
-                                                $class_deflt = 'b_main_time_work';
-                                            }
-                                            
-                                            continue;
-                                        } elseif (($temp_startDate < $tmp_start_week_now_tmp_second_suka) && ($tmp_start_week_now_tmp_second_suka == $temp_cellDate) && ($hoursDiff >= 24)){
-                                            $tmp_start_week_now_compare = new DateTime;
-                                            $tmp_start_week_now_compare = $week_time_worker->transform_date_Ymd_0000_DB($tmp_start_week_now_);
-
-                                            $tmp_diff_all = $temp_secondCompare->diff($tmp_start_week_now_compare);
-                                            $tmp_diff_hours = $tmp_diff_all->format('%H');
-                                            $tmp_diff_days = $tmp_diff_all->format('%a');
-                                            $z = $k;
-                                            if($tmp_diff_days > 0){
-                                                while($tmp_diff_days > 0){
-                                                    $myResultArray[$z] = 24;
-                                                    $tmp_diff_days = $tmp_diff_days - 1;
-                                                    $z++;
-                                                }
-                                            }
-                                            $myResultArray[$z] = $tmp_diff_hours;
-
-                                            $time_end_worker_tmp = $temp_secondCompare->format('H');
-                                            if($time_end_worker_tmp >= 20 || $time_end_worker_tmp <= 8){
-                                                $class_deflt = 'b_main_time_work_night';
-                                            } else {
-                                                $class_deflt = 'b_main_time_work';
-                                            }
-
-                                            continue;
-                                            
-                                        } elseif (($temp_cellDate == $temp_startDate) && ($hoursDiff >= 24)) {
-                                            if($tmp_end_week_now_tmp_second_suka != $temp_cellDate){
-                                                $z = $k;
-                                                $startPoint=$temp_firstCompare->format('H'); //little bit of PHPHPHPH magick here
-                                                $customPoint = 24 - $startPoint;
-                                                $myResultArray[$k] = $customPoint;
-                                                $hoursDiff = $hoursDiff - $customPoint;
-                                                while($hoursDiff > 24){
-                                                    $z++;
-                                                    $customPoint = 24;
-                                                    $myResultArray[$z] = $customPoint;
-                                                    $hoursDiff = $hoursDiff - 24;
-                                                }
-                                                $z++;
-                                                $myResultArray[$z]= $hoursDiff;
-                                            } else {
-                                                $startPoint=$temp_firstCompare->format('H'); //and here
-                                                $customPoint = 24 - $startPoint;
-                                                $myResultArray[$k] = $customPoint;
-                                            }
-                                            $class_deflt = 'b_main_time_work';
-                                            continue;
+                                        if($uniqueData[$j]['g_uid'] == '5' ){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }// end free graph
-                                    
-                                    //fiveday graph g_uid = 1 (after WARNING)
-                                    if($uniqueData[$j]['g_uid'] == '1' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        $class_deflt = 'b_main_time_work';
-                                    }
-
-                                    
-                                    //weekend graph g_uid = 3
-                                    if($uniqueData[$j]['g_uid'] == '3' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $class_deflt = 'b_main_time_weekend';
-                                        $myResultArray[$k] = '';
-                                    }
-
-                                    //fiveday graph g_uid = 5
-                                    if($uniqueData[$j]['g_uid'] == '5' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        }else{
-                                            $class_deflt = 'b_main_time_FiveDay_10hrs';
-                                            $myResultArray[$k] = 8;
+                                        if($uniqueData[$j]['g_uid'] == '6' ){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }
-
-                                    //fiveday graph g_uid = 6
-                                    if($uniqueData[$j]['g_uid'] == '6' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        }else{
-                                            $class_deflt = 'b_main_time_FiveDay_9hrs';
-                                            $myResultArray[$k] = 8;
+                                        if($uniqueData[$j]['g_uid'] == '7' ){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }
-
-                                    //fiveday graph g_uid = 7
-                                    if($uniqueData[$j]['g_uid'] == '7' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        }else{
-                                            $class_deflt = 'b_main_time_FiveDay_11hrs';
-                                            $myResultArray[$k] = 8;
+                                        if($uniqueData[$j]['g_uid'] == '8' ){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }
-
-                                    //fiveday graph g_uid = 8
-                                    if($uniqueData[$j]['g_uid'] == '8' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        } else {
-                                            $class_deflt = 'b_main_time_FiveDay_6hrs';
-                                            $myResultArray[$k] = 8;
+                                        if($uniqueData[$j]['g_uid'] == '9' ){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }
-
-                                    //fiveday graph g_uid = 9
-                                    if($uniqueData[$j]['g_uid'] == '9' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Sunday'||$dayOfWeek =='Monday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        } else {
-                                            $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
-                                            $myResultArray[$k] = 8;
+                                        if($uniqueData[$j]['g_uid'] == '10'){
+                                            $testClass->DrawFiveDayGraph();
                                         }
-                                    }
-
-                                    //fiveday graph g_uid = 10
-                                    if($uniqueData[$j]['g_uid'] == '10' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $dayOfWeek = $temp_cellDate->format('l');
-                                        if($dayOfWeek == 'Tuesday'||$dayOfWeek =='Saturday'){
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                        } else {
-                                            $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
-                                            $myResultArray[$k] = 8;
+                                        // (O_O)///\\\(O_O)
+                                        if($uniqueData[$j]['g_uid'] == '13'){
+                                            $testClass->AdminGraph();
                                         }
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '11' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $class_deflt = 'b_main_time_vacation';
-                                        $myResultArray[$k] = '';
-                                    }
-                                    // (O_O)///\\\(O_O)
-                                    if($uniqueData[$j]['g_uid'] == '13' && ($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        $compareFirstDay = $temp_cellDate->diff($temp_startDate); // Вычисление разницы между указанной даты начала графика и даты в текущей ячейке
-                                        $tempFC = $compareFirstDay->format('%a'); // форматирование разнцы в дни
-                                        //первое условие - первый день цикла, последовательность чисел кратных четырем
-                                        //второе условие - третий день цикла, последовательность четных чисел, исключая числа кратные четырем
-                                        //третье условие - второй день цикла, последовательность нечетных чисел "An=4n-3"
-                                       if($temp_cellDate == $temp_startDate || $tempFC % 4 == 0){
-                                            $class_deflt = 'b_main_time_work';
-                                            $myResultArray[$k] = 12;
-                                       }elseif($tempFC % 2 == 0 && !($tempFC % 4 == 0)){
-                                            $class_deflt = 'b_main_time_work_snight';
-                                            $td_class = 'b_cell_bg';
-                                            $myResultArray[$k] = 7;
-                                       }elseif($tempFC % 2 != 0 && (($tempFC + 3) % 4 == 0)){
-                                            $class_deflt = 'b_main_time_work_fnight';
-                                            $td_class = 'b_cell_bg';
-                                            $myResultArray[$k] = 3;
-                                       }else{
-                                            $class_deflt = 'b_main_time_weekend';
-                                            $myResultArray[$k] = '';
-                                       }
                                     }
                                 }
-                                //--------------
-                                //тут мы в зависимости от числа часов и GUID выбераем тему(цвет) дня
-                                if($myResultArray[$k] >= 24){
-                                    if($uniqueData[$j]['g_uid'] == '3'){ 
-                                        $class_deflt = 'b_main_time_weekend';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '11'){
-                                        $class_deflt = 'b_main_time_vacation';
-                                    }
-                                    else {
-                                        $class_deflt = 'b_main_time_warning';
-                                    }
-                                }
-                                if($myResultArray[$k] < 24){
-                                    if($uniqueData[$j]['g_uid'] == '1'){
-                                        $class_deflt = 'b_main_time_work';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '3'){ 
-                                        $class_deflt = 'b_main_time_weekend';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '5'){
-                                        $class_deflt = 'b_main_time_FiveDay_10hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '6'){
-                                        $class_deflt = 'b_main_time_FiveDay_9hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '7'){
-                                        $class_deflt = 'b_main_time_FiveDay_11hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '8'){
-                                        $class_deflt = 'b_main_time_FiveDay_6hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '9'){
-                                        $class_deflt = 'b_main_time_FiveDay_tue_10hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '10'){
-                                        $class_deflt = 'b_main_time_FiveDay_wed_saturd_10hrs';
-                                    }
-                                    if($uniqueData[$j]['g_uid'] == '11'){
-                                        $class_deflt = 'b_main_time_vacation';
-                                    }
-                                }
-                                //отрисовка
-                                echo '<td class="'.$td_class.'"><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value="'.$myResultArray[$k].'"></td>';
-                                //--------------
+                                $testClass->DRAW();
                             }
                         //если в запросе из БД время нет нихуя то просто ресуем табличку с днями с прозрачной темой
                         }else{
@@ -448,6 +230,7 @@ if(!isset($_SESSION['dep_key'])) {
                                 $temp_dt_form = clone($dt_user);
                                 $class_deflt = 'b_main_time';
                                 if($k > 1){
+                                    
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' days')->format('Y-m-d\TH:i');
                                 }else{
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
@@ -608,7 +391,6 @@ if(!isset($_SESSION['dep_key'])) {
                     document.getElementById("graphInfoTextArea").value = "Админский";
                     document.getElementById("startTime").value = dateValue.getFullYear() + "-" + zeroAdd(dateValue.getMonth()+1) + "-" + zeroAdd(dateValue.getDate()) + "T" + "07" + ":" + "30";
                     break;
-                    
             }
         });
 
@@ -726,3 +508,4 @@ if(!isset($_SESSION['dep_key'])) {
 </script>
 </body>
 </html>
+

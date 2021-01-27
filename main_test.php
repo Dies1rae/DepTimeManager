@@ -177,18 +177,17 @@ $_SESSION['step'] = 0;
                                     $temp_dt_form = $temp_dt_form->modify('+'.$k.' day')->format('Y-m-d\TH:i');
                                 }
                                 $temp_cellDate = new DateTime($seconDate);
+                                $testClass = new scheduleOutput($custId_ar[$i], $temp_dt_form);
 
                                 for ($j=0; $j < count($uniqueData); $j++) { 
                                     //СУКА!!!!!!
                                     //соот. это все перегонки дат в разные форматы, часто повторяются в логике ниже - однозначно вынос в функции
                                     $startDateFromdb = $uniqueData[$j]['start_date'];
                                     $endDateFromdb = $uniqueData[$j]['end_date'];
-
                                     $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
                                     $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
 
-                                    $testClass = new scheduleOutput($temp_cellDate, $temp_startDate, $custId_ar[$i], $temp_dt_form, $uniqueData[$j]['g_uid']);
-                                    
+                                    $testClass->set_dates($temp_cellDate, $temp_startDate, $uniqueData[$j]['g_uid']);
 
                                     if($uniqueData[$j]['g_uid'] == '1'){
                                         
