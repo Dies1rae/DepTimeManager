@@ -14,8 +14,18 @@
         }
 
         function DrawFreeGraph(){
-            $this->theme = 'b_main_time_work';
-            $this->tdclass = '';
+            if($this->guid == 3){
+                $this->theme = 'b_main_time_weekend';
+                $this->tdclass = '';
+            }
+            if($this->guid == 1){
+                $this->theme = 'b_main_time_work';
+                $this->tdclass = '';
+            }
+            if($this->guid == 11){
+                $this->theme = 'b_main_time_vacation';
+                $this->tdclass = '';
+            }
         }
 
         function AdminGraph(){

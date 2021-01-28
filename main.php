@@ -222,6 +222,9 @@ $_SESSION['step'] = 0;
                                         if($uniqueData[$j]['g_uid'] == '13'){
                                             $testClass->AdminGraph();
                                         }
+                                        if($uniqueData[$j]['g_uid'] == '3' || $uniqueData[$j]['g_uid'] == '11'){
+                                            $testClass->DrawFreeGraph();
+                                        }
                                     }
                                 }
                                 $testClass->DRAW();        
