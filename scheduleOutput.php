@@ -1,12 +1,11 @@
 <?php
     class ScheduleOutput{
 
-        public $cellDate, $startDate, $ruid, $dtform, $guid, $hrs, $theme, $tdclass;
+        public $cellDate, $startDate, $endDate, $ruid, $dtform, $guid, $hrs, $theme, $tdclass;
 
         
 
         function DRAW(){
-            $class_deflt = 'b_main_time';
             echo '<td class="'.$this->tdclass.'"><input type="submit" id="myBtn" class="'.$this->theme.'" onclick="printId('.$this->ruid.', `'.$this->dtform.'`, `'.$this->dtform.'`)" value="'.$this->hrs.'"></td>';
         }
 
@@ -20,6 +19,7 @@
         }
 
         function AdminGraph(){
+            $this->hrs = '';
             $compareFirstDay = $this->cellDate->diff($this->startDate);
             $tempFC = $compareFirstDay->format('%a');
             if($this->cellDate == $this->startDate || $tempFC % 4 == 0){
@@ -40,6 +40,7 @@
         }
 
         function DrawFiveDayGraph(){
+            $this->hrs = '';
             $dayOfWeek = $this->cellDate->format('l');
             $this->tdclass = '';
             if($this->guid == 5){

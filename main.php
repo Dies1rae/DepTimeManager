@@ -148,7 +148,6 @@ $_SESSION['step'] = 0;
 
                         $tmp_start_week_now_ = $week_time_worker->Ymd_STweek_YMD_HI();
                         $tmp_start_week_now_tmp_second_suka = new DateTime($week_time_worker->Ymd_STweek_YMD());
-
                         $tmp_end_week_now_tmp_second_suka = new DateTime;
                         $tmp_end_week_now_tmp_second_suka = $week_time_worker->Ymd_ENweek_YMD();
                         //--------------
@@ -159,6 +158,7 @@ $_SESSION['step'] = 0;
                         //--------------
 
                         
+
                         if(count($uniqueData) > 0){
                             //СУКА!!!!!!
                             //цикл по дням недели
@@ -178,54 +178,62 @@ $_SESSION['step'] = 0;
                                 $temp_cellDate = new DateTime($seconDate);
                                 $testClass = new scheduleOutput();
 
-                                for ($j=0; $j < count($uniqueData); $j++) { 
-                                    $startDateFromdb = $uniqueData[$j]['start_date'];
-                                    $endDateFromdb = $uniqueData[$j]['end_date'];
-                                    $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
-                                    $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
+                                if($temp_cellDate >= $tmp_start_week_now_tmp_second_suka || $temp_cellDate <= $tmp_end_week_now_tmp_second_suka){
 
-                                    $testClass->cellDate = $temp_cellDate;
-                                    $testClass->startDate = $temp_startDate;
-                                    $testClass->dtform =  $temp_dt_form;
-                                    $testClass->ruid = $custId_ar[$i];
-                                    $testClass->guid = $uniqueData[$j]['g_uid'];
-                                    if (($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
-                                        if(($uniqueData[$j]['g_uid'] == '1') ){
-                                            $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
-                                            $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
-                                            $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
-                                            $hours = $intervalDiff->format('%H');
-                                            $testClass->hrs = $hours;
-                                            $testClass->DrawFreeGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '5' ){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '6' ){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '7' ){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '8' ){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '9' ){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        if($uniqueData[$j]['g_uid'] == '10'){
-                                            $testClass->DrawFiveDayGraph();
-                                        }
-                                        // (O_O)///\\\(O_O)
-                                        if($uniqueData[$j]['g_uid'] == '13'){
-                                            $testClass->AdminGraph();
+                                    for ($j=0; $j < count($uniqueData); $j++) { 
+                                        $startDateFromdb = $uniqueData[$j]['start_date'];
+                                        $endDateFromdb = $uniqueData[$j]['end_date'];
+                                        $temp_startDate = $week_time_worker->transform_date_Ymd_DB($startDateFromdb);
+                                        $temp_endDate = $week_time_worker->transform_date_Ymd_DB($endDateFromdb);
+
+                                        $testClass->cellDate = $temp_cellDate;
+                                        $testClass->startDate = $temp_startDate;
+                                        $testClass->endDate = $temp_endDate;
+                                        $testClass->dtform =  $temp_dt_form;
+                                        $testClass->ruid = $custId_ar[$i];
+                                        $testClass->guid = $uniqueData[$j]['g_uid'];
+
+                                        if (($temp_cellDate >= $temp_startDate) && ($temp_cellDate <= $temp_endDate)){
+                                            if(($uniqueData[$j]['g_uid'] == '1') && ($temp_cellDate == $temp_startDate) && ($temp_cellDate == $temp_endDate)){
+                                                $temp_firstCompare =  $week_time_worker->transform_date_Ymd_Hi_DB($startDateFromdb);
+                                                $temp_secondCompare = $week_time_worker->transform_date_Ymd_Hi_DB($endDateFromdb);
+                                                $intervalDiff = $temp_secondCompare->diff($temp_firstCompare);
+                                                $hours = $intervalDiff->format('%H');
+                                                $testClass->hrs = $hours;
+                                                $testClass->DrawFreeGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '5' ){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '6' ){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '7' ){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '8' ){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '9' ){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            if($uniqueData[$j]['g_uid'] == '10'){
+                                                $testClass->DrawFiveDayGraph();
+                                            }
+                                            // (O_O)///\\\(O_O)
+                                            if($uniqueData[$j]['g_uid'] == '13'){
+                                                $testClass->AdminGraph();
+                                            }
                                         }
                                     }
+                                } 
+                                else {
+                                    $testClass->DrawZeroCell();
                                 }
-                                $testClass->DRAW();
+                                $testClass->DRAW();        
                             }
                         //если в запросе из БД время нет нихуя то просто ресуем табличку с днями с прозрачной темой
-                        }else{
+                        } else {
                             for ($k=0; $k < 7; $k++) { 
                                 $temp_dt_form = clone($dt_user);
                                 $class_deflt = 'b_main_time';
@@ -238,6 +246,7 @@ $_SESSION['step'] = 0;
                                 echo '<td><input type="submit" id="myBtn" class="'.$class_deflt.'" onclick="printId('.$custId_ar[$i].', `'.$temp_dt_form.'`, `'.$temp_dt_form.'`)" value=""></td>';
                             }
                         }
+                        
                         echo '</tr>';
                     }
                     //--------------
