@@ -86,9 +86,8 @@ if(!isset($_SESSION['dep_key'])) {
             //SUJKAAAAA
             include 'employee.php';
             $result_acc = array();
-            $query = $_POST["custId"];
-            $acc = new Credential($query);
-            $result_acc = $acc->sql_query_account();
+            $acc = new Credential();
+            $result_acc = $acc->sql_query_account($_POST["custId"]);
             echo '<img src="'.$result_acc[0]['photo'].'">';
             echo '<li>';
                 echo '<a>';

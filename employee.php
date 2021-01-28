@@ -3,8 +3,8 @@ session_start();
 class Credential{
     private $iternal_query_;
 
-    public function __construct($insert_query){
-        $this->iternal_query_ = $insert_query;
+    public function __construct($insert_query = array()){
+        $this->iternal_query_ = implode("' or dep like'", $insert_query);
     }
 
     public function sql_query_dep(){
@@ -29,7 +29,7 @@ class Credential{
         return $data;
     }
 
-    public function sql_query_account(){
+    public function sql_query_account($acc_name){
         require_once 'credential.php';
         
         $conn = new mysqli($serverName, $userName, $passWord, $database);
@@ -37,7 +37,7 @@ class Credential{
             die("Connection failed: " . $conn->connect_error);
         }
         $conn->set_charset("utf8");
-        $query = "SELECT * FROM root WHERE status LIKE '1' and  account like '$this->iternal_query_'";
+        $query = "SELECT * FROM root WHERE status LIKE '1' and  account like '$acc_name'";
         $result = $conn->query($query);
 
         $data = array();
