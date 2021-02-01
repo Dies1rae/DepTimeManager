@@ -49,6 +49,23 @@
             }
         }
 
+        //1 через 3 по 24 с 08.00 с праздничными (котельная) - 1,2,3,4 смены 
+        function DrawFifteenGraph(){
+            $this->hrs = '';
+            $compareFirstDay = $this->cellDate->diff($this->startDate);
+            $tempFC = $compareFirstDay->format('%a');
+            if($this->cellDate == $this->startDate || $tempFC % 4 == 0){
+                $this->theme = '';
+                $this->hrs = 16;
+            }elseif($tempFC % 2 != 0 && (($tempFC + 3) % 4 == 0)){
+                $this->theme = '';
+                $this->hrs = 8;
+            }else{
+                $this->theme = 'b_main_time_weekend';
+                $this->hrs = '';
+            }
+        }
+
         function DrawFiveDayGraph(){
             $this->hrs = '';
             $dayOfWeek = $this->cellDate->format('l');
