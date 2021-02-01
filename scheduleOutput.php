@@ -50,13 +50,15 @@
         }
 
         //1 через 3 по 24 с 08.00 с праздничными (котельная) - 1,2,3,4 смены 
+        //1 через 3 по 24 с 09 с праздничными- 1,2,3,4 смены
+        //1 через 3 по 24 с 10:00 с праздничными 
         function DrawFifteenGraph(){
             $this->hrs = '';
             $compareFirstDay = $this->cellDate->diff($this->startDate);
             $tempFC = $compareFirstDay->format('%a');
             if($this->cellDate == $this->startDate || $tempFC % 4 == 0){
                 $this->theme = '';
-                $this->hrs = 16;
+                $this->hrs = 14;
             }elseif($tempFC % 2 != 0 && (($tempFC + 3) % 4 == 0)){
                 $this->theme = '';
                 $this->hrs = 8;
